@@ -16,31 +16,31 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## Variables Information -- lupineR.csv
 | Variable Name  | Description                              | Data Type | Possible Values      | Units  | Missing Values |
 |----------------|------------------------------------------|-----------|----------------------|--------|----------------|
-| Plot           |
-| Site           |
-| Year           |
-| Treatment      |
-| I_LUAL_2010    |
-| I_LUAL_2011    |
-| LUAL_I         |
-| I_2010         |
-| M_2010         |
-| R_2010         |
-| A_2010         |
-| T_2010         |
-| I_2011         |
-| M_2011         |
-| R_2011         |
-| A_2011         |
-| T_2011         |
-| IMMATURE       |
-| MATURE         |
-| RESPROUTS      |
-| ADULTS         |
-| TOTAL          |
-| IMM_TRANS      |
-| RESP_TRANS     |
-| TOT_TRANS      |
+| Plot           | | Integer |
+| Site           | | String |
+| Year           | | String |
+| Treatment      | | String | 
+| I_LUAL_2010    | | Integer |
+| I_LUAL_2011    | | Integer | 
+| LUAL_I         | | Integer | 
+| I_2010         | | Integer |
+| M_2010         | | Integer |
+| R_2010         | | Integer |
+| A_2010         | | Integer |
+| T_2010         | | Integer |
+| I_2011         | | Integer |
+| M_2011         | | Integer |
+| R_2011         | | Integer |
+| A_2011         | | Integer |
+| T_2011         | | Integer |
+| IMMATURE       | | Integer |
+| MATURE         | | Integer |
+| RESPROUTS      | | Integer |
+| ADULTS         | | Integer |
+| TOTAL          | | Integer |
+| IMM_TRANS      | | Integer |
+| RESP_TRANS     | | Integer |
+| TOT_TRANS      | | Integer |
 
 ## Contact Information
 - **Contact Person**: 
