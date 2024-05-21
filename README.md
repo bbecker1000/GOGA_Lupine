@@ -7,7 +7,7 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 - **Description**: 
 - **Source**: 
 - **Date Created**: 
-- **Author/Owner**: 
+- **Author/Owner**: National Park Service
 
 ## Data Structure -- lupineR.csv
 - **File Format**: CSV
