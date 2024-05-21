@@ -5,7 +5,7 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## General Information
 - **Dataset Name**: GGNRA Lupin Disturbance Project
 - **Description**: 
-- **Source**: 
+- **Source**: Golden Gate National Recreation Area, Research Team
 - **Date Created**: 
 - **Author/Owner**: National Park Service
 
@@ -41,6 +41,14 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 | IMM_TRANS      | | Float | 0 - 10.000000000 | N/A | None |
 | RESP_TRANS     | | Float | 0 - 10.000000000 | N/A | None |
 | TOT_TRANS      | | Float | 0 - 10.000000000 | N/A | None |
+
+## Data Structure -- 
+- **File Format**: CSV
+- **Size**: 
+
+## Variables Information -- 
+| Variable Name  | Description                              | Data Type | Possible Values      | Units  | Missing Values |
+|----------------|------------------------------------------|-----------|----------------------|--------|----------------|
 
 ## Contact Information
 - **Contact Person**: 
