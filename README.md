@@ -6,7 +6,7 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 - **Dataset Name**: GGNRA Lupin Disturbance Project
 - **Description**: 
 - **Source**: Golden Gate National Recreation Area, Research Team
-- **Date Created**: 
+- **Date Created**: 2010
 - **Author/Owner**: National Park Service
 
 ## Data Structure -- lupineR.csv
@@ -60,6 +60,6 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 | DIFFERENCE     | 
 
 ## Contact Information
-- **Contact Person**: 
-- **Email**:
-- **Phone**:
+- **Contact Person**: Claire Whicker
+- **Email**: clairewhicker@berkeley.edu
+
