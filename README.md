@@ -16,7 +16,10 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## Variables Information -- lupineR.csv
 | Variable Name  | Description                              | Data Type | Possible Values      | Units  | Missing Values |
 |----------------|------------------------------------------|-----------|----------------------|--------|----------------|
-|   
+| Plot           |
+| Site           |
+| Year           |
+| Treatment      |
 | ...            | ...                                      | ...       | ...                  | ...    | ...            |
 
 
