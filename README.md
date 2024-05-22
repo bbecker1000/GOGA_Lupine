@@ -59,23 +59,23 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 | YEAR           | Year of data collection                   | String    | 2010, 2011            | Years | None            |
 | DIFFERENCE     | 
 
-## Data Structure -- 
+## Data Structure -- Cover_Lifeform_All.csv
 - **File Format**: CSV
 - **Size**: 20,553 rows, 10 columns
 
-## Variables Information -- NativityforR.csv
+## Variables Information -- Cover_Lifeform_All.csv
 | Variable Name  | Description                               | Data Type | Possible Values       | Units  | Missing Values |
 |----------------|-------------------------------------------|-----------|-----------------------|--------|----------------|
-| Year           | Year of data collection                   | String    |                       | Years  | None           |
-| Macroplot      |                                           | String    |                       | N/A    | None           |
-| Treatment      | Disturbance type applied                  | String    | BURN, CONTROL, MECHANICAL | N/A    | None       |
-| Species        |
-| Lifecycle      |
-| Preferred_LF   | 
-| Default_LF     |
-| Native         | The species is native to the sampling area | String   | TRUE, FALSE           | N/A   | None            |    
-| Invasive       | The species is invasive to the sampling area | String | TRUE, FALSE           | N/A   | None            | 
-| Count          | 
+| Year           | Year of data collection | String | 2009 2010 2011 2012 2013 | Years | None |
+| Macroplot      | Name denotes the plot #, treatment type, and site | String | 30 Possible Values | N/A | None |
+| Treatment      | Disturbance type applied | String | BURN, CONTROL, MECHANICAL | N/A | None |
+| Species        | Four-letter species code | String | 154 Possible Values | N/A | None |
+| Lifecycle      |  | Perennial, Annual, Biennial, Not Defined | N/A | Yes (26 NA values) |
+| Preferred_LF   |  | Forb/Herb, Graminoid, Shrub, Forb, Grass-like, Subshrub, Vine, Fern, Undefined | N/A | None |
+| Default_LF     |  | Forb, Grass, Shrub, Undefined | N/A | None |
+| Native         | The species is native to the sampling area | String | TRUE, FALSE | N/A | None |    
+| Invasive       | The species is invasive to the sampling area | String | TRUE, FALSE | N/A | None | 
+| Count          | How many individuals were at the sampling point | Integer | 1 | N/A | None | 
 
 
 ## Contact Information
