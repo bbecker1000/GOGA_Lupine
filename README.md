@@ -70,9 +70,9 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 | Macroplot      | Name denotes the plot #, treatment type, and site | String | 30 Possible Values | N/A | None |
 | Treatment      | Disturbance type applied | String | BURN, CONTROL, MECHANICAL | N/A | None |
 | Species        | Four-letter species code | String | 154 Possible Values | N/A | None |
-| Lifecycle      |  | Perennial, Annual, Biennial, Not Defined | N/A | Yes (26 NA values) |
-| Preferred_LF   |  | Forb/Herb, Graminoid, Shrub, Forb, Grass-like, Subshrub, Vine, Fern, Undefined | N/A | None |
-| Default_LF     |  | Forb, Grass, Shrub, Undefined | N/A | None |
+| Lifecycle      |  | String | Perennial, Annual, Biennial, Not Defined | N/A | Yes (26 NA values) |
+| Preferred_LF   |  | String | Forb/Herb, Graminoid, Shrub, Forb, Grass-like, Subshrub, Vine, Fern, Undefined | N/A | None |
+| Default_LF     |  | String | Forb, Grass, Shrub, Undefined | N/A | None |
 | Native         | The species is native to the sampling area | String | TRUE, FALSE | N/A | None |    
 | Invasive       | The species is invasive to the sampling area | String | TRUE, FALSE | N/A | None | 
 | Count          | How many individuals were at the sampling point | Integer | 1 | N/A | None | 
