@@ -4,7 +4,7 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 
 ## General Information
 - **Dataset Name**: GGNRA Lupin Disturbance Project
-- **Description**: 
+- **Project Description**: 
 - **Source**: Golden Gate National Recreation Area, Research Team
 - **Date Created**: 2010
 - **Author/Owner**: National Park Service
@@ -12,6 +12,7 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## Data Structure -- lupineR.csv
 - **File Format**: CSV
 - **Size**: 25 rows, 25 columns
+- **Description**: 
 
 ## Variables Information -- lupineR.csv
 | Variable Name  | Description                              | Data Type | Possible Values       | Units | Missing Values |
@@ -45,7 +46,8 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## Data Structure -- NativityforR.csv
 - **File Format**: CSV
 - **Size**: 49 rows, 9 columns
-
+- **Description**:
+  
 ## Variables Information -- NativityforR.csv
 | Variable Name  | Description                               | Data Type | Possible Values       | Units  | Missing Values |
 |----------------|-------------------------------------------|-----------|-----------------------|--------|----------------|
@@ -62,12 +64,13 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 ## Data Structure -- Cover_Lifeform_All.csv
 - **File Format**: CSV
 - **Size**: 20,553 rows, 10 columns
-
+- **Description**:
+  
 ## Variables Information -- Cover_Lifeform_All.csv
 | Variable Name  | Description                               | Data Type | Possible Values       | Units  | Missing Values |
 |----------------|-------------------------------------------|-----------|-----------------------|--------|----------------|
 | Year           | Year of data collection | String | 2009 2010 2011 2012 2013 | Years | None |
-| Macroplot      | Name denotes the plot #, treatment type, and site | String | 30 Possible Values | N/A | None |
+| MacroPlot      | Name denotes the plot #, treatment type, and site | String | 30 Possible Values | N/A | None |
 | Treatment      | Disturbance type applied | String | BURN, CONTROL, MECHANICAL | N/A | None |
 | Species        | Four-letter species code | String | 154 Possible Values | N/A | None |
 | Lifecycle      |  | String | Perennial, Annual, Biennial, Not Defined | N/A | Yes (26 NA values) |
@@ -77,8 +80,41 @@ Claire Whicker Senior Project for CA-CESU and GGNRA
 | Invasive       | The species is invasive to the sampling area | String | TRUE, FALSE | N/A | None | 
 | Count          | How many individuals were at the sampling point | Integer | 1 | N/A | None | 
 
+## Data Structure -- Lupine_Individuals_AllYears.csv
+- **File Format**: CSV
+- **Size**: 351 rows, 8 columns
+- **Description**: 
+
+## Variables Information -- Lupine_Individuals_AllYears.csv
+| Variable Name  | Description                               | Data Type | Possible Values       | Units  | Missing Values |
+|----------------|-------------------------------------------|-----------|-----------------------|--------|----------------|
+| MacroPlot      | Name denotes the plot #, treatment type, and site | String | 24 Possible Values | N/A | None |
+| Plot           | Location of treatment blocks | Integer | 1 - 10 | N/A | 4 & 5 ? |
+| Treatment      | Disturbance type applied | Character | B, C, M | N/A | None |
+| Year           | Year of data collection | String | 2010 2011 2012 2013 | Years | None |
+| Species        | Four-letter species code | String | LUAL, LUVA, LUPIN | N/A | None |
+| Status         | Condition of sampled individual | Character | L (live), D (dead) | N/A | None |
+| UV1            | Life stage of sampled individual? | Character | I (immature?), M (mature?) | N/A | Yes (32 NA values) |
+| RowCount       |
+
+## Data Structure -- Lupin_Combined_AllYears.csv
+- **File Format**: CSV
+- **Size**: 254 rows, 8 columns
+- **Description**: 
+
+## Variables Information -- Lupin_Combined_AllYears.csv
+| Variable Name  | Description                               | Data Type | Possible Values       | Units  | Missing Values |
+|----------------|-------------------------------------------|-----------|-----------------------|--------|----------------|
+| MacroPlot      | Name denotes the plot #, treatment type, and site | String | 24 Possible Values | N/A | None |
+| Plot           | Location of treatment blocks | Integer | 1 - 10 | N/A | 4 & 5 ? |
+| Treatment      | Disturbance type applied | Character | B, C, M | N/A | None |
+| Year           | Year of data collection | String | 2010 2011 2012 2013 | Years | None |
+| Species        | Four-letter species code | String | LUPIN | N/A | None |
+| Status         | Condition of sampled individual | Character | L (live), D (dead) | N/A | None |
+| UV1            | Life stage of sampled individual? | Character | I (immature?), M (mature?) | N/A | Yes (33 NA values) |
+| RowCount       |
+
 
 ## Contact Information
 - **Contact Person**: Claire Whicker
 - **Email**: clairewhicker@berkeley.edu
-
