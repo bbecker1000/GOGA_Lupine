@@ -32,8 +32,15 @@ wide_data.test <- wide_data %>%
 
 #Create a new dataframe with plot info
 data.plot <- wide_data %>%
-  select(Year, MacroPlot, Treatment, YearMacroPlot)
+  select(Year, 
+         MacroPlot,                 
+         Treatment, 
+         YearMacroPlot
+         )
 view(data.plot)
+
+#BB create new covariate to plot just year and treatment.  should add location?
+data.plot$yr_trt <- paste(data.plot$Year, "_", data.plot$Treatment)
 
 #Create a new dataframe with plant info
 data.spp1 <- CL_All %>%
@@ -42,23 +49,29 @@ data.spp1 <- CL_All %>%
 data.spp <- data.spp1[!duplicated(data.spp1),]
 view(data.spp)
 
+#BB commented out
 # Enable the r-universe repo
-options(repos = c(
-  fawda123 = 'https://fawda123.r-universe.dev',
-  CRAN = 'https://cloud.r-project.org'))
+# options(repos = c(
+#   fawda123 = 'https://fawda123.r-universe.dev',
+#   CRAN = 'https://cloud.r-project.org'))
 
 # Load packages
 library(ggord)
 library(vegan)
 
+
+#BB add remove first columns to get all numeric data for nms
+wide_data.nms <- wide_data[,-c(1:4)]
+
+
 #run the NMS
 set.seed(10) # for repeatability
-nms <- metaMDS(wide_data2, trymax = 25) 
+nms <- metaMDS(wide_data.nms, trymax = 25) ## BB changed from wide_data2 -> wide_data.nms
 plot(nms)
 
 #plot by Year and Treatment
 p.nmds <- ggord(nms, 
-                grp_in = data.plot$YearMacroPlot,
+                grp_in = data.plot$yr_trt, #<-- BB edited to new variable
                 pbslab = FALSE,
                 arrow = NULL, 
                 #size = 3,
@@ -66,7 +79,7 @@ p.nmds <- ggord(nms,
                 ptslab = TRUE,           # darkness of polygon
                 poly = TRUE,
                 labcol = "black",
-                ellipse = F,
+                ellipse = T,
                 ellipse_pro = 0.80, # confidence intervals for ellipse
                 grp_title = "Treatment and Year",  
                 repel = TRUE,            # make text not overlap
