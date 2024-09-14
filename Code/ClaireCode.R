@@ -85,8 +85,8 @@ p.nmds <- ggord(nms,
                 repel = TRUE,            # make text not overlap
                 txt = 2,                 # size of text
                 #cols = c('purple', 'orange', 'blue', 'green', 'red', 'yellow'), # you want to select colors
-                facet = F, #make each grp_in on its own panel
-                nfac = 0) +   # number of facet columns
+                facet = T, #make each grp_in on its own panel
+                nfac = 5) +   # number of facet columns
   theme_gray(base_size = 18) # can add ggplot commands !
 
 p.nmds
