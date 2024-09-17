@@ -17,7 +17,7 @@ CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
 sum <- CL_All %>%
   group_by(Species, 
            Year, 
-           Treatment,
+           Treatment, 
            MacroPlot) %>%
   summarize(total_count = sum(Count))
 
@@ -83,3 +83,12 @@ p.nmds <- ggord(nms,
   theme_gray(base_size = 18) # can add ggplot commands !
 
 p.nmds
+
+# Run an adonis
+adonis2(wide_data.nms ~ Year + Treatment,
+        data = data.plot,
+        permutations = 1000)
+
+adonis2(wide_data.nms ~ MacroPlot,
+        data = wide_data,
+        permutations = 1000)
