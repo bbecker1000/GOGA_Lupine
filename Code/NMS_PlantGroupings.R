@@ -133,3 +133,11 @@ p.nmds_G1 <- ggord(nms_G1,
   theme_gray(base_size = 18) # can add ggplot commands !
 
 p.nmds_G1
+
+adonis2(wide_data_G1.nms ~ Year + Treatment,
+        data = wide_data_G1,
+        permutations = 1000)
+
+adonis2(wide_data_G1.nms ~ MacroPlot,
+        data = wide_data_G1,
+        permutations = 1000)
