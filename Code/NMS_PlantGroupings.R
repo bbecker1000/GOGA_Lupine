@@ -134,7 +134,7 @@ p.nmds_G1 <- ggord(nms_G1,
 
 p.nmds_G1
 
-adonis2(wide_data_G1.nms ~ Year + Treatment,
+adonis2(wide_data_G1.nms ~ Year * Treatment,
         data = wide_data_G1,
         permutations = 1000)
 
