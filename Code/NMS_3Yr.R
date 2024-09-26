@@ -113,4 +113,3 @@ adonis2(wide_data_limited.nms ~ Year + Treatment,
         by = "margin")
 
 
-
