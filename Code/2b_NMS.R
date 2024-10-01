@@ -1,3 +1,5 @@
+source("Code/1b_Data_setup_NMS.R")
+
 # # NMS that includes all species
 
 set.seed(10) # for repeatability
