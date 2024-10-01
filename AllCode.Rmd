@@ -1,0 +1,67 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Load Packages
+```{r}
+library(ggord)
+library(vegan)
+library(tidyverse)
+```
+
+
+Upload data
+```{r}
+CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
+Precip_cm <- read_csv("Data/cm_yearly_rain.csv")
+```
+
+Make the data set more complete
+1. Separate our MacroPLot so you have columns with the Plot and Site
+2. Make sure Year and Plot are being treated as characters not numeric
+3. Add the precipitation data into the dataset
+```{r}
+CL_All$Plot <- str_extract(CL_All$MacroPlot, "\\d+")
+
+CL_All$Site = str_extract(CL_All$MacroPlot, "[^_]+$")
+
+CL_All$Plot <- as.character(CL_All$Plot)
+
+CL_All$Year <- is.character(CL_All$Year)
+
+# Change the column name I want to join by so they match in both dataframes
+colnames(Precip_cm) [1] <- "Year"
+
+# Join the two data frames by Year
+CL_Complete <- merge(x = CL_All, y = Precip_cm,
+                   by = "Year", all.x = TRUE)
+
+
+
+```
+
+Set up dataset for NMS that has individual species
+```{r}
+sum_spp <- CL_All %>%
+  group_by(Plot, 
+           Year,
+           Site,
+           MacroPlot,
+           Precip_cm, 
+           Treatment, 
+           Species) %>%
+  summarise(Total_Count = sum(Count), .groups = "keep")
+```
+
+Set up dataset for NMS that has species groups based on life history
+```{r}
+CL_All %>% 
+  filter(Native == "FALSE" & Invasive == "FALSE")
+
+CL_All %>% 
+  group_by(MacroPlot, Year) %>%
+  summarise(Total_count = sum(Count))
+```
+
+NMS for 
