@@ -112,4 +112,5 @@ adonis2(wide_data_limited.nms ~ Year + Treatment,
         perm = h,
         by = "margin")
 
+str(CL_All)
 
