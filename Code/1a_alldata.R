@@ -13,7 +13,7 @@ CL_All$Site = str_extract(CL_All$MacroPlot, "[^_]+$")
 
 # Make sure Year and Plot are being treated as characters not numeric
 CL_All$Plot <- as.character(CL_All$Plot)
-CL_All$Year <- is.character(CL_All$Year)
+CL_All$Year <- as.character(CL_All$Year)
 
 # Change the column name I want to join by so they match in both dataframes
 colnames(Precip_cm) [1] <- "Year"
