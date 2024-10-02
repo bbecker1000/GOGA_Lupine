@@ -1,5 +1,5 @@
 # Load Packages
-library(ggord)
+library(ggordiplots)
 library(vegan)
 library(tidyverse)
 
