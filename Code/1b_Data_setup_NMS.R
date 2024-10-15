@@ -41,6 +41,7 @@ data_env_allspp$Time_Since_Treatment <- paste(data_env_allspp$Year.numeric - 201
 data_env_allspp$Time_Since_Treatment <- as.numeric(data_env_allspp$Time_Since_Treatment)
 data_env_allspp_final <- data_env_allspp[,c(1,2,3,5)]
 
+
 # saveRDS(data_plot_allspp, file = "data_plot_allspp")
 
 # # Data set up for an NMS that contains species groupings
@@ -87,11 +88,11 @@ wide_data_groupings.nms <- wide_data_groupings[,-c(1:7)]
 data_plot_groupings <- wide_data_groupings[,c(1:7)]
 
 # Create a dataframe with only the covariates I want in the envfit
-data_env_groupings <- wide_data_groupings[,c(2,7)]
-data_env_groupings$Year <- as.numeric(data_env_groupings$Year)
-data_env_groupings$Time_Since_Treatment <- paste(data_env_groupings$Year - 2010)
+data_env_groupings <- wide_data_groupings[,c(2,5,7)]
+data_env_groupings$Year.numeric <- as.numeric(data_env_groupings$Year)
+data_env_groupings$Time_Since_Treatment <- paste(data_env_groupings$Year.numeric - 2010)
 data_env_groupings$Time_Since_Treatment <- as.numeric(data_env_groupings$Time_Since_Treatment)
-data_env_groupings_final <- data_env_groupings[,c(2,3)]
+data_env_groupings_final <- data_env_groupings[,c(1,2,3,5)]
 
 # Add a new variable in the plot data that is year and treatment
 data_plot_groupings$yr_trt <- paste(data_plot_groupings$Year, 
