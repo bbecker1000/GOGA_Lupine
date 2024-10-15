@@ -1,3 +1,5 @@
+source("Code/1b_Data_setup_NMS.R")
+
 # Setting up dataframe to run GLMER
 
 # Set up a dataframe that contains data for a model on Lupin abundance
@@ -14,3 +16,5 @@ Nativity_data <- CL_Complete %>%
            yearly_rain, 
            Native) %>%
   summarise(Total_Count = sum(Count), .groups = "keep")
+
+

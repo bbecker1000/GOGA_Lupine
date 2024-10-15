@@ -11,6 +11,10 @@ Precip_cm <- read_csv("Data/cm_yearly_rain.csv")
 CL_All$Plot <- str_extract(CL_All$MacroPlot, "\\d+")
 CL_All$Site = str_extract(CL_All$MacroPlot, "[^_]+$")
 
+CL_All$yr_trt <- paste(CL_All$Year, 
+                 "_", 
+                 CL_All$Treatment)
+
 # Make sure Year and Plot are being treated as characters not numeric
 CL_All$Plot <- as.character(CL_All$Plot)
 CL_All$Year <- as.character(CL_All$Year)
