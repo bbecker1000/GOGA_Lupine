@@ -6,7 +6,8 @@ plot(en_allspp)
 
 # Plot NMS for all species with all covariates mapped
 gg_all1 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
-  geom_point(data = data.scores.all, aes(colour = Treatment), size = 3, alpha = 0.5) + 
+  geom_point(data = data.scores.all, aes(colour = yr_trt), 
+             size = 3, alpha = 0.5) + 
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2), 
                data = en_coord_cont_all, size =1, alpha = 0.5, colour = "grey30") +
   geom_point(data = en_coord_cat_all, aes(x = NMDS1, y = NMDS2), 
@@ -26,7 +27,10 @@ gg_all1
 
 # Plot a simpler version of the envfit
 gg_all2 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
-  geom_point(data = data.scores.all, aes(colour = Treatment), size = 3, alpha = 0.5) + 
+  geom_point(data = data.scores.all, aes(color = yr_trt), 
+             size = 3, alpha = 0.5) + 
+  # stat_ellipse(data = data.scores.all, aes(x = NMDS1, y = NMDS2, colour = Year), 
+  #              level = 0.95, alpha = 0.5, size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2), 
                data = en_coord_cont_all, size =1, alpha = 0.5, colour = "grey30") +
   geom_text(data = en_coord_cont_all, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
