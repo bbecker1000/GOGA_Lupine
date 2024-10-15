@@ -65,6 +65,22 @@ gg_groups = ggplot(data = data.scores.group, aes(x = NMDS1, y = NMDS2)) +
 # View the plot
 gg_groups
 
+# Plot a simpler version of the envfit
+gg_groups2 = ggplot(data = data.scores.group, aes(x = NMDS1, y = NMDS2)) + 
+  geom_point(data = data.scores.group, aes(colour = Treatment), size = 3, alpha = 0.5) + 
+  geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2), 
+               data = en_coord_cont_g, size =1, alpha = 0.5, colour = "grey30") +
+  geom_text(data = en_coord_cont_g, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
+            fontface = "bold", label = row.names(en_coord_cont_all)) +
+  theme(axis.title = element_text(size = 10, face = "bold", colour = "grey30"), 
+        panel.background = element_blank(), panel.border = element_rect(fill = NA, colour = "grey30"), 
+        axis.ticks = element_blank(), axis.text = element_blank(), legend.key = element_blank(), 
+        legend.title = element_text(size = 10, face = "bold", colour = "grey30"), 
+        legend.text = element_text(size = 9, colour = "grey30"))
+
+# View the plot
+gg_groups2
+
 # Plots made with ggord don't seem to be working on the newer version of R, 
 # ggord now ggordiplots package?
 
