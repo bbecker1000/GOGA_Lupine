@@ -13,6 +13,7 @@ CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
 # View(CL_All)
 # why are there 28 rows of data missing? why did they do 5 sets of plots instead of 4?
 
+<<<<<<< HEAD:Code/NMS_Plot_Treat_Year.R
 #Sum up individual species counts to get total species counts for each plot in a given year
 sum <- CL_All %>%
   group_by(Species, 
@@ -21,6 +22,19 @@ sum <- CL_All %>%
            MacroPlot
            ) %>%
   summarize(total_count = sum(Count), .groups = 'keep')
+=======
+# unique(CL_All$Year)
+
+# Sum up individual species counts to get total species counts for each plot in a given year
+sum <- aggregate.data.frame(CL_All$Count, 
+                            by=list(CL_All$MacroPlot, 
+                                    CL_All$Year, 
+                                    CL_All$Treatment,
+                                    CL_All$Species), 
+                            FUN=sum)
+
+names(sum) <- c("MacroPlot", "Year", "Treatment", "Species", "total_count")
+>>>>>>> 1346bfdb7f702b4c2ec59adf377adb83686f89f9:Code/Parking Lot/NMS_Plot_Treat_Year.R
 
 # Pivot the data wider 
 wide_data <- sum %>%
@@ -37,15 +51,31 @@ wide_data.test <- wide_data %>%
   mutate(TOTAL = rowSums(across(where(is.numeric)))) %>%
   select(TOTAL)
 
-# Remove first columns to get all numeric data for nms
-wide_data.nms <- wide_data[,-c(1:3)]
+wide_data2 <- wide_data %>%
+  mutate(Plot = str_extract(MacroPlot, "\\d+"))
+
+wide_data2$Plot <- as.character(wide_data2$Plot)
+
+wide_data2 <- wide_data %>%
+  mutate(Site = str_extract(MacroPlot, "[^_]+$"))
+
+wide_data2$Year <- is.character(wide_data2$Year)
+
+# print(wide_data2)
 
 # Create a new dataframe with plot info
-data.plot <- wide_data %>%
-  select(Year, 
-         Treatment, 
-         MacroPlot)
-# View(data.plot)
+data.plot <- wide_data2 %>%
+  select("Plot",
+         "Year",
+         "MacroPlot",
+         "Treatment",
+         "Site")
+
+# Remove first columns to get all numeric data for nms
+wide_data.nms <- wide_data2 %>%
+  select(where(is.numeric))
+
+# print(wide_data.nms)
 
 # Create new covariate to plot just year and treatment.
 data.plot$yr_trt <- paste(data.plot$Year, "_", data.plot$Treatment)
@@ -85,11 +115,14 @@ p.nmds <- ggord(nms,
 
 p.nmds
 
+h2 <- how(within = Within(type = "series"),
+         plots = Plots(strata = data.plot$MacroPlot),
+         blocks = data.plot$Plot,
+         nperm = 499)
+
 # Run an adonis
 adonis2(wide_data.nms ~ Year + Treatment,
         data = data.plot,
         permutations = 1000)
 
-adonis2(wide_data.nms ~ MacroPlot,
-        data = wide_data,
-        permutations = 1000)
+

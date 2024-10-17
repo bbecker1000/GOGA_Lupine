@@ -13,12 +13,20 @@ CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
 # View(CL_All)
 
 #Sum up individual species counts to get total species counts for each treatment in a given year
-sum_yr_tr <- CL_All %>%
-  group_by(Species, 
-           Year, 
-           Treatment) %>%
+# sum_yr_tr <- CL_All %>%
+#   group_by(Species, 
+#            Year, 
+#            Treatment) %>%
+#   summarize(total_count = sum(Count))
+# # View(sum_yr_tr)
+
+# Trying a different means of grouping due to an error message
+CL_All$Yr_Plot <- paste(CL_All$Year, "-", CL_All$MacroPlot)
+
+sum_yr_tr2 <- CL_All %>%
+  group_by(Yr_Plot, Species) %>%
   summarize(total_count = sum(Count))
-# View(sum_yr_tr)
+ View(sum_yr_tr2)
 
 # Pivot the data wider 
 wide_data_yr_tr <- sum_yr_tr %>%

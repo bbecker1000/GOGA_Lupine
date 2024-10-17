@@ -8,7 +8,7 @@ CL_All$YearMacroPlot <- paste(CL_All$Year,"-", CL_All$MacroPlot)
 
 #Sum up individual species counts to get total species counts for each plot in a given year
 sum <- CL_All %>%
-  group_by(Species, Year, Treatment) %>%
+  group_by(Species, Year, MacroPlot) %>%
   summarize(total_count = sum(Count))
 
 # Pivot the data wider 
