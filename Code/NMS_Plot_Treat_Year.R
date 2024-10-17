@@ -18,8 +18,9 @@ sum <- CL_All %>%
   group_by(Species, 
            Year, 
            Treatment, 
-           MacroPlot) %>%
-  summarize(total_count = sum(Count))
+           MacroPlot
+           ) %>%
+  summarize(total_count = sum(Count), .groups = 'keep')
 
 # Pivot the data wider 
 wide_data <- sum %>%
