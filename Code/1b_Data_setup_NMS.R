@@ -98,3 +98,4 @@ data_env_groupings_final <- data_env_groupings[,c(1,2,3,5)]
 data_plot_groupings$yr_trt <- paste(data_plot_groupings$Year, 
                                  "_", 
                                  data_plot_groupings$Treatment)
+

@@ -29,8 +29,8 @@ gg_all1
 gg_all2 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
   geom_point(data = data.scores.all, aes(color = yr_trt), 
              size = 3, alpha = 0.5) + 
-  # stat_ellipse(data = data.scores.all, aes(x = NMDS1, y = NMDS2, colour = Year), 
-  #              level = 0.95, alpha = 0.5, size = 1) +
+  stat_ellipse(data = data.scores.all, aes(x = NMDS1, y = NMDS2, colour = Year), 
+                level = 0.95, alpha = 0.5, size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2), 
                data = en_coord_cont_all, size =1, alpha = 0.5, colour = "grey30") +
   geom_text(data = en_coord_cont_all, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
