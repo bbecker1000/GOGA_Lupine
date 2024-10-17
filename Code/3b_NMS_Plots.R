@@ -25,7 +25,7 @@ gg_all1 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) +
 # View the plot
 gg_all1
 
-# Plot a simpler version of the envfit
+# Plot a simpler version of the envfit with Year as numeric
 gg_all2 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
   geom_point(data = data.scores.all, aes(color = yr_trt), 
              size = 3, alpha = 0.5) + 

@@ -1,4 +1,4 @@
-source("Code/1b_Data_setup_NMS.R")
+source("Code/1a_alldata.R")
 
 # Setting up dataframe to run GLMER
 
