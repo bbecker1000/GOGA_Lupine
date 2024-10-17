@@ -2,10 +2,10 @@ source("Code/2C_GLMER.R")
 
 # FOR LUPIN DATA
 
-# Plot Residuals
+# Plot Residuals Lupin
 plot_model(m_Lupin, type = "diag")
 
-# Forest Plot
+# Forest Plot Lupin
 plot_model(m_Lupin, type = "est") + 
   geom_hline(yintercept = 1, linetype = 2)
 
@@ -17,13 +17,19 @@ plot_model(m_Lupin, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
 
+# Predicted change in percent cover lupin with annual precip
+plot_model(m_Lupin, type = "pred", terms = c("yearly_rain")) +
+  theme_classic() +
+  labs(x = "Annual Precipitation (cm)",
+       y = "Percent Cover of Lupin",
+       title = NULL)
 
 # FOR NATIVE DATA
 
-# Plot Residuals
+# Plot Residuals Native Species
 plot_model(m_Nativity, type = "diag")
 
-# Forest Plot
+# Forest Plot Native Species
 plot_model(m_Nativity, type = "est") + 
   geom_hline(yintercept = 1, linetype = 2)
 
@@ -34,12 +40,19 @@ plot_model(m_Nativity, type = "pred", terms = c("Year_Time_since_trt", "Treatmen
        y = "Percent Cover of Native Species",
        title = NULL)
 
+# Predicted change in percent cover native with annual precip
+plot_model(m_Nativity, type = "pred", terms = c("yearly_rain")) +
+  theme_classic() +
+  labs(x = "Annual Precipitation (cm)",
+       y = "Percent Cover of Native Species",
+       title = NULL)
+
 # FOR INVASIVE DATA
 
-# Plot Residuals
+# Plot Residuals Invasive Species
 plot_model(m_Invasive, type = "diag")
 
-# Forest Plot
+# Forest Plot Invasive Species
 plot_model(m_Invasive, type = "est") + 
   geom_hline(yintercept = 1, linetype = 2)
 
@@ -49,3 +62,11 @@ plot_model(m_Invasive, type = "pred", terms = c("Year_Time_since_trt", "Treatmen
   labs(x = "Time Since Treatment in Years",
        y = "Percent Cover of Invasive Species",
        title = NULL)
+
+# Predicted change in percent cover invasive with annual precip
+plot_model(m_Invasive, type = "pred", terms = c("yearly_rain")) +
+  theme_classic() +
+  labs(x = "Annual Precipitation (cm)",
+       y = "Percent Cover of Invasive Species",
+       title = NULL)
+
