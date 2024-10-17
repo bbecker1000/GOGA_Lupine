@@ -13,6 +13,16 @@ CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
 # View(CL_All)
 # why are there 28 rows of data missing? why did they do 5 sets of plots instead of 4?
 
+<<<<<<< HEAD:Code/NMS_Plot_Treat_Year.R
+#Sum up individual species counts to get total species counts for each plot in a given year
+sum <- CL_All %>%
+  group_by(Species, 
+           Year, 
+           Treatment, 
+           MacroPlot
+           ) %>%
+  summarize(total_count = sum(Count), .groups = 'keep')
+=======
 # unique(CL_All$Year)
 
 # Sum up individual species counts to get total species counts for each plot in a given year
@@ -24,6 +34,7 @@ sum <- aggregate.data.frame(CL_All$Count,
                             FUN=sum)
 
 names(sum) <- c("MacroPlot", "Year", "Treatment", "Species", "total_count")
+>>>>>>> 1346bfdb7f702b4c2ec59adf377adb83686f89f9:Code/Parking Lot/NMS_Plot_Treat_Year.R
 
 # Pivot the data wider 
 wide_data <- sum %>%
