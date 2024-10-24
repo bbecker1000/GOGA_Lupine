@@ -12,13 +12,13 @@ ggplot(Lupin_data, aes(x = Year, y = Total_Count)) +
   facet_wrap(~Treatment)
 
 # Run a model on lupin changes over time by treatment
-m_Lupin <- glmer(cbind(Total_Count, 400-Total_Count) ~ 
+m_Lupin <- glmer(cbind(Total_Count_Lupin, total_detections-Total_Count_Lupin) ~ 
                    Treatment + 
                    Year_Time_since_trt +
                    yearly_rain +
                    (1|Site/Plot), 
                  family = binomial, 
-                 data = Lupin_data_2011_2013)
+                 data = Lupin_merge_2011_2013_zeros)
 
 summary(m_Lupin)
 
