@@ -72,3 +72,5 @@ adonis2(wide_data_groupings.nms ~ Year + Treatment,
 adonis2(wide_data_groupings.nms ~ Year * Treatment,
         data = data_plot_groupings,
         permutations = 1000)
+
+

@@ -80,10 +80,15 @@ gg_groups2 = ggplot(data = data.scores.group, aes(x = NMDS1, y = NMDS2)) +
         panel.background = element_blank(), panel.border = element_rect(fill = NA, colour = "grey30"), 
         axis.ticks = element_blank(), axis.text = element_blank(), legend.key = element_blank(), 
         legend.title = element_text(size = 10, face = "bold", colour = "grey30"), 
-        legend.text = element_text(size = 9, colour = "grey30"))
+        legend.text = element_text(size = 9, colour = "grey30")) +
+  # BB added to get the species group names on the plot
+  # Do you want Lupine as its own group?
+  geom_text(data = as_tibble(nms_groupings$species), aes(x = MDS1, y = MDS2), colour = "blue",
+            label = row.names(nms_groupings$species))
 
 # View the plot
 gg_groups2
+
 
 # Plots made with ggord don't seem to be working on the newer version of R, 
 # ggord now ggordiplots package?
