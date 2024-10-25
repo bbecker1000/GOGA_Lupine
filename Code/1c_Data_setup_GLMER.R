@@ -56,7 +56,7 @@ Nativity <- CL_Complete %>%
            MacroPlot,
            yearly_rain,
            Native) %>%
-  summarise(Total_Count = sum(Count), .groups = "keep")
+  summarise(Total_Native = sum(Count), .groups = "keep")
 
 # set Control as base level
 Nativity$Treatment <- factor(Nativity$Treatment, 
@@ -83,7 +83,7 @@ Invasive <- CL_Complete %>%
            MacroPlot,
            yearly_rain, 
            Invasive) %>%
-  summarise(Total_Count = sum(Count), .groups = "keep")
+  summarise(Total_Invasive = sum(Count), .groups = "keep")
 
 # set Control as base level
 Invasive$Treatment <- factor(Invasive$Treatment, 
