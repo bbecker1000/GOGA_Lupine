@@ -11,16 +11,28 @@ ggplot(Lupin_data, aes(x = Year, y = Total_Count)) +
   geom_point() + 
   facet_wrap(~Treatment)
 
-# Run a model on lupin changes over time by treatment
-m_Lupin <- glmer(cbind(Total_Count_Lupin, total_detections-Total_Count_Lupin) ~ 
+# Run a model on lupin changes over time by treatment [YEAR AS NUMERIC]
+m_Lupin_numeric <- glmer(cbind(Total_Lupin, Total_Count - Total_Lupin) ~ 
                    Treatment + 
                    Year_Time_since_trt +
                    yearly_rain +
                    (1|Site/Plot), 
                  family = binomial, 
-                 data = Lupin_merge_2011_2013_zeros)
+                 data = Lupin_data_2011_2013)
 
-summary(m_Lupin)
+summary(m_Lupin_numeric)
+
+# Run a model on lupin changes over time by treatment [YEAR AS CATEGORICAL]
+m_Lupin_cat <- glmer(cbind(Total_Lupin, Total_Count - Total_Lupin) ~ 
+                           Treatment + 
+                           Year +
+                           yearly_rain +
+                           (1|Site/Plot), 
+                         family = binomial, 
+                         data = Lupin_data)
+
+summary(m_Lupin_cat)
+
 
 # FOR NATIVE SPECIES
 
