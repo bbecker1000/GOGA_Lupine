@@ -1,3 +1,5 @@
+source("Code/1a_alldata.R")
+
 # # Data set up for an NMS that contains all species
 
 # Get data to have the total count of species for each macroplot and year

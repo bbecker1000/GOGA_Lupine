@@ -62,8 +62,9 @@ summary(m2_Lupin_cat)
 
 # FOR NATIVE SPECIES
 
-# Run a model on native species changes over time by treatment [BASE 400]
-m1_Nativity <- glmer(cbind(Total_Native, 400-Total_Native) ~ 
+# Run a model on native species changes over time by treatment 
+# [YEAR AS NUMERIC, BASE 400]
+m1_Nativity_numeric <- glmer(cbind(Total_Native, 400-Total_Native) ~ 
                       Treatment +
                       Year_Time_since_trt +  
                       scale(yearly_rain) + 
@@ -71,11 +72,11 @@ m1_Nativity <- glmer(cbind(Total_Native, 400-Total_Native) ~
                     family = binomial, 
                     data = Nativity_data_2011_2013)
 
+summary(m1_Nativity_numeric)
 
-summary(m1_Nativity)
-
-# Run a model on native species changes over time by treatment [BASE TOTAL COUNT]
-m2_Nativity <- glmer(cbind(Total_Native, Total_Count - Total_Native) ~ 
+# Run a model on native species changes over time by treatment 
+# [YEAR AS NUMERIC,BASE TOTAL COUNT]
+m2_Nativity_numeric <- glmer(cbind(Total_Native, Total_Count - Total_Native) ~ 
                        Treatment +
                        Year_Time_since_trt +  
                        scale(yearly_rain) + 
@@ -84,12 +85,40 @@ m2_Nativity <- glmer(cbind(Total_Native, Total_Count - Total_Native) ~
                      data = Nativity_data_2011_2013)
 
 
-summary(m2_Nativity)
+summary(m2_Nativity_numeric)
+
+# Run a model on native species changes over time by treatment 
+# [YEAR AS CHARACTER, BASE 400]
+
+m1_Nativity_cat <- glmer(cbind(Total_Native, 400-Total_Native) ~ 
+                               Treatment +
+                               Year +  
+                               scale(yearly_rain) + 
+                               (1|Site/Plot), 
+                             family = binomial, 
+                             data = Nativity_data_2011_2013)
+
+
+summary(m1_Nativity_cat)
+
+# Run a model on native species changes over time by treatment 
+# [YEAR AS CHARACTER,BASE TOTAL COUNT]
+m2_Nativity_cat <- glmer(cbind(Total_Native, Total_Count - Total_Native) ~ 
+                               Treatment +
+                               Year +  
+                               #scale(yearly_rain) + 
+                               (1|Site/Plot), 
+                             family = binomial, 
+                             data = Nativity_data_2011_2013)
+
+
+summary(m2_Nativity_cat)
 
 # FOR INVASIVE SPECIES
 
-# Run a model on invasive species changes over time by treatment [BASE 400]
-m1_Invasive <- glmer(cbind(Total_Invasive, 400-Total_Invasive) ~ 
+# Run a model on invasive species changes over time by treatment 
+# [YEAR AS NUMERIC, BASE 400]
+m1_Invasive_numeric <- glmer(cbind(Total_Invasive, 400-Total_Invasive) ~ 
                       Treatment +
                       Year_Time_since_trt +  
                       scale(yearly_rain) + 
@@ -98,9 +127,10 @@ m1_Invasive <- glmer(cbind(Total_Invasive, 400-Total_Invasive) ~
                     data = Invasive_data_2011_2013)
 
 
-summary(m1_Invasive)
+summary(m1_Invasive_numeric)
 
-# Run a model on invasive species changes over time by treatment [BASE TOTAL COUNT]
+# Run a model on invasive species changes over time by treatment 
+# # [YEAR AS NUMERIC, BASE TOTAL COUNT]
 m2_Invasive <- glmer(cbind(Total_Invasive, Total_Count - Total_Invasive) ~ 
                       Treatment +
                       Year_Time_since_trt +  
@@ -110,4 +140,29 @@ m2_Invasive <- glmer(cbind(Total_Invasive, Total_Count - Total_Invasive) ~
                     data = Invasive_data_2011_2013)
 
 
-summary(m2_Invasive)
+summary(m2_Invasive_numeric)
+
+# Run a model on invasive species changes over time by treatment 
+# [YEAR AS CHARACTER, BASE 400]
+m1_Invasive_cat <- glmer(cbind(Total_Invasive, 400-Total_Invasive) ~ 
+                               Treatment +
+                               Year +  
+                               scale(yearly_rain) + 
+                               (1|Site/Plot), 
+                             family = binomial, 
+                             data = Invasive_data_2011_2013)
+
+
+summary(m1_Invasive_cat)
+
+# Run a model on invasive species changes over time by treatment 
+# # [YEAR AS CHARACTER, BASE TOTAL COUNT]
+m2_Invasive_cat <- glmer(cbind(Total_Invasive, Total_Count - Total_Invasive) ~ 
+                       Treatment +
+                       Year +  
+                       scale(yearly_rain) + 
+                       (1|Site/Plot), 
+                     family = binomial, 
+                     data = Invasive_data_2011_2013)
+
+

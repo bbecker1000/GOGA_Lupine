@@ -17,6 +17,15 @@ plot_model(m_Lupin, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
 
+# Plotting m2_Lupin_cat
+plot_model(m2_Lupin_cat, type = "pred", 
+           terms = c("Year", "Treatment")) +
+  theme_classic() +
+  labs(x = "Year of Data Collection",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
+
 # Predicted change in percent cover lupin with annual precip
 plot_model(m_Lupin, type = "pred", terms = c("yearly_rain")) +
   theme_classic() +
