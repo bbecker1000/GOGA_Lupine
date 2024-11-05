@@ -14,13 +14,14 @@ total_detections <- CL_Complete %>%
 # Need to make implicitly missing data explicitly missing ie count = 0
 sum_allspp_zeros <- sum_allspp %>%
   ungroup() %>%
-  complete(nesting(Year, Site, Plot, Treatment, MacroPlot, yr_trt, yearly_rain), Species,
+  complete(nesting(Year, Trt_Status, Site, Plot, Treatment, MacroPlot, yr_trt, yearly_rain), Species,
            fill = list(Total_Count = 0))
 
 # now we can get lupin counts even including macroplots with the count of zero
 Lupin <- sum_allspp_zeros %>%
   filter(Species %in% c("LUAL", "LUFO", "LUVA")) %>%
   group_by(Year,
+           Trt_Status,
            Site,
            Plot,
            Treatment,
@@ -32,6 +33,9 @@ Lupin <- sum_allspp_zeros %>%
 # set Control as base level
 Lupin$Treatment <- factor(Lupin$Treatment, 
                                      levels = c("CONTROL", "BURN", "MECHANICAL"))
+# set Pre-treatment as base level
+Lupin$Trt_Status <- factor(Lupin$Trt_Status, levels = c("Pre-treatment", "Post-treatment"))
+
 #make year numeric
 Lupin$Year.numeric <- as.numeric(Lupin$Year)
 Lupin$Year_Time_since_trt <- Lupin$Year.numeric-2011
@@ -50,6 +54,7 @@ Lupin_data_2011_2013 <- Lupin_data %>% filter(Year >  2010)
 Nativity <- CL_Complete %>%
   filter(Native == TRUE) %>%
   group_by(Year,
+           Trt_Status,
            Site,
            Plot,
            Treatment,
@@ -61,6 +66,11 @@ Nativity <- CL_Complete %>%
 # set Control as base level
 Nativity$Treatment <- factor(Nativity$Treatment, 
                                   levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+Nativity$Trt_Status <- factor(Nativity$Trt_Status, 
+                             levels = c("Pre-treatment", "Post-treatment"))
+
 #make year numeric
 Nativity$Year.numeric <- as.numeric(Nativity$Year)
 Nativity$Year_Time_since_trt <- Nativity$Year.numeric-2011
@@ -77,6 +87,7 @@ Nativity_data_2011_2013 <- Nativity_data %>% filter(Year >  2010)
 Invasive <- CL_Complete %>%
   filter(Invasive == TRUE) %>%
   group_by(Year,
+           Trt_Status,
            Site,
            Plot,
            Treatment,
@@ -88,6 +99,11 @@ Invasive <- CL_Complete %>%
 # set Control as base level
 Invasive$Treatment <- factor(Invasive$Treatment, 
                                   levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+Invasive$Trt_Status <- factor(Invasive$Trt_Status, 
+                              levels = c("Pre-treatment", "Post-treatment"))
+
 #make year numeric
 Invasive$Year.numeric <- as.numeric(Invasive$Year)
 Invasive$Year_Time_since_trt <- Invasive$Year.numeric-2011

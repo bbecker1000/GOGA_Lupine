@@ -6,6 +6,7 @@ source("Code/1a_alldata.R")
 sum_allspp <- CL_Complete %>%
   group_by(MacroPlot,
            Year,
+           Trt_Status,
            Site,
            Plot,
            Treatment,
@@ -59,6 +60,7 @@ CLComplete <- CL_Complete %>%
 sum_groupings <- CLComplete %>%
   group_by(MacroPlot,
            Year,
+           Trt_Status,
            Site,
            Plot,
            Treatment,
