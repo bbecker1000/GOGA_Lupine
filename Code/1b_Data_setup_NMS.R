@@ -30,12 +30,12 @@ wide_data_allspp.test <- wide_data_allspp %>%
   select(TOTAL)
 
 # Remove all data this not species counts
-wide_data_allspp.nms <- as.matrix(wide_data_allspp[,-c(1:7)])
+wide_data_allspp.nms <- as.matrix(wide_data_allspp[,-c(1:8)])
 
 # saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
   
 # Create a dateframe with only the plot and environmental data 
-data_plot_allspp <- wide_data_allspp[,c(1:7)]
+data_plot_allspp <- wide_data_allspp[,c(1:8)]
 
 # Create a dataframe with only the covariates I want in the envfit
 data_env_allspp <- wide_data_allspp[,c(2,5,7)]
@@ -43,6 +43,14 @@ data_env_allspp$Year.numeric <- as.numeric(data_env_allspp$Year)
 data_env_allspp$Time_Since_Treatment <- paste(data_env_allspp$Year.numeric - 2010)
 data_env_allspp$Time_Since_Treatment <- as.numeric(data_env_allspp$Time_Since_Treatment)
 data_env_allspp_final <- data_env_allspp[,c(1,2,3,5)]
+
+# set Control as base level
+data_env_allspp_final$Treatment <- factor(data_env_allspp_final$Treatment, 
+                               levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+data_env_allspp_final$Trt_Status <- factor(data_env_allspp_final$Trt_Status, 
+                              levels = c("Pre-treatment", "Post-treatment"))
 
 
 # saveRDS(data_plot_allspp, file = "data_plot_allspp")

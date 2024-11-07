@@ -17,6 +17,14 @@ plot_model(m2_Lupin_PrePost, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
 
+# Prediction Plot m2_Lupin_PrePost
+plot_model(m2_Lupin_PrePost, type = "int", 
+           terms = c("Trt_Status", "Treatment")) +
+  theme_classic() +
+  labs(x = "Treatment Status",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
 # Predicted change in percent cover lupin with annual precip
 plot_model(m2_Lupin_PrePost, type = "pred", terms = c("yearly_rain")) +
   theme_classic() +
@@ -52,8 +60,16 @@ plot_model(m2_Nativity_PrePost, type = "est") +
   geom_hline(yintercept = 1, linetype = 2)
 
 # Prediction Plot m2_Nativity_PrePost
-plot_model(m2_Nativity_PrePost, type = "pred", 
+plot_model(m2_Nativity_PrePost, type = "int", 
            terms = c("Trt_Status", "Treatment")) +
+  theme_classic() +
+  labs(x = "Treatment Status",
+       y = "Percent Cover of Native Species",
+       title = NULL)
+
+# Prediction Plot m2_Nativity_PrePost with rainfall
+plot_model(m2_Nativity_PrePost, type = "eff", 
+           terms = c("Trt_Status", "Treatment", "yearly_rain_scaled")) +
   theme_classic() +
   labs(x = "Treatment Status",
        y = "Percent Cover of Native Species",
@@ -111,7 +127,7 @@ plot_model(m2_Invasive_PrePost, type = "est") +
 
 # Predicted change in percent cover invasive with time since treatment for each treatment
 plot_model(m2_Invasive_PrePost, type = "pred", 
-           terms = c("Trt_Status", "Treatment")) +
+           terms = c("Treatment", "Trt_Status")) +
   theme_classic() +
   labs(x = "Treatment Status",
        y = "Percent Cover of Invasive Species",

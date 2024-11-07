@@ -39,7 +39,7 @@ summary(m2_Lupin_cat)
 # Run a model on lupin changes over time by treatment 
 # [TIME AS PRE AND POST, BASE TOTAL COUNT]
 m2_Lupin_PrePost <- glmer(cbind(Total_Lupin, Total_Count) ~ 
-                        Treatment +
+                        Treatment *
                         Trt_Status +
                         yearly_rain +
                         (1|Site/Plot), 
@@ -76,12 +76,14 @@ m2_Nativity_cat <- glmer(cbind(Total_Native, Total_Count) ~
 
 summary(m2_Nativity_cat)
 
+Nativity_data$yearly_rain_scaled <- scale(Nativity_data$yearly_rain)
+
 # Run a model on native species changes over time by treatment 
 # [YEAR AS PRE AD POST, BASE TOTAL COUNT]
 m2_Nativity_PrePost <- glmer(cbind(Total_Native, Total_Count) ~ 
-                           Treatment +
+                           Treatment *
                            Trt_Status +  
-                           scale(yearly_rain) + 
+                           yearly_rain_scaled + 
                            (1|Plot), 
                          family = binomial, 
                          data = Nativity_data)
@@ -120,7 +122,7 @@ summary(m2_Invasive_cat)
 # Run a model on invasive species changes over time by treatment 
 # # [YEAR AS PRE AD POST, BASE TOTAL COUNT]
 m2_Invasive_PrePost <- glmer(cbind(Total_Invasive, Total_Count) ~ 
-                           Treatment +
+                           Treatment *
                            Trt_Status +  
                            scale(yearly_rain) + 
                            (1|Plot), 

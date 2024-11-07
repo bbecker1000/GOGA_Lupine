@@ -153,4 +153,20 @@ m2_Invasive_cat <- glmer(cbind(Total_Invasive, Total_Count - Total_Invasive) ~
                          data = Invasive_data_2011_2013)
 
 
+# # Plotting m2_Lupin_numeric
+plot_model(m2_Lupin_numeric, type = "pred", 
+           terms = c("Year_Time_since_trt", "Treatment")) +
+  theme_classic() +
+  labs(x = "Time Since Treatment in Years",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
+# # Plotting m2_Lupin_cat
+plot_model(m2_Lupin_cat, type = "pred", 
+           terms = c("Year", "Treatment")) +
+  theme_classic() +
+  labs(x = "Year of Data Collection",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
 
