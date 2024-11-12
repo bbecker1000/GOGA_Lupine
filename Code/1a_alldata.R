@@ -28,7 +28,7 @@ CL_Complete <- merge(x = CL_All, y = Precip_cm,
 
 CL_Complete <- CL_Complete %>%
   mutate(Trt_Status = case_when(
-    Year %in% c(2009, 2010) ~ "Pre-treatment",
-    Year %in% c(2011, 2012, 2013) ~ "Post-treatment"))
+    Year %in% c(2009, 2010) ~ "before",
+    Year %in% c(2011, 2012, 2013) ~ "after"))
 
 # saveRDS(CL_Complete, file = "CL_Complete")
