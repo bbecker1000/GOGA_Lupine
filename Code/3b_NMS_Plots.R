@@ -6,7 +6,7 @@ plot(en_allspp)
 
 # Plot NMS for all species with all covariates mapped
 gg_all1 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
-  geom_point(data = data.scores.all, aes(colour = yr_trt), 
+  geom_point(data = data.scores.all, aes(colour = Trt_trt_Status), 
              size = 3, alpha = 0.5) + 
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
                data = en_coord_cont_all, linewidth =1, alpha = 0.5, colour = "grey30") +

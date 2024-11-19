@@ -12,8 +12,10 @@ sum_allspp <- CL_Complete %>%
            Treatment,
            yr_trt,
            yearly_rain, 
+           Time_Since_Trt,
            Species) %>%
-  summarise(Total_Count = sum(Count), .groups = "keep")
+  summarise(Total_Count = sum(Count), .groups = "keep") %>%
+  ungroup()
 
 # Pivot the data wider
 wide_data_allspp <- sum_allspp %>%
@@ -23,37 +25,40 @@ wide_data_allspp <- sum_allspp %>%
 # Replace NAs with 0
 wide_data_allspp[is.na.data.frame(wide_data_allspp)] <- 0
 
+# Create a column that has the treatment status and treatment
+wide_data_allspp$Trt_trt_Status <- paste(wide_data_allspp$Trt_Status,
+                                         "-",
+                                         wide_data_allspp$Treatment)
+
 # Make sure all rows >0
 wide_data_allspp.test <- wide_data_allspp %>%
   rowwise() %>% 
   mutate(TOTAL = rowSums(across(where(is.numeric)))) %>%
   select(TOTAL)
 
-# Remove all data this not species counts
-wide_data_allspp.nms <- as.matrix(wide_data_allspp[,-c(1:8)])
+# view(wide_data_allspp.test)
 
-# saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
+# Remove all data this not species counts
+wide_data_allspp.nms <- wide_data_allspp %>%
+    select(-MacroPlot, 
+           -Year, 
+           -Trt_Status, 
+           -Site, 
+           -Plot, 
+           -Treatment,
+           -yr_trt,
+           -yearly_rain,
+           -Trt_trt_Status,
+           -Time_Since_Trt)
+
+saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
   
 # Create a dateframe with only the plot and environmental data 
-data_plot_allspp <- wide_data_allspp[,c(1:8)]
-
-# Create a dataframe with only the covariates I want in the envfit
-data_env_allspp <- wide_data_allspp[,c(2,5,7)]
-data_env_allspp$Year.numeric <- as.numeric(data_env_allspp$Year)
-data_env_allspp$Time_Since_Treatment <- paste(data_env_allspp$Year.numeric - 2010)
-data_env_allspp$Time_Since_Treatment <- as.numeric(data_env_allspp$Time_Since_Treatment)
-data_env_allspp_final <- data_env_allspp[,c(1,2,3,5)]
-
-# set Control as base level
-data_env_allspp_final$Treatment <- factor(data_env_allspp_final$Treatment, 
-                               levels = c("CONTROL", "BURN", "MECHANICAL"))
-
-# set Pre-treatment as base level
-data_env_allspp_final$Trt_Status <- factor(data_env_allspp_final$Trt_Status, 
-                              levels = c("Pre-treatment", "Post-treatment"))
-
-
-# saveRDS(data_plot_allspp, file = "data_plot_allspp")
+data_plot_allspp <- wide_data_allspp %>%
+  select(Site, 
+         Treatment,
+         Trt_Status,
+         yearly_rain)
 
 # # Data set up for an NMS that contains species groupings
 
@@ -73,9 +78,11 @@ sum_groupings <- CLComplete %>%
            Plot,
            Treatment,
            yr_trt,
-           yearly_rain, 
+           yearly_rain,
+           Time_Since_Trt
            spp_groupings) %>%
-  summarise(Total_Count = sum(Count), .groups = "keep")
+  summarise(Total_Count = sum(Count), .groups = "keep") %>%
+  ungroup()
 
 # Pivot the data wider
 wide_data_groupings <- sum_groupings %>%
@@ -91,23 +98,29 @@ wide_data_groupings.test <- wide_data_groupings %>%
   mutate(TOTAL = rowSums(across(where(is.numeric)))) %>%
   select(TOTAL)
 
-# Remove all data this not species counts
-wide_data_groupings.nms <- wide_data_groupings[,-c(1:7)]
+# view(wide_data_groupings.test)
 
-# saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
+# Remove all data this not species counts
+wide_data_groupings.nms <- wide_data_groupings %>%
+  select(
+    -MacroPlot, 
+    -Year, 
+    -Trt_Status, 
+    -Site, 
+    -Plot, 
+    -Treatment,
+    -yr_trt,
+    -yearly_rain
+  )
+
+saveRDS(wide_data_groupings.nms, file = "wide_data_groupings.nms")
 
 # Create a dateframe with only the plot and environmental data 
-data_plot_groupings <- wide_data_groupings[,c(1:7)]
-
-# Create a dataframe with only the covariates I want in the envfit
-data_env_groupings <- wide_data_groupings[,c(2,5,7)]
-data_env_groupings$Year.numeric <- as.numeric(data_env_groupings$Year)
-data_env_groupings$Time_Since_Treatment <- paste(data_env_groupings$Year.numeric - 2010)
-data_env_groupings$Time_Since_Treatment <- as.numeric(data_env_groupings$Time_Since_Treatment)
-data_env_groupings_final <- data_env_groupings[,c(1,2,3,5)]
-
-# Add a new variable in the plot data that is year and treatment
-data_plot_groupings$yr_trt <- paste(data_plot_groupings$Year, 
-                                 "_", 
-                                 data_plot_groupings$Treatment)
+data_env_groupings <- wide_data_groupings %>%
+  select(
+    Site, 
+    Treatment,
+    Trt_Status,
+    yearly_rain
+  )
 

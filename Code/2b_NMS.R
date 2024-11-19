@@ -9,7 +9,7 @@ set.seed(10) # for repeatability
 nms_allspp <- metaMDS(wide_data_allspp.nms, trymax = 25)
 
 en_allspp = envfit(nms_allspp, 
-                data_env_allspp_final, 
+                   data_plot_allspp, 
                 permutations = 999, na.rm = TRUE)
 
 data.scores.all = as.data.frame(scores(nms_allspp)$site)
@@ -17,6 +17,7 @@ data.scores.all$yr_trt = wide_data_allspp$yr_trt
 data.scores.all$Treatment = wide_data_allspp$Treatment
 data.scores.all$Year = wide_data_allspp$Year
 data.scores.all$Trt_Status = wide_data_allspp$Trt_Status
+data.scores.all$Trt_trt_Status = wide_data_allspp$Trt_trt_Status
 
 en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) * ordiArrowMul(en_allspp)
 en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) * ordiArrowMul(en_allspp)
@@ -28,7 +29,7 @@ h_allspp <- how(within = Within(type = "series"),
           nperm = 499)
 
 # Run adonis (without interactions between year and treatment)
-adonis2(wide_data_allspp.nms ~ Year + Treatment,
+adonis2(wide_data_allspp.nms ~ Trt_Status * Treatment + yearly_rain,
         data = data_plot_allspp,
         permutations = 1000)
 

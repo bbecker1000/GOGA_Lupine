@@ -31,4 +31,17 @@ CL_Complete <- CL_Complete %>%
     Year %in% c(2009, 2010) ~ "before",
     Year %in% c(2011, 2012, 2013) ~ "after"))
 
+
+# set Control as base level
+CL_Complete$Treatment <- factor(CL_Complete$Treatment, 
+                                     levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+CL_Complete$Trt_Status <- factor(CL_Complete$Trt_Status, 
+                                           levels = c("before", "after"))
+
+# create a new column with 
+CL_Complete <- CL_Complete %>%
+  mutate(Time_Since_Trt = as.numeric(Year) - 2010)
+
 # saveRDS(CL_Complete, file = "CL_Complete")
