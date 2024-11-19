@@ -6,8 +6,10 @@ plot(en_allspp)
 
 # Plot NMS for all species with all covariates mapped
 gg_all1 = ggplot(data = data.scores.all, aes(x = NMDS1, y = NMDS2)) + 
-  geom_point(data = data.scores.all, aes(colour = Trt_trt_Status), 
-             size = 3, alpha = 0.5) + 
+  geom_point(data = data.scores.all, aes(colour = Treatment, shape = Trt_Status), 
+             size = 3, alpha = 0.9) + 
+  stat_ellipse(data = data.scores.all, aes(x = NMDS1, y = NMDS2, colour = Treatment, linetype = Trt_Status), 
+               level = 0.8, alpha = 0.9, size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
                data = en_coord_cont_all, linewidth =1, alpha = 0.5, colour = "grey30") +
   # geom_point(data = en_coord_cat_all, aes(x = NMDS1, y = NMDS2), 
@@ -54,11 +56,11 @@ gg_groups = ggplot(data = data.scores.group, aes(x = NMDS1, y = NMDS2)) +
   geom_point(data = data.scores.group, aes(colour = Treatment), size = 3, alpha = 0.5) + 
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2), 
                data = en_coord_cont_g, size =1, alpha = 0.5, colour = "grey30") +
-  geom_point(data = en_coord_cat_g, aes(x = NMDS1, y = NMDS2), 
+  geom_point(data = group.scores, aes(x = NMDS1, y = NMDS2), 
              shape = "diamond", size = 4, alpha = 0.6, colour = "navy") +
   geom_text(data = en_coord_cont_g, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
             fontface = "bold", label = row.names(en_coord_cont_all)) +
-  geom_text(data = en_coord_cat_g, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
+  geom_text(data = group.scores, aes(x = NMDS1, y = NMDS2), colour = "grey30", 
             fontface = "bold", label = row.names(en_coord_cat_all)) +
   theme(axis.title = element_text(size = 10, face = "bold", colour = "grey30"), 
         panel.background = element_blank(), panel.border = element_rect(fill = NA, colour = "grey30"), 

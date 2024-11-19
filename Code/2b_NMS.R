@@ -19,18 +19,18 @@ data.scores.all$Year = wide_data_allspp$Year
 data.scores.all$Trt_Status = wide_data_allspp$Trt_Status
 data.scores.all$Trt_trt_Status = wide_data_allspp$Trt_trt_Status
 
-en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) * ordiArrowMul(en_allspp)
-en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) * ordiArrowMul(en_allspp)
+en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) #* ordiArrowMul(en_allspp)
+en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) #* ordiArrowMul(en_allspp)
 
 # Tell adonis that the plots are being remeasured
 h_allspp <- how(within = Within(type = "series"),
-          plots = Plots(strata = data_plot_allspp$MacroPlot),
-          blocks =  data_plot_allspp$Plot,
+          plots = Plots(strata = wide_data_allspp$MacroPlot),
+          blocks =  wide_data_allspp$Plot,
           nperm = 1000)
 
 # Run adonis (without interactions between year and treatment)
 adonis2(wide_data_allspp.nms ~ Trt_Status * Treatment + yearly_rain,
-        data = data_plot_allspp,
+        data = wide_data_allspp,
         perm = h_allspp, # new 2024-11-18 
         by = "terms",    # new 2024-11-18 
         permutations = 1000)
@@ -48,18 +48,18 @@ set.seed(10) # for repeatability
 nms_groupings <- metaMDS(wide_data_groupings.nms, trymax = 25)
 
 en_groupings = envfit(nms_groupings, 
-                      data_env_groupings_final, 
+                      data_env_groupings, 
                       permutations = 999, na.rm = TRUE)
 
 data.scores.group = as.data.frame(scores(nms_groupings)$site)
 data.scores.group$Treatment = wide_data_groupings$Treatment
-data.scores.group$yr_trt = wide_data_groupings$yr_trt
+data.scores.group$yr_trt = wide_data_groupings$Trt_trt_Status
 data.scores.group$Year = wide_data_groupings$Year
 
 group.scores = as.data.frame(scores(nms_groupings)$species)
 
-en_coord_cont_g = as.data.frame(scores(en_groupings, "vectors")) * ordiArrowMul(en_groupings)
-en_coord_cat_g = as.data.frame(scores(en_groupings, "factors")) * ordiArrowMul(en_groupings)
+en_coord_cont_g = as.data.frame(scores(en_groupings, "vectors")) #* ordiArrowMul(en_groupings)
+en_coord_cat_g = as.data.frame(scores(en_groupings, "factors")) #* ordiArrowMul(en_groupings)
 
 # Tell adonis that the plots are being remeasured
 h_groupings <- how(within = Within(type = "series"),
