@@ -25,11 +25,13 @@ en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) * ordiArrowMul(en
 h_allspp <- how(within = Within(type = "series"),
           plots = Plots(strata = data_plot_allspp$MacroPlot),
           blocks =  data_plot_allspp$Plot,
-          nperm = 499)
+          nperm = 1000)
 
 # Run adonis (without interactions between year and treatment)
 adonis2(wide_data_allspp.nms ~ Year + Treatment,
         data = data_plot_allspp,
+        perm = h_allspp, # new 2024-11-18 
+        by = "terms",    # new 2024-11-18 
         permutations = 1000)
 
 # Run adonis (with interactions between year and treatment)
