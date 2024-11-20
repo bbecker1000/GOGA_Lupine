@@ -62,13 +62,17 @@ data_plot_allspp <- wide_data_allspp %>%
 
 # # Data set up for an NMS that contains species groupings
 
-CLComplete <- CL_Complete %>% 
-  mutate(spp_groupings = paste(Lifecycle, 
-                               "_", 
-                               Default_LF,
-                               "-",
-                               Native))
+CLComplete$Lifecycle[is.na.data.frame(CLComplete$Lifecycle)] <- "Not Defined"
 
+CLComplete <- CL_Complete %>% 
+  mutate(Nativity = case_when(
+    Native == "TRUE" ~ "Native",
+    Invasive == "TRUE" ~ "Invasive",
+    Native == "FALSE" & Invasive == "FALSE" ~ "Introduced")) %>%
+  mutate(spp_groupings = paste0(substr(Lifecycle, 1, 1),
+                                substr(Default_LF, 1, 1),
+                                Nativity))
+  
 # Get data to have the total count of species groups for each macroplot and year
 sum_groupings <- CLComplete %>%
   group_by(MacroPlot,
@@ -79,7 +83,7 @@ sum_groupings <- CLComplete %>%
            Treatment,
            yr_trt,
            yearly_rain,
-           Time_Since_Trt
+           Time_Since_Trt,
            spp_groupings) %>%
   summarise(Total_Count = sum(Count), .groups = "keep") %>%
   ungroup()
@@ -110,17 +114,23 @@ wide_data_groupings.nms <- wide_data_groupings %>%
     -Plot, 
     -Treatment,
     -yr_trt,
-    -yearly_rain
+    -yearly_rain,
+    -Time_Since_Trt
   )
 
-saveRDS(wide_data_groupings.nms, file = "wide_data_groupings.nms")
+# saveRDS(wide_data_groupings.nms, file = "wide_data_groupings.nms")
 
 # Create a dateframe with only the plot and environmental data 
-data_env_groupings <- wide_data_groupings %>%
+data_plot_groupings <- wide_data_groupings %>%
   select(
+    MacroPlot, 
+    Year, 
+    Trt_Status, 
     Site, 
+    Plot, 
     Treatment,
-    Trt_Status,
-    yearly_rain
+    yr_trt,
+    yearly_rain,
+    Time_Since_Trt
   )
 
