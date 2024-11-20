@@ -51,14 +51,15 @@ wide_data_allspp.nms <- wide_data_allspp %>%
            -Trt_trt_Status,
            -Time_Since_Trt)
 
-saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
+# saveRDS(wide_data_allspp.nms, file = "wide_data_allspp.nms")
   
 # Create a dateframe with only the plot and environmental data 
 data_plot_allspp <- wide_data_allspp %>%
   select(Site, 
          Treatment,
          Trt_Status,
-         yearly_rain)
+         yearly_rain,
+         Time_Since_Trt)
 
 # # Data set up for an NMS that contains species groupings
 

@@ -18,6 +18,7 @@ data.scores.all$Treatment = wide_data_allspp$Treatment
 data.scores.all$Year = wide_data_allspp$Year
 data.scores.all$Trt_Status = wide_data_allspp$Trt_Status
 data.scores.all$Trt_trt_Status = wide_data_allspp$Trt_trt_Status
+data.scores.all$Trt_trt_Status = wide_data_allspp$Time_Since_Trt
 
 en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) #* ordiArrowMul(en_allspp)
 en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) #* ordiArrowMul(en_allspp)
@@ -48,7 +49,7 @@ en_groupings = envfit(nms_groupings,
 
 data.scores.group = as.data.frame(scores(nms_groupings)$site)
 data.scores.group$Treatment = wide_data_groupings$Treatment
-data.scores.group$yr_trt = wide_data_groupings$Trt_Status
+data.scores.group$Trt_Status = wide_data_groupings$Trt_Status
 data.scores.group$Year = wide_data_groupings$Year
 
 group.scores = as.data.frame(scores(nms_groupings)$species)
