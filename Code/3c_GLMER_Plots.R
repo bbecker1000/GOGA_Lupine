@@ -10,12 +10,14 @@ plot_model(m2_Lupin_PrePost, type = "est") +
   geom_hline(yintercept = 1, linetype = 2)
 
 # Prediction Plot m2_Lupin_PrePost
-plot_model(m2_Lupin_PrePost, type = "pred", 
+p1 <- plot_model(m2_Lupin_PrePost, type = "pred", 
            terms = c("Trt_Status", "Treatment")) +
   theme_classic() +
   labs(x = "Treatment Status",
        y = "Percent Cover of Lupin",
        title = NULL)
+
+p1pred <- p1[["plot_env"]][["plot_data"]][["predicted"]]
 
 # Prediction Plot m2_Lupin_PrePost
 plot_model(m2_Lupin_PrePost, type = "int", 

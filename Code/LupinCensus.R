@@ -37,6 +37,7 @@ summary(m_Lupin_census_poisson)
 
 # Plot residuals for Poisson
 plot_model(m_Lupin_census_poisson,type = "diag")
+plot(m_Lupin_census_poisson)
 
 
 # Run a GLMER on the Lupine census data with negative binomial
@@ -49,5 +50,6 @@ summary(m_Lupin_census_nb)
 
 # Plot residuals with negative binomial
 plot_model(m_Lupin_census_nb,type = "diag")
+plot(m_Lupin_census_nb)
 
 

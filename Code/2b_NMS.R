@@ -13,15 +13,11 @@ en_allspp = envfit(nms_allspp,
                 permutations = 999, na.rm = TRUE)
 
 data.scores.all = as.data.frame(scores(nms_allspp)$site)
-data.scores.all$yr_trt = wide_data_allspp$yr_trt
-data.scores.all$Treatment = wide_data_allspp$Treatment
-data.scores.all$Year = wide_data_allspp$Year
 data.scores.all$Trt_Status = wide_data_allspp$Trt_Status
-data.scores.all$Trt_trt_Status = wide_data_allspp$Trt_trt_Status
-data.scores.all$Trt_trt_Status = wide_data_allspp$Time_Since_Trt
+data.scores.all$Treatment = wide_data_allspp$Treatment
 
-en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) #* ordiArrowMul(en_allspp)
-en_coord_cat_all = as.data.frame(scores(en_allspp, "factors")) #* ordiArrowMul(en_allspp)
+en_coord_cont_all = as.data.frame(scores(en_allspp, "vectors")) 
+en_coord_cont_all <- en_coord_cont_all %>% rownames_to_column(var = "label")
 
 # Tell adonis that the plots are being remeasured
 h_allspp <- how(within = Within(type = "series"),
@@ -48,14 +44,12 @@ en_groupings = envfit(nms_groupings,
                       permutations = 999, na.rm = TRUE)
 
 data.scores.group = as.data.frame(scores(nms_groupings)$site)
-data.scores.group$Treatment = wide_data_groupings$Treatment
 data.scores.group$Trt_Status = wide_data_groupings$Trt_Status
-data.scores.group$Year = wide_data_groupings$Year
+data.scores.group$Treatment = wide_data_groupings$Treatment
 
 group.scores = as.data.frame(scores(nms_groupings)$species)
 
-en_coord_cont_g = as.data.frame(scores(en_groupings, "vectors")) #* ordiArrowMul(en_groupings)
-en_coord_cat_g = as.data.frame(scores(en_groupings, "factors")) #* ordiArrowMul(en_groupings)
+en_coord_cont_g = as.data.frame(scores(en_groupings, "vectors")) 
 
 # Tell adonis that the plots are being remeasured
 h_groupings <- how(within = Within(type = "series"),
