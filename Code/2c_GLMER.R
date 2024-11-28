@@ -8,7 +8,7 @@ library(sjPlot)
 ## take a look at the data
 ggplot(Lupin_data, aes(x = Year, y = Total_Count)) + 
   geom_boxplot() +
-  geom_point() + 
+  geom_point(position = position_dodge(width = .75)) + 
   facet_wrap(~Treatment)
 
 

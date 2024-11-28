@@ -10,14 +10,19 @@ plot_model(m2_Lupin_PrePost, type = "est") +
   geom_hline(yintercept = 1, linetype = 2)
 
 # Prediction Plot m2_Lupin_PrePost
-p1 <- plot_model(m2_Lupin_PrePost, type = "pred", 
+plot_model(m2_Lupin_PrePost, type = "pred", 
            terms = c("Trt_Status", "Treatment")) +
   theme_classic() +
   labs(x = "Treatment Status",
        y = "Percent Cover of Lupin",
        title = NULL)
 
-p1pred <- p1[["plot_env"]][["plot_data"]][["predicted"]]
+Lupin_data %>%
+  mutate(my_model = predict(m2_Lupin_PrePost)) %>%
+  ggplot(aes(Trt_Status, my_model, fill = Treatment)) +
+  # geom_point(position = position_dodge(width = .75)) +
+  geom_boxplot()
+
 
 # Prediction Plot m2_Lupin_PrePost
 plot_model(m2_Lupin_PrePost, type = "int", 
@@ -68,6 +73,12 @@ plot_model(m2_Nativity_PrePost, type = "int",
   labs(x = "Treatment Status",
        y = "Percent Cover of Native Species",
        title = NULL)
+
+Nativity_data %>%
+  mutate(my_model = predict(m2_Nativity_PrePost)) %>%
+  ggplot(aes(Trt_Status, my_model, fill = Treatment)) +
+  # geom_point(position = position_dodge(width = .75)) +
+  geom_boxplot()
 
 # Prediction Plot m2_Nativity_PrePost with rainfall
 plot_model(m2_Nativity_PrePost, type = "eff", 
@@ -134,6 +145,12 @@ plot_model(m2_Invasive_PrePost, type = "pred",
   labs(x = "Treatment Status",
        y = "Percent Cover of Invasive Species",
        title = NULL)
+
+Invasive_data %>%
+  mutate(my_model = predict(m2_Invasive_PrePost)) %>%
+  ggplot(aes(Trt_Status, my_model, fill = Treatment)) +
+  # geom_point(position = position_dodge(width = .75)) +
+  geom_boxplot()
 
 # Predicted change in percent cover invasive with annual precip
 plot_model(m2_Invasive_PrePost, type = "pred", terms = c("yearly_rain")) +
