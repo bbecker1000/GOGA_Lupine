@@ -1,4 +1,5 @@
 source("Code/2C_GLMER.R")
+library(patchwork)
 
 # FOR LUPIN DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
@@ -17,11 +18,57 @@ plot_model(m2_Lupin_PrePost, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
 
-Lupin_data %>%
-  mutate(my_model = predict(m2_Lupin_PrePost)) %>%
-  ggplot(aes(Trt_Status, my_model, fill = Treatment)) +
-  # geom_point(position = position_dodge(width = .75)) +
-  geom_boxplot()
+Lupin_data <- Lupin_data %>% mutate(Treatment = tolower(Treatment))
+
+predicted_data <- Lupin_data %>%
+  mutate(predicted = predict(m2_Lupin_PrePost, type = "response"))
+
+predicted_lupin_plot <- ggplot(predicted_data, 
+  aes(x = Trt_Status, y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, 0.15)) +
+  labs(
+    title = "Predicted Percent Cover of Lupin by Treatment Status",
+    x = "Treatment Status", 
+    y = "Predicted Percent Cover of Lupin",
+    fill = "Treatment") +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold"), # Bold x-axis label
+    axis.title.y = element_text(face = "bold"), # Bold y-axis label
+    legend.title = element_text(face = "bold"), # Bold legend title
+    legend.text = element_text(face = "plain") # Lowercase text
+    )
+
+predicted_lupin_plot
+    
+Lupin_data2 <- Lupin_data %>%
+  mutate(Percent_Cover_Lupin = Total_Lupin/Total_Count)
+  
+actual_lupin_plot <- ggplot(Lupin_data2, 
+       aes(Trt_Status, Percent_Cover_Lupin, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(position = position_dodge(width = .75)) +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, 0.15)) +
+  labs(
+    title = "Actual Percent Cover of Lupin by Treatment Status",
+    x = "Treatment Status", 
+    y = "Percent Cover of Lupin",
+    fill = "Treatment"
+      ) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold"), # Bold x-axis label
+    axis.title.y = element_text(face = "bold"), # Bold y-axis label
+    legend.title = element_text(face = "bold"), # Bold legend title
+    legend.text = element_text(face = "plain") # Lowercase text
+  )
+
+actual_lupin_plot
+
+lupine_plots <- actual_lupin_plot | predicted_lupin_plot
 
 
 # Prediction Plot m2_Lupin_PrePost
