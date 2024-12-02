@@ -169,4 +169,51 @@ plot_model(m2_Lupin_cat, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
 
+# # Plotting m2_Lupin_numeric
+plot_model(m2_Lupin_numeric, type = "pred", 
+           terms = c("Year_Time_since_trt", "Treatment")) +
+  theme_classic() +
+  labs(x = "Time Since Treatment in Years",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
+# # Plotting m2_Lupin_cat
+plot_model(m2_Lupin_cat, type = "pred", 
+           terms = c("Year", "Treatment")) +
+  theme_classic() +
+  labs(x = "Year of Data Collection",
+       y = "Percent Cover of Lupin",
+       title = NULL)
+
+# Plot Residuals for m2_Nativity_cat
+plot_model(m2_Nativity_cat, type = "diag")
+
+# Forest Plot for m2_Nativity_cat
+plot_model(m2_Nativity_cat, type = "est") + 
+  geom_hline(yintercept = 1, linetype = 2)
+
+# Prediction Plot m2_Nativity_cat
+plot_model(m2_Nativity_cat, type = "pred", 
+           terms = c("Year", "Treatment")) +
+  theme_classic() +
+  labs(x = "Year of Data Collection",
+       y = "Percent Cover of Native Species",
+       title = NULL)
+
+
+# Plot Residuals for m2_Nativity_numeric
+plot_model(m2_Nativity_numeric, type = "diag")
+
+# Forest Plot for m2_Nativity_numeric
+plot_model(m2_Nativity_numeric, type = "est") + 
+  geom_hline(yintercept = 1, linetype = 2)
+
+# Prediction Plot m2_Nativity_numeric
+plot_model(m2_Nativity_numeric, type = "pred", 
+           terms = c("Year_Time_since_trt", "Treatment")) +
+  theme_classic() +
+  labs(x = "Time Since Treatment in Years",
+       y = "Percent Cover of Native Species",
+       title = NULL)
+
 
