@@ -27,11 +27,14 @@ plot_model(m2_Lupin_PrePost, type = "int",
        title = NULL)
 
 # Predicted change in percent cover lupin with annual precip
-plot_model(m2_Lupin_PrePost, type = "pred", terms = c("yearly_rain")) +
+rainfall_lupin <- plot_model(m2_Lupin_PrePost, type = "pred", terms = c("yearly_rain"),
+           color = "blue") +
   theme_classic() +
   labs(x = "Annual Precipitation (cm)",
        y = "Percent Cover of Lupin",
-       title = NULL)
+       title = "Predicted Percent Cover of Lupin by Rainfall")
+  
+rainfall_lupin
 
 Lupin_data <- Lupin_data %>% mutate(Treatment = tolower(Treatment))
 
@@ -103,19 +106,17 @@ plot_model(m2_Nativity_PrePost, type = "int",
        y = "Percent Cover of Native Species",
        title = NULL)
 
-Nativity_data %>%
-  mutate(my_model = predict(m2_Nativity_PrePost)) %>%
-  ggplot(aes(Trt_Status, my_model, fill = Treatment)) +
-  # geom_point(position = position_dodge(width = .75)) +
-  geom_boxplot()
-
-# Prediction Plot m2_Nativity_PrePost with rainfall
-plot_model(m2_Nativity_PrePost, type = "eff", 
-           terms = c("Trt_Status", "Treatment", "yearly_rain_scaled")) +
+# Predicted change in percent cover lupin with annual precip
+rainfall_native <- plot_model(m2_Nativity_PrePost, 
+                              type = "pred", terms = c("yearly_rain_scaled"),
+                             color = "green4") +
   theme_classic() +
-  labs(x = "Treatment Status",
-       y = "Percent Cover of Native Species",
-       title = NULL)
+  labs(x = "Annual Precipitation (cm)",
+       y = "Percent Cover of Native",
+       title = "Predicted Percent Cover of Native Species by Rainfall")
+
+rainfall_native
+
 
 # Predicted change in percent cover native with annual precip
 plot_model(m2_Nativity_PrePost, type = "pred", 
@@ -201,12 +202,13 @@ plot_model(m2_Invasive_PrePost, type = "pred",
        title = NULL)
 
 # Predicted change in percent cover invasive with annual precip
-plot_model(m2_Invasive_PrePost, type = "pred", terms = c("yearly_rain")) +
+rainfall_invasive <- plot_model(m2_Invasive_PrePost, type = "pred", terms = c("yearly_rain")) +
   theme_classic() +
   labs(x = "Annual Precipitation (cm)",
        y = "Percent Cover of Invasive Species",
-       title = NULL)
+       title = "Predicted Percent Cover of Invasive Species by Rainfall")
 
+rainfall_invasive
 
 Invasive_data <- Invasive_data %>% mutate(Treatment = tolower(Treatment))
 
@@ -263,3 +265,103 @@ actual_invasive_plot
 invasive_plots <- actual_invasive_plot | predicted_invasive_plot
 
 invasive_plots
+
+
+# For Shrubs
+
+# Plot Residuals Invasive Species
+plot_model(m2_Shrub_PrePost, type = "diag")
+
+# Forest Plot Invasive Species
+plot_model(m2_Shrub_PrePost, type = "est") + 
+  geom_hline(yintercept = 1, linetype = 2)
+
+# Predicted change in percent cover invasive with time since treatment for each treatment
+plot_model(m2_Shrub_PrePost, type = "pred", 
+           terms = c("Treatment", "Trt_Status")) +
+  theme_classic() +
+  labs(x = "Treatment Status",
+       y = "Percent Cover of Shrubs",
+       title = NULL)
+
+# Predicted change in percent cover invasive with annual precip
+rainfall_shrubs <- plot_model(m2_Shrub_PrePost, type = "pred", terms = c("yearly_rain"),
+           color = "orange2") +
+  theme_classic() +
+  labs(x = "Annual Precipitation (cm)",
+       y = "Percent Cover of Shrubs",
+       title = "Predicted Percent Cover of Shrubs by Rainfall")
+
+rainfall_shrubs
+
+Shrub_data <- Shrubs_data %>% mutate(Treatment = tolower(Treatment))
+
+predicted_data_shrub <- Shrubs_data %>%
+  mutate(predicted = predict(m2_Shrub_PrePost, type = "response"))
+
+predicted_shrub_plot <- ggplot(predicted_data_shrub, 
+  aes(x = Trt_Status, y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::percent,
+                      limits = c(0, 0.8)
+  ) +
+  labs(
+    title = "Predicted Percent Cover of Shrubs by Treatment Status",
+    x = "Treatment Status",
+    y = "Predicted Percent Cover of Shrubs",
+    fill = "Treatment") +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold"), # Bold x-axis label
+    axis.title.y = element_text(face = "bold"), # Bold y-axis label
+    legend.title = element_text(face = "bold"), # Bold legend title
+    legend.text = element_text(face = "plain") # Lowercase text
+  )
+
+predicted_shrub_plot
+
+Shrubs_data2 <- Shrubs_data %>%
+  mutate(Percent_Cover_Shrubs = Total_Shrubs/Total_Count)
+
+actual_shrub_plot <- ggplot(Shrubs_data2, 
+                               aes(Trt_Status, Percent_Cover_Shrubs, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(position = position_dodge(width = .75)) +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, 0.8)
+  ) +
+  labs(
+    title = "Actual Percent Cover of Shrubs by Treatment Status",
+    x = "Treatment Status",
+    y = "Percent Cover of Shrubs",
+    fill = "Treatment"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold"), # Bold x-axis label
+    axis.title.y = element_text(face = "bold"), # Bold y-axis label
+    #legend.title = element_text(face = "bold"), # Bold legend title
+    #legend.text = element_text(face = "plain") # Lowercase text
+    legend.position = "none"
+  )
+
+actual_shrub_plot
+
+shrub_plots <- actual_shrub_plot | predicted_shrub_plot
+
+shrub_plots
+
+
+rainfall_plots <- (rainfall_lupin | rainfall_native) / (rainfall_invasive | rainfall_shrubs)
+
+rainfall_plots
+
+
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "rainfall_plots.png")
+# 
+# # Save the plot using ggsave
+# ggsave(file_path, plot = rainfall_plots, 
+#        width = 15, height = 10,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")   

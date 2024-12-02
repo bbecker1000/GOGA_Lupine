@@ -120,7 +120,7 @@ m2_Invasive_cat <- glmer(cbind(Total_Invasive, Total_Count) ~
 summary(m2_Invasive_cat)
 
 # Run a model on invasive species changes over time by treatment 
-# # [YEAR AS PRE AD POST, BASE TOTAL COUNT]
+# # [YEAR AS PRE AND POST, BASE TOTAL COUNT]
 m2_Invasive_PrePost <- glmer(cbind(Total_Invasive, Total_Count) ~ 
                            Treatment *
                            Trt_Status +  
@@ -130,3 +130,16 @@ m2_Invasive_PrePost <- glmer(cbind(Total_Invasive, Total_Count) ~
                          data = Invasive_data)
 
 summary(m2_Invasive_PrePost)
+
+
+# Run a model on shrubs species changes over time by treatment 
+# # [YEAR AS PRE AND POST, BASE TOTAL COUNT]
+m2_Shrub_PrePost <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
+                               Treatment *
+                               Trt_Status +  
+                               scale(yearly_rain) + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = Shrubs_data)
+
+summary(m2_Shrub_PrePost)

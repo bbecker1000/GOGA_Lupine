@@ -118,3 +118,38 @@ Invasive_data <- merge(x = Invasive, y = total_detections,
 #we think that treatment didn't happen until after 2010 sampling, so start with 2011 data
 Invasive_data_2011_2013 <- Invasive_data %>% filter(Year >  2010)
 
+
+
+# Set up a dataframe that contains data for a model on shrubs
+Shrubs <- CL_Complete %>%
+  filter(Default_LF == "Shrub") %>%
+  group_by(Year,
+           Trt_Status,
+           Site,
+           Plot,
+           Treatment,
+           MacroPlot,
+           yearly_rain, 
+           Default_LF) %>%
+  summarise(Total_Shrubs = sum(Count), .groups = "keep")
+
+# set Control as base level
+Shrubs$Treatment <- factor(Shrubs$Treatment, 
+                             levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+Shrubs$Trt_Status <- factor(Shrubs$Trt_Status, 
+                              levels = c("before", "after"))
+
+#make year numeric
+Shrubs$Year.numeric <- as.numeric(Shrubs$Year)
+Shrubs$Year_Time_since_trt <- Shrubs$Year.numeric-2011
+
+# we want a dataset that includes total detections for each macroplot in each year
+Shrubs_data <- merge(x = Shrubs, y = total_detections, 
+                       by.x = c("MacroPlot", "Year"),
+                       by.y = c("MacroPlot", "Year"), 
+                       all = TRUE)
+
+Shrubs_data <- drop_na(Shrubs_data)
+
