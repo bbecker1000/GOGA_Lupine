@@ -51,13 +51,43 @@ estimate.sd.tidy <- estimate.sd %>%
 glvvm.coef.plot <- tibble(cbind(estimate.tidy, estimate.sd.tidy[,-2]))
 glvvm.coef.plot$nativity <- c() #adding color to nativity
 
-# Forest PLot  
-ggplot(glvvm.coef.plot, aes(reorder(Species, -Estimate), Estimate)) + 
+# Create separate data frames based on covariates
+glvvm.coef.plot.afterburn <- glvvm.coef.plot %>% 
+  filter(Covariate == "Trt_Statusafter.TreatmentBURN")
+glvvm.coef.plot.aftermech <- glvvm.coef.plot %>% 
+  filter(Covariate == "Trt_Statusafter.TreatmentMECHANICAL")
+glvvm.coef.plot.rain <- glvvm.coef.plot %>% 
+  filter(Covariate == "yearly_rainfall")
+
+# Forest Plot for Post-treatment burn
+ggplot(glvvm.coef.plot.afterburn, aes(reorder(Species, -Estimate), Estimate)) + 
   geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
   coord_flip() +
   geom_hline(yintercept = 0, linetype = 2) +
   xlab(NULL) + 
   ylim(-10,10) +
   theme_gray(base_size = 10) +
-  facet_wrap(.~Covariate)
+  ggtitle("Post Burn Treatment") +
+  theme()
 
+# Forest Plot for Post-treatment mechanical
+ggplot(glvvm.coef.plot.aftermech, aes(reorder(Species, -Estimate), Estimate)) + 
+  geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
+  coord_flip() +
+  geom_hline(yintercept = 0, linetype = 2) +
+  xlab(NULL) + 
+  ylim(-10,10) +
+  theme_gray(base_size = 10) +
+  ggtitle("Post Mechanical Treatment") +
+  theme()
+
+# Forest Plot for rainfall - NOT WORKING
+ggplot(glvvm.coef.plot.rain, aes(reorder(Species, -Estimate), Estimate)) + 
+  geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
+  coord_flip() +
+  geom_hline(yintercept = 0, linetype = 2) +
+  xlab(NULL) + 
+  #ylim(-10,10) +
+  theme_gray(base_size = 10) +
+  ggtitle("Yearly Rainfall") +
+  theme()
