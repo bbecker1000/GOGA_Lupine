@@ -36,7 +36,9 @@ rainfall_lupin <- plot_model(m2_Lupin_PrePost, type = "pred", terms = c("yearly_
   
 rainfall_lupin
 
-Lupin_data <- Lupin_data %>% mutate(Treatment = tolower(Treatment))
+#Lupin_data2 <- Lupin_data %>% mutate(Treatment = tolower(Treatment))
+Lupin_data2$Treatment <- factor(Nativity$Treatment, 
+                                levels = c("control", "burn", "mechanical"))
 
 predicted_data <- Lupin_data %>%
   mutate(predicted = predict(m2_Lupin_PrePost, type = "response"))
@@ -61,7 +63,7 @@ predicted_lupin_plot <- ggplot(predicted_data,
 
 predicted_lupin_plot
     
-Lupin_data2 <- Lupin_data %>%
+Lupin_data2 <- Lupin_data2 %>%
   mutate(Percent_Cover_Lupin = Total_Lupin/Total_Count)
   
 actual_lupin_plot <- ggplot(Lupin_data2, 
@@ -80,8 +82,8 @@ actual_lupin_plot <- ggplot(Lupin_data2,
     plot.title = element_text(face = "bold"),
     axis.title.x = element_text(face = "bold"), # Bold x-axis label
     axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
+    #legend.title = element_text(face = "bold"), # Bold legend title
+    #legend.text = element_text(face = "plain") # Lowercase text
   )
 
 actual_lupin_plot
@@ -160,8 +162,8 @@ actual_native_plot <- ggplot(Nativity_data2,
                             aes(Trt_Status, Percent_Cover_Native, fill = Treatment)) +
   geom_boxplot() +
   geom_point(position = position_dodge(width = .75)) +
-  scale_y_continuous(labels = scales::percent
-                    # limits = c(0, 1)
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, 1)
                      ) +
   labs(
     title = "Actual Percent Cover of Native Species by Treatment Status",
@@ -173,8 +175,9 @@ actual_native_plot <- ggplot(Nativity_data2,
     plot.title = element_text(face = "bold"),
     axis.title.x = element_text(face = "bold"), # Bold x-axis label
     axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
+    #legend.title = element_text(face = "bold"), # Bold legend title
+    #legend.text = element_text(face = "plain") # Lowercase text
+    legend.position = "none"
   )
 
 actual_native_plot
