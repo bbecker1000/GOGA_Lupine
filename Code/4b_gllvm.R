@@ -26,7 +26,7 @@ par(mfrow = c(1, 1))
 fit_env.nb <- gllvm(wide_data_groupings.nms,  # [,c(23, 32, 11, 18, 28, 14)]
                     data_plot_groupings, family = "negative.binomial", 
                     num.lv = 1,
-                    formula = ~ Trt_Status + Treatment + yearly_rain,
+                    formula = ~ Trt_Status * Treatment + yearly_rain,
                     seed = 1234)
 summary(fit_env.nb)
 plot(fit_env.nb, mfrow=c(3,2))
@@ -49,7 +49,7 @@ estimate.sd.tidy <- estimate.sd %>%
   pivot_longer(cols = c(-Species.sd) , names_to = "Covariate", values_to = "Estimate.sd")
 
 glvvm.coef.plot <- tibble(cbind(estimate.tidy, estimate.sd.tidy[,-2]))
-
+glvvm.coef.plot$nativity <- c() #adding color to nativity
 
 # Forest PLot  
 ggplot(glvvm.coef.plot, aes(reorder(Species, -Estimate), Estimate)) + 
@@ -57,6 +57,7 @@ ggplot(glvvm.coef.plot, aes(reorder(Species, -Estimate), Estimate)) +
   coord_flip() +
   geom_hline(yintercept = 0, linetype = 2) +
   xlab(NULL) + 
+  ylim(-10,10) +
   theme_gray(base_size = 10) +
   facet_wrap(.~Covariate)
 

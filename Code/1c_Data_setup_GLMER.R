@@ -1,4 +1,5 @@
 source("Code/1a_alldata.R")
+source("Code/1b_Data_setup_NMS.R")
 
 # Setting up dataframes to run GLMER
 
@@ -7,6 +8,9 @@ total_detections <- CL_Complete %>%
   select(MacroPlot, Year, Count) %>%
   group_by(MacroPlot, Year) %>%
   summarise(Total_Count = sum(Count), .groups = "keep") 
+
+
+# FOR LUPIN DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
 # Set up a dataframe that contains data for a model on Lupin abundance
 # THIS DATAFRAME INCLUDES ZEROS AND TOTAL DETECTIONS
@@ -33,7 +37,8 @@ Lupin <- sum_allspp_zeros %>%
 
 # set Control as base level
 Lupin$Treatment <- factor(Lupin$Treatment, 
-                                     levels = c("CONTROL", "BURN", "MECHANICAL"))
+                                levels = c("CONTROL", "BURN", "MECHANICAL"))
+
 # set Pre-treatment as base level
 Lupin$Trt_Status <- factor(Lupin$Trt_Status, levels = c("before", "after"))
 
@@ -50,6 +55,8 @@ Lupin_data <- merge(x = Lupin, y = total_detections,
 #we think that treatment didn't happen until after 2010 sampling, so start with 2011 data
 Lupin_data_2011_2013 <- Lupin_data %>% filter(Year >  2010)
 
+
+# FOR NATIVE DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
 # Set up a dataframe that contains data for a model on nativity
 Nativity <- CL_Complete %>%
@@ -83,6 +90,8 @@ Nativity_data <- merge(x = Nativity, y = total_detections,
 
 #we think that treatment didn't happen until after 2010 sampling, so start with 2011 data
 Nativity_data_2011_2013 <- Nativity_data %>% filter(Year >  2010)
+
+# FOR INVASIVE DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
 # Set up a dataframe that contains data for a model on invasives
 Invasive <- CL_Complete %>%
@@ -118,7 +127,7 @@ Invasive_data <- merge(x = Invasive, y = total_detections,
 #we think that treatment didn't happen until after 2010 sampling, so start with 2011 data
 Invasive_data_2011_2013 <- Invasive_data %>% filter(Year >  2010)
 
-
+# FOR SHRUB DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
 # Set up a dataframe that contains data for a model on shrubs
 Shrubs <- CL_Complete %>%
