@@ -82,24 +82,26 @@ gg_groups = gg_all <- ggplot(data = data.scores.group,
             colour = "blue",
             label = row.names(nms_groupings$species)) + 
   # edit the look of the figure
-  theme(axis.title = element_text(size = 10, face = "bold", colour = "grey30"),
+  theme(axis.title = element_text(size = 14, face = "bold", colour = "grey30"),
         panel.background = element_blank(), 
         panel.border = element_rect(fill = NA, colour = "grey30"), 
-        axis.ticks = element_line(base_size = 18), 
+        axis.ticks = element_line(), 
+        axis.text = element_text(size = 13),
         panel.grid.major = element_line(color = "gray", size = 0.25), 
         panel.grid.minor = element_line(color = "gray", size = 0.25),
-        legend.title = element_text(face = "bold")) +
+        legend.title = element_text(face = "bold", size = 14),
+        legend.text = element_text(size = 14)) +
   coord_cartesian(xlim = c(-0.7, 0.7), ylim = c(-0.75, 0.7))
 
 # View the plot
 gg_groups 
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
-
-# Save the plot using ggsave
-ggsave(file_path, plot = gg_groups, 
-       width = 8, height = 6,   # Set desired width and height in inches
-       dpi = 300,               # Set the resolution (300 DPI for high quality)
-       units = "in",            # Set units to inches
-       device = "png")   
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
+# 
+# # Save the plot using ggsave
+# ggsave(file_path, plot = gg_groups, 
+#        width = 8, height = 6,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")   
 
