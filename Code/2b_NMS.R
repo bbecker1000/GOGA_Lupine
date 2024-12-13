@@ -26,7 +26,7 @@ h_allspp <- how(within = Within(type = "series"),
           nperm = 1000)
 
 # Run adonis (without interactions between year and treatment)
-adonis2(wide_data_allspp.nms ~ Trt_Status * Treatment + yearly_rain,
+adonis2(wide_data_allspp.nms ~ Trt_Status * Treatment + scale(yearly_rain),
         data = wide_data_allspp,
         perm = h_allspp, # new 2024-11-18 
         by = "terms",    # new 2024-11-18 
@@ -38,6 +38,8 @@ adonis2(wide_data_allspp.nms ~ Trt_Status * Treatment + yearly_rain,
 
 set.seed(10) # for repeatability
 nms_groupings <- metaMDS(wide_data_groupings.nms, trymax = 25)
+
+data_plot_groupings$yearly_rain <- scale(data_plot_groupings$yearly_rain)
 
 en_groupings = envfit(nms_groupings, 
                       data_plot_groupings, 
@@ -58,7 +60,7 @@ h_groupings <- how(within = Within(type = "series"),
                 nperm = 499)
 
 # Run adonis (without interactions between year and treatment)
-adonis2(wide_data_groupings.nms ~ Trt_Status + Treatment + yearly_rain,
+adonis2(wide_data_groupings.nms ~ Trt_Status + Treatment + scale(yearly_rain),
         data = data_plot_groupings,
         perm = h_groupings,
         by = "terms",

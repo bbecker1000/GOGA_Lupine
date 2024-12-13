@@ -32,7 +32,8 @@ predicted_lupin_plot <- ggplot(predicted_data,
   geom_boxplot() +
   geom_point(data = Lupin_data2, 
              aes(Trt_Status, Percent_Cover_Lupin, fill = Treatment),
-             position = position_dodge(width = .75)
+             position = position_dodge(width = .75),
+             alpha = 0.5
              ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
@@ -42,12 +43,13 @@ predicted_lupin_plot <- ggplot(predicted_data,
     fill = "Treatment"
     ) +
   theme(
-    plot.title = element_text(face = "bold"),
-    axis.title.x = element_text(face = "bold"), # Bold x-axis label
-    axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
-    )
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
 
 # View graph
 predicted_lupin_plot
@@ -63,8 +65,15 @@ rainfall_lupin <- plot_model(m2_Lupin_PrePost,
     x = "Annual Precipitation (cm)",
        y = "Percent Cover of Lupin",
        title = "Predicted Percent Cover of Lupin by Rainfall"
-    )
-
+    ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(size = 20), # Bold x-axis label
+    axis.title.y = element_text( size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
 # View graph
 rainfall_lupin
 
@@ -100,7 +109,8 @@ predicted_native_plot <- ggplot(predicted_data_nativity,
   geom_boxplot() +
   geom_point(data = Nativity_data2, 
              aes(Trt_Status, Percent_Cover_Native, fill = Treatment),
-             position = position_dodge(width = .75)
+             position = position_dodge(width = .75),
+             alpha = 0.5
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
@@ -110,11 +120,12 @@ predicted_native_plot <- ggplot(predicted_data_nativity,
     fill = "Treatment"
     ) +
   theme(
-    plot.title = element_text(face = "bold"),
-    axis.title.x = element_text(face = "bold"), # Bold x-axis label
-    axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
   )
 
 # View graph
@@ -130,7 +141,15 @@ rainfall_native <- plot_model(m2_Nativity_PrePost,
     x = "Annual Precipitation (cm)",
        y = "Percent Cover of Native",
        title = "Predicted Percent Cover of Native Species by Rainfall"
-    )
+    ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(size = 20), # Bold x-axis label
+    axis.title.y = element_text( size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
 
 # View graph
 rainfall_native
@@ -158,7 +177,15 @@ rainfall_invasive <- plot_model(m2_Invasive_PrePost, type = "pred", terms = c("y
   theme_classic() +
   labs(x = "Annual Precipitation (cm)",
        y = "Percent Cover of Invasive Species",
-       title = "Predicted Percent Cover of Invasive Species by Rainfall")
+       title = "Predicted Percent Cover of Invasive Species by Rainfall") +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(size = 20), # Bold x-axis label
+    axis.title.y = element_text( size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
 
 # View graph
 rainfall_invasive
@@ -177,7 +204,8 @@ predicted_invasive_plot <- ggplot(predicted_data_invasive,
   geom_boxplot() +
   geom_point(data = Invasive_data2, 
              aes(Trt_Status, Percent_Cover_Invasive, fill = Treatment),
-             position = position_dodge(width = .75)
+             position = position_dodge(width = .75),
+             alpha = 0.5
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
@@ -187,11 +215,12 @@ predicted_invasive_plot <- ggplot(predicted_data_invasive,
     fill = "Treatment"
     ) +
   theme(
-    plot.title = element_text(face = "bold"),
-    axis.title.x = element_text(face = "bold"), # Bold x-axis label
-    axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
   )
 
 # View graph
@@ -229,7 +258,8 @@ predicted_shrub_plot <- ggplot(predicted_data_shrub,
   geom_boxplot() +
   geom_point(data = Shrubs_data2, 
             aes(Trt_Status, Percent_Cover_Shrubs, fill = Treatment), 
-  position = position_dodge(width = .75)
+  position = position_dodge(width = .75),
+  alpha = 0.5
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
@@ -239,11 +269,12 @@ predicted_shrub_plot <- ggplot(predicted_data_shrub,
     fill = "Treatment"
     ) +
   theme(
-    plot.title = element_text(face = "bold"),
-    axis.title.x = element_text(face = "bold"), # Bold x-axis label
-    axis.title.y = element_text(face = "bold"), # Bold y-axis label
-    legend.title = element_text(face = "bold"), # Bold legend title
-    legend.text = element_text(face = "plain") # Lowercase text
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
   )
 
 # View graph
@@ -258,7 +289,15 @@ rainfall_shrubs <- plot_model(m2_Shrub_PrePost,
   theme_classic() +
   labs(x = "Annual Precipitation (cm)",
        y = "Percent Cover of Shrubs",
-       title = "Predicted Percent Cover of Shrubs by Rainfall")
+       title = "Predicted Percent Cover of Shrubs by Rainfall") +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(size = 20), # Bold x-axis label
+    axis.title.y = element_text( size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
 
 # View graph
 rainfall_shrubs
@@ -272,11 +311,11 @@ rainfall_plots
 
 # FOR SAVING GRAPHS
 
-# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "rainfall_plots.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "lupine_data.csv")
 # 
 # # Save the plot using ggsave
-# ggsave(file_path, plot = rainfall_plots, 
-#        width = 15, height = 10,   # Set desired width and height in inches
-#        dpi = 300,               # Set the resolution (300 DPI for high quality)
-#        units = "in",            # Set units to inches
-#        device = "png")   
+ggsave(file_path, plot = rainfall_plots,
+       width = 25, height = 15,   # Set desired width and height in inches
+       dpi = 300,               # Set the resolution (300 DPI for high quality)
+       units = "in",            # Set units to inches
+       device = "png")

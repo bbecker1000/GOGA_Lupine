@@ -76,6 +76,9 @@ gg_groups = gg_all <- ggplot(data = data.scores.group,
                # linetype = c("solid", "dashed"),
                alpha = 1,
                color = c("black", "gray50")) +
+  # geom_text(data = en_coord_cont_g, 
+  #           aes(x = NMDS1, y = NMDS2, label = rownames(en_coord_cont_g)), 
+  #           vjust = -1, hjust = 1, size = 5, colour = "black") +
   # add species groups to the graph
   geom_text_repel(data = as_tibble(nms_groupings$species), 
             aes(x = MDS1, y = MDS2), 
@@ -96,12 +99,12 @@ gg_groups = gg_all <- ggplot(data = data.scores.group,
 # View the plot
 gg_groups 
 
-# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
 # 
 # # Save the plot using ggsave
-# ggsave(file_path, plot = gg_groups, 
-#        width = 8, height = 6,   # Set desired width and height in inches
-#        dpi = 300,               # Set the resolution (300 DPI for high quality)
-#        units = "in",            # Set units to inches
-#        device = "png")   
+ggsave(file_path, plot = gg_groups,
+       width = 8, height = 6,   # Set desired width and height in inches
+       dpi = 300,               # Set the resolution (300 DPI for high quality)
+       units = "in",            # Set units to inches
+       device = "png")
 

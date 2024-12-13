@@ -49,45 +49,102 @@ estimate.sd.tidy <- estimate.sd %>%
   pivot_longer(cols = c(-Species.sd) , names_to = "Covariate", values_to = "Estimate.sd")
 
 glvvm.coef.plot <- tibble(cbind(estimate.tidy, estimate.sd.tidy[,-2]))
-glvvm.coef.plot$nativity <- c() #adding color to nativity
-
+glvvm.coef.plot$nativity <- str_extract(glvvm.coef.plot$Species, "[A-Z][a-z]+$")
+glvvm.coef.plot$nativity <- ifelse(is.na(glvvm.coef.plot$nativity), 
+                                   "Native", 
+                                   glvvm.coef.plot$nativity)
+  
 # Create separate data frames based on covariates
 glvvm.coef.plot.afterburn <- glvvm.coef.plot %>% 
   filter(Covariate == "Trt_Statusafter.TreatmentBURN")
+
 glvvm.coef.plot.aftermech <- glvvm.coef.plot %>% 
   filter(Covariate == "Trt_Statusafter.TreatmentMECHANICAL")
+
 glvvm.coef.plot.rain <- glvvm.coef.plot %>% 
-  filter(Covariate == "yearly_rainfall")
+  filter(Covariate == "yearly_rain")
 
 # Forest Plot for Post-treatment burn
-ggplot(glvvm.coef.plot.afterburn, aes(reorder(Species, -Estimate), Estimate)) + 
+afterburn <- ggplot(glvvm.coef.plot.afterburn, aes(reorder(Species, -Estimate), Estimate,
+                                      color = nativity)) + 
   geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
   coord_flip() +
   geom_hline(yintercept = 0, linetype = 2) +
-  xlab(NULL) + 
+  labs(title = "Effect of Prescribed Fire on Species Groups",
+       color = "Nativity Status") + 
   ylim(-10,10) +
+  scale_color_manual(
+    values = c(
+      "Invasive" = "#F8766D",
+      "Introduced" = "#619CFF",
+      "Native" = "#00BA38")
+  ) +
   theme_gray(base_size = 10) +
-  ggtitle("Post Burn Treatment") +
-  theme()
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(face = "bold", size = 14),
+    legend.text = element_text(size = 14)
+        ) 
 
 # Forest Plot for Post-treatment mechanical
-ggplot(glvvm.coef.plot.aftermech, aes(reorder(Species, -Estimate), Estimate)) + 
-  geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
+aftermech <- ggplot(glvvm.coef.plot.aftermech, aes(reorder(Species, -Estimate), Estimate, 
+                                      color = nativity)) + 
+  geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, 
+                      ymax = Estimate+2*Estimate.sd)) +
   coord_flip() +
   geom_hline(yintercept = 0, linetype = 2) +
-  xlab(NULL) + 
-  ylim(-10,10) +
+  labs(title = "Effect of Mechanical Treatment on Species Groups",
+       color = "Nativity Status") + 
+  ylim(-6,6) +
+  scale_color_manual(
+    values = c(
+      "Invasive" = "#F8766D",
+      "Introduced" = "#619CFF",
+      "Native" = "#00BA38")
+    ) +
   theme_gray(base_size = 10) +
-  ggtitle("Post Mechanical Treatment") +
-  theme()
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(face = "bold", size = 14),
+    legend.text = element_text(size = 14)
+  )
 
-# Forest Plot for rainfall - NOT WORKING
-ggplot(glvvm.coef.plot.rain, aes(reorder(Species, -Estimate), Estimate)) + 
+# Forest Plot for rainfall
+rain.forestplot <- ggplot(glvvm.coef.plot.rain, aes(reorder(Species, -Estimate), Estimate,
+                                 color = nativity)) + 
   geom_pointrange(aes(ymin = Estimate-2*Estimate.sd, ymax = Estimate+2*Estimate.sd)) +
   coord_flip() +
   geom_hline(yintercept = 0, linetype = 2) +
-  xlab(NULL) + 
-  #ylim(-10,10) +
+  labs(title = "Effect of Rainfall on Species Groups",
+       color = "Nativity Status") + 
+  scale_color_manual(
+    values = c(
+      "Invasive" = "#F8766D",
+      "Introduced" = "#619CFF",
+      "Native" = "#00BA38")
+  ) +
+  ylim(-2,2) +
   theme_gray(base_size = 10) +
-  ggtitle("Yearly Rainfall") +
-  theme()
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(face = "bold", size = 14),
+    legend.text = element_text(size = 14)
+  )
+
+
+# 
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "forestplot_rain.png")
+# # 
+# # # Save the plot using ggsave
+# ggsave(file_path, plot = rain.forestplot,
+#        width = 8, height = 6,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")
+# 
