@@ -6,7 +6,7 @@ library(sjPlot)
 # FOR LUPIN
 
 ## take a look at the data
-ggplot(Lupin_data, aes(x = Year, y = Total_Count)) + 
+ggplot(Lupin_data, aes(x = Year, y = Total_Lupin)) + 
   geom_boxplot() +
   geom_point(position = position_dodge(width = .75)) + 
   facet_wrap(~Treatment)
