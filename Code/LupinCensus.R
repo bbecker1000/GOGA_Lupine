@@ -61,7 +61,7 @@ plot_model(m_Lupin_census_nb,type = "diag")
 plot(m_Lupin_census_nb)
 
 # Plot basic view of model
-plot_model(m_Lupin_census_nb, type = "pred", 
+plot_model(m_Lupin_census_nb, type = "eff", 
            terms = c("Year", "Treatment", "Status")) +
   theme_classic() 
 

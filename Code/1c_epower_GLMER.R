@@ -1,4 +1,5 @@
-#### Set up data for epower
+#### Set up data for epower 
+# FOR BEN: this is the file that the model is coming from
 source("Code/2C_GLMER.R")
 
 # Upload the data we will need
@@ -15,11 +16,11 @@ library(simr) # power analysis for generalized linear mixed models by simulation
 # Power analysis with simr
 
 #looking at the effect of treatment and treatment status
-fixef(m2_Lupin_PrePost)["TreatmentMECHANICAL:Trt_Statusafter"] <- 20  # Hypothetical effect size
+fixef(m2_Lupin_PrePost)["Trt_Statusafter"] <- 0.5  # Hypothetical effect size
 
 # Run power analysis
 power1 <- powerSim(m2_Lupin_PrePost, nsim=100, 
-                  test=fixed("TreatmentMECHANICAL:Trt_Statusafter ", "z"))
+                  test=fixed("Trt_Statusafter", "z"))
 
 # Summarize results
 summary(power1)
