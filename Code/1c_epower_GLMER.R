@@ -1,5 +1,4 @@
 #### Set up data for epower 
-# FOR BEN: this is the file that the model is coming from
 source("Code/2C_GLMER.R")
 
 # Upload the data we will need
