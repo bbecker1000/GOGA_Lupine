@@ -18,9 +18,13 @@ plot_model(m2_Lupin_PrePost, type = "pred",
        y = "Percent Cover of Lupin",
        title = NULL)
  
+
 # Extract the model data
 predicted_data <- Lupin_data %>%
   mutate(predicted = predict(m2_Lupin_PrePost, type = "response"))
+
+predicted_data_year <- Lupin_data %>%
+  mutate(predicted = predict(m_Lupin_Year, type = "response"))
 
 # Create a new df that has the percent cover of lupine
 Lupin_data2 <- Lupin_data %>%
@@ -28,20 +32,20 @@ Lupin_data2 <- Lupin_data %>%
 
 # Use ggplot to create a boxplot of the model data
 predicted_lupin_plot <- ggplot(predicted_data, 
-  aes(x = Trt_Status, y = predicted, fill = Treatment)) +
+                               aes(x = Trt_Status, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = Lupin_data2, 
              aes(Trt_Status, Percent_Cover_Lupin, fill = Treatment),
              position = position_dodge(width = .75),
              alpha = 0.5
-             ) +
+  ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
     title = "Predicted Percent Cover of Lupin by Treatment Status",
     x = "Treatment Status", 
     y = "Predicted Percent Cover of Lupin",
     fill = "Treatment"
-    ) +
+  ) +
   theme(
     plot.title = element_text(face = "bold", size = 20),
     axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
@@ -53,6 +57,37 @@ predicted_lupin_plot <- ggplot(predicted_data,
 
 # View graph
 predicted_lupin_plot
+
+
+
+# Use ggplot to create a boxplot of the model data
+predicted_lupin_plot_year <- ggplot(predicted_data_year, 
+                                    aes(x = as.factor(Year), y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = Lupin_data2, 
+             aes(as.factor(Year), Percent_Cover_Lupin, fill = Treatment),
+             position = position_dodge(width = .75),
+             alpha = 0.5
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Predicted Percent Cover of Lupin by Year",
+    x = "Treatment Status", 
+    y = "Predicted Percent Cover of Lupin",
+    fill = "Treatment"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
+
+# View graph
+predicted_lupin_plot_year
+
 
 # Predicted change in percent cover lupin with annual precip
 rainfall_lupin <- plot_model(m2_Lupin_PrePost,
@@ -99,6 +134,9 @@ plot_model(m2_Nativity_PrePost, type = "pred",
 predicted_data_nativity <- Nativity_data %>%
   mutate(predicted = predict(m2_Nativity_PrePost, type = "response"))
 
+predicted_data_nativity_year <- Nativity_data %>%
+  mutate(predicted = predict(m_Nativity_Year, type = "response"))
+
 # Create a new df that has the percent cover of native species
 Nativity_data2 <- Nativity_data %>%
   mutate(Percent_Cover_Native = Total_Native/Total_Count)
@@ -129,7 +167,35 @@ predicted_native_plot <- ggplot(predicted_data_nativity,
   )
 
 # View graph
-predicted_native_plot
+predicted_native_plot_year
+
+# Use ggplot to create a boxplot of the model data
+predicted_native_plot_year <- ggplot(predicted_data_nativity_year, 
+                                aes(x = as.factor(Year), y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = Nativity_data2, 
+             aes(as.factor(Year), Percent_Cover_Native, fill = Treatment),
+             position = position_dodge(width = .75),
+             alpha = 0.5
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Predicted Percent Cover of Native Species by Year",
+    x = "Treatment Status",
+    y = "Predicted Percent Cover of Native Species",
+    fill = "Treatment"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
+
+# View graph
+predicted_native_plot_year
 
 # Predicted change in percent cover lupin with annual precip
 rainfall_native <- plot_model(m2_Nativity_PrePost, 
@@ -194,6 +260,9 @@ rainfall_invasive
 predicted_data_invasive <- Invasive_data %>%
   mutate(predicted = predict(m2_Invasive_PrePost, type = "response"))
 
+predicted_data_invasive_year <- Invasive_data %>%
+  mutate(predicted = predict(m_Invasive_Year, type = "response"))
+
 # Create a new df that has the percent cover of invasive species
 Invasive_data2 <- Invasive_data %>%
   mutate(Percent_Cover_Invasive = Total_Invasive/Total_Count)
@@ -226,6 +295,34 @@ predicted_invasive_plot <- ggplot(predicted_data_invasive,
 # View graph
 predicted_invasive_plot
 
+# Use ggplot to create a boxplot of the model data
+predicted_invasive_plot_year <- ggplot(predicted_data_invasive_year, 
+                                  aes(x = as.factor(Year), y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = Invasive_data2, 
+             aes(as.factor(Year), Percent_Cover_Invasive, fill = Treatment),
+             position = position_dodge(width = .75),
+             alpha = 0.5
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Predicted Percent Cover of Invasive Species by Year",
+    x = "Treatment Status",
+    y = "Predicted Percent Cover of Invasive Species",
+    fill = "Treatment"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
+
+# View graph
+predicted_invasive_plot_year
+
 
 # FOR SHRUB DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
@@ -247,6 +344,10 @@ plot_model(m2_Shrub_PrePost, type = "pred",
 # Extract the model data
 predicted_data_shrub <- Shrubs_data %>%
   mutate(predicted = predict(m2_Shrub_PrePost, type = "response"))
+
+predicted_data_shrub_year <- Shrubs_data %>%
+  mutate(predicted = predict(m_Shrub_Year, type = "response"))
+
 
 # Create a new df that has the percent cover of shrubs
 Shrubs_data2 <- Shrubs_data %>%
@@ -280,6 +381,35 @@ predicted_shrub_plot <- ggplot(predicted_data_shrub,
 # View graph
 predicted_shrub_plot
 
+# Use ggplot to create a boxplot of the model data
+predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year, 
+                               aes(x = as.factor(Year), y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = Shrubs_data2, 
+             aes(as.factor(Year), Percent_Cover_Shrubs, fill = Treatment), 
+             position = position_dodge(width = .75),
+             alpha = 0.5
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Predicted Percent Cover of Shrubs by Year",
+    x = "Treatment Status",
+    y = "Predicted Percent Cover of Shrubs",
+    fill = "Treatment"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
+    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17) # Lowercase text
+  )
+
+# View graph
+predicted_shrub_plot_year
+
+
 
 # Predicted change in percent cover invasive with annual precip
 rainfall_shrubs <- plot_model(m2_Shrub_PrePost, 
@@ -311,11 +441,11 @@ rainfall_plots
 
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "lupine_data.csv")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_plot_year.png")
 # 
 # # Save the plot using ggsave
-ggsave(file_path, plot = rainfall_plots,
-       width = 25, height = 15,   # Set desired width and height in inches
+ggsave(file_path, plot = predicted_lupin_plot_year,
+       width = 15, height = 10,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")

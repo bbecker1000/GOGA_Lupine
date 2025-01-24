@@ -24,13 +24,24 @@ m2_Lupin_PrePost <- glmer(cbind(Total_Lupin, Total_Count) ~
 
 summary(m2_Lupin_PrePost)
 
+# [TIME AS FACTOR, BASE TOTAL COUNT]
+m_Lupin_Year <- glmer(cbind(Total_Lupin, Total_Count) ~ 
+                            Treatment +
+                            as.factor(Year) +
+                            #yearly_rain +
+                            (1|Site/Plot), 
+                          family = binomial, 
+                          data = Lupin_data)
+
+summary(m_Lupin_Year)
+
 
 # FOR NATIVE SPECIES
 
 Nativity_data$yearly_rain_scaled <- scale(Nativity_data$yearly_rain)
 
 # Run a model on native species changes over time by treatment 
-# [YEAR AS PRE AD POST, BASE TOTAL COUNT]
+# [YEAR AS PRE AND POST, BASE TOTAL COUNT]
 m2_Nativity_PrePost <- glmer(cbind(Total_Native, Total_Count) ~ 
                            Treatment *
                            Trt_Status +  
@@ -40,6 +51,17 @@ m2_Nativity_PrePost <- glmer(cbind(Total_Native, Total_Count) ~
                          data = Nativity_data)
 
 summary(m2_Nativity_PrePost)
+
+# [YEAR AS FACTOR, BASE TOTAL COUNT]
+m_Nativity_Year <- glmer(cbind(Total_Native, Total_Count) ~ 
+                               Treatment +
+                               as.factor(Year) +  
+                               #yearly_rain_scaled + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = Nativity_data)
+
+summary(m_Nativity_Year)
 
 
 # FOR INVASIVE DATA
@@ -56,6 +78,17 @@ m2_Invasive_PrePost <- glmer(cbind(Total_Invasive, Total_Count) ~
 
 summary(m2_Invasive_PrePost)
 
+# # [YEAR AS FACTOR, BASE TOTAL COUNT]
+m_Invasive_Year <- glmer(cbind(Total_Invasive, Total_Count) ~ 
+                               Treatment +
+                               as.factor(Year) +  
+                               #scale(yearly_rain) + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = Invasive_data)
+
+summary(m_Invasive_Year)
+
 
 # FOR SHRUB DATA
 
@@ -70,3 +103,14 @@ m2_Shrub_PrePost <- glmer(cbind(Total_Shrubs, Total_Count) ~
                              data = Shrubs_data)
 
 summary(m2_Shrub_PrePost)
+
+# # [YEAR AS FACTOR, BASE TOTAL COUNT]
+m_Shrub_Year <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
+                            Treatment +
+                            as.factor(Year) +  
+                            #scale(yearly_rain) + 
+                            (1|Plot), 
+                          family = binomial, 
+                          data = Shrubs_data)
+
+summary(m_Shrub_Year)
