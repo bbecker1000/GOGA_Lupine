@@ -227,3 +227,16 @@ m2_Invasive_cat <- glmer(cbind(Total_Invasive, Total_Count) ~
                          data = Invasive_data)
 
 summary(m2_Invasive_cat)
+
+# Run a GLMER on the Lupine census data with Poisson
+m_Lupin_census_poisson <- glmer(RowCount ~ Treatment + 
+                                  Year + 
+                                  (1|Site/Plot),
+                                family = poisson, 
+                                data = Lupin_Census)
+
+summary(m_Lupin_census_poisson)
+
+# Plot residuals for Poisson
+plot_model(m_Lupin_census_poisson,type = "diag")
+plot(m_Lupin_census_poisson)

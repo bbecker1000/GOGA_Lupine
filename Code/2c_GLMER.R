@@ -17,8 +17,8 @@ ggplot(Lupin_data, aes(x = Year, y = Total_Lupin)) +
 m2_Lupin_PrePost <- glmer(cbind(Total_Lupin, Total_Count) ~ 
                         Treatment *
                         Trt_Status +
-                        yearly_rain +
-                        (1|Site/Plot), 
+                        scale(yearly_rain) +
+                        (1|Plot), 
                       family = binomial, 
                       data = Lupin_data)
 
@@ -26,15 +26,14 @@ summary(m2_Lupin_PrePost)
 
 # [TIME AS FACTOR, BASE TOTAL COUNT]
 m_Lupin_Year <- glmer(cbind(Total_Lupin, Total_Count) ~ 
-                            Treatment +
+                            Treatment *
                             as.factor(Year) +
-                            #yearly_rain +
-                            (1|Site/Plot), 
+                            #scale(yearly_rain) +
+                            (1|Plot), 
                           family = binomial, 
                           data = Lupin_data)
 
 summary(m_Lupin_Year)
-
 
 # FOR NATIVE SPECIES
 
@@ -45,7 +44,7 @@ Nativity_data$yearly_rain_scaled <- scale(Nativity_data$yearly_rain)
 m2_Nativity_PrePost <- glmer(cbind(Total_Native, Total_Count) ~ 
                            Treatment *
                            Trt_Status +  
-                           yearly_rain_scaled + 
+                           scale(yearly_rain) + 
                            (1|Plot), 
                          family = binomial, 
                          data = Nativity_data)
@@ -56,7 +55,7 @@ summary(m2_Nativity_PrePost)
 m_Nativity_Year <- glmer(cbind(Total_Native, Total_Count) ~ 
                                Treatment +
                                as.factor(Year) +  
-                               #yearly_rain_scaled + 
+                               scale(yearly_rain) + 
                                (1|Plot), 
                              family = binomial, 
                              data = Nativity_data)
@@ -82,7 +81,7 @@ summary(m2_Invasive_PrePost)
 m_Invasive_Year <- glmer(cbind(Total_Invasive, Total_Count) ~ 
                                Treatment +
                                as.factor(Year) +  
-                               #scale(yearly_rain) + 
+                               scale(yearly_rain) + 
                                (1|Plot), 
                              family = binomial, 
                              data = Invasive_data)
