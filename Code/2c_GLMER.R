@@ -53,9 +53,9 @@ summary(m2_Nativity_PrePost)
 
 # [YEAR AS FACTOR, BASE TOTAL COUNT]
 m_Nativity_Year <- glmer(cbind(Total_Native, Total_Count) ~ 
-                               Treatment +
+                               Treatment *
                                as.factor(Year) +  
-                               scale(yearly_rain) + 
+                               #scale(yearly_rain) + 
                                (1|Plot), 
                              family = binomial, 
                              data = Nativity_data)
@@ -79,9 +79,9 @@ summary(m2_Invasive_PrePost)
 
 # # [YEAR AS FACTOR, BASE TOTAL COUNT]
 m_Invasive_Year <- glmer(cbind(Total_Invasive, Total_Count) ~ 
-                               Treatment +
+                               Treatment *
                                as.factor(Year) +  
-                               scale(yearly_rain) + 
+                               #scale(yearly_rain) + 
                                (1|Plot), 
                              family = binomial, 
                              data = Invasive_data)
@@ -105,7 +105,7 @@ summary(m2_Shrub_PrePost)
 
 # # [YEAR AS FACTOR, BASE TOTAL COUNT]
 m_Shrub_Year <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
-                            Treatment +
+                            Treatment *
                             as.factor(Year) +  
                             #scale(yearly_rain) + 
                             (1|Plot), 

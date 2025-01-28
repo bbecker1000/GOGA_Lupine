@@ -8,7 +8,10 @@ library(lmerTest)
 library(MuMIn) 
 library(pwr)
 library(simr) 
+library(dplyr)
+library(stringr)
 
+doTest(m2_Lupin_PrePost, fcompare(~ Treatment + Trt_Status))
 
 # POWER ANALYSIS FOR LUPINE LPI PRE/POST TREATMENT
 
@@ -22,18 +25,15 @@ fixef(m2_Lupin_PrePost)["scale(yearly_rain)"] <- 0.5
 P_Lupine_PrePost_MechAfter <- powerSim(m2_Lupin_PrePost, nsim=100, 
                    test=fixed("TreatmentMECHANICAL:Trt_Statusafter", "z"))
 
-summary(P_Lupine_PrePost_MechAfter)
-
 P_Lupine_PrePost_BurnAfter <- powerSim(m2_Lupin_PrePost, nsim=100, 
                    test=fixed("TreatmentBURN:Trt_Statusafter", "z"))
-
-summary(P_Lupine_PrePost_BurnAfter)
 
 P_Lupine_PrePost_Rain <- powerSim(m2_Lupin_PrePost, nsim=100, 
                    test=fixed("scale(yearly_rain)", "z"))
 
-summary(P_Lupine_PrePost_Rain)
-
+sum_P_Lupine_PrePost_MechAfter <- summary(P_Lupine_PrePost_MechAfter)
+sum_P_Lupine_PrePost_BurnAfter <- summary(P_Lupine_PrePost_BurnAfter)
+sum_P_Lupine_PrePost_Rain <- summary(P_Lupine_PrePost_Rain)
 
 
 
@@ -352,7 +352,7 @@ summary(P_Shrub_2011_MechAfter)
 P_Shrub_2012_BurnAfter <- powerSim(m_Shrub_Year, nsim=100, 
                        test=fixed("TreatmentBURN:as.factor(Year)2012", "z"))
 
-summary(Shrub_2012_BurnAfter)
+summary(P_Shrub_2012_BurnAfter)
 
 P_Shrub_2012_MechAfter <- powerSim(m_Shrub_Year, nsim=100, 
                        test=fixed("TreatmentMECHANICAL:as.factor(Year)2012", "z"))
@@ -368,3 +368,4 @@ P_Shrub_2013_MechAfter <- powerSim(m_Shrub_Year, nsim=100,
                        test=fixed("TreatmentMECHANICAL:as.factor(Year)2013", "z"))
 
 summary(P_Shrub_2013_MechAfter)
+
