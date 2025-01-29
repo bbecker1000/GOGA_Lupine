@@ -2,6 +2,8 @@
 source("Code/2C_GLMER.R")
 source("Code/1c_Data_setup_GLMER.R")
 
+t <- powerCurve(m2_Lupin_PrePost)
+
 # Install packages
 library(lme4)
 library(lmerTest) 
@@ -54,7 +56,8 @@ fixef(m_Lupin_Year)["TreatmentMECHANICAL:as.factor(Year)2013"] <- 0.5
 P_Lupine_2010_BurnAfter <- powerSim(m_Lupin_Year, nsim=100, 
                         test=fixed("TreatmentBURN:as.factor(Year)2010", "z"))
 
-summary(P_Lupine_2010_BurnAfter)
+t1 <- summary(P_Lupine_2010_BurnAfter)
+view(t1)
 
 P_Lupine_2010_MechAfter <- powerSim(m_Lupin_Year, nsim=100, 
                         test=fixed("TreatmentMECHANICAL:as.factor(Year)2010", "z"))
