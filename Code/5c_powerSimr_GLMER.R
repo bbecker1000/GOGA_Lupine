@@ -2,8 +2,6 @@
 source("Code/2C_GLMER.R")
 source("Code/1c_Data_setup_GLMER.R")
 
-t <- powerCurve(m2_Lupin_PrePost)
-
 # Install packages
 library(lme4)
 library(lmerTest) 
@@ -15,6 +13,8 @@ library(stringr)
 
 doTest(m2_Lupin_PrePost, fcompare(~ Treatment + Trt_Status))
 
+Nsim <- 10
+
 # POWER ANALYSIS FOR LUPINE LPI PRE/POST TREATMENT
 
 # Extracting the fixed effects from the model pre/post model
@@ -24,13 +24,13 @@ fixef(m2_Lupin_PrePost)["scale(yearly_rain)"] <- 0.5
 
 
 # Run power analysis
-P_Lupine_PrePost_MechAfter <- powerSim(m2_Lupin_PrePost, nsim=100, 
+P_Lupine_PrePost_MechAfter <- powerSim(m2_Lupin_PrePost, nsim = Nsim,
                    test=fixed("TreatmentMECHANICAL:Trt_Statusafter", "z"))
 
-P_Lupine_PrePost_BurnAfter <- powerSim(m2_Lupin_PrePost, nsim=100, 
+P_Lupine_PrePost_BurnAfter <- powerSim(m2_Lupin_PrePost, nsim = Nsim, 
                    test=fixed("TreatmentBURN:Trt_Statusafter", "z"))
 
-P_Lupine_PrePost_Rain <- powerSim(m2_Lupin_PrePost, nsim=100, 
+P_Lupine_PrePost_Rain <- powerSim(m2_Lupin_PrePost, nsim = Nsim, 
                    test=fixed("scale(yearly_rain)", "z"))
 
 sum_P_Lupine_PrePost_MechAfter <- summary(P_Lupine_PrePost_MechAfter)
@@ -53,43 +53,43 @@ fixef(m_Lupin_Year)["TreatmentMECHANICAL:as.factor(Year)2013"] <- 0.5
 
 
 # Run power analysis
-P_Lupine_2010_BurnAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2010_BurnAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentBURN:as.factor(Year)2010", "z"))
 
 t1 <- summary(P_Lupine_2010_BurnAfter)
 view(t1)
 
-P_Lupine_2010_MechAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2010_MechAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentMECHANICAL:as.factor(Year)2010", "z"))
 
 summary(P_Lupine_2010_MechAfter)
 
-P_Lupine_2011_BurnAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2011_BurnAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentBURN:as.factor(Year)2011", "z"))
 
 summary(P_Lupine_2011_BurnAfter)
 
-P_Lupine_2011_MechAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2011_MechAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentMECHANICAL:as.factor(Year)2011", "z"))
 
 summary(P_Lupine_2011_MechAfter)
 
-P_Lupine_2012_BurnAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2012_BurnAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentBURN:as.factor(Year)2012", "z"))
 
 summary(P_Lupine_2012_BurnAfter)
 
-P_Lupine_2012_MechAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2012_MechAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentMECHANICAL:as.factor(Year)2012", "z"))
 
 summary(P_Lupine_2012_MechAfter)
 
-P_Lupine_2013_BurnAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2013_BurnAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentBURN:as.factor(Year)2013", "z"))
 
 summary(P_Lupine_2013_BurnAfter)
 
-P_Lupine_2013_MechAfter <- powerSim(m_Lupin_Year, nsim=100, 
+P_Lupine_2013_MechAfter <- powerSim(m_Lupin_Year, nsim = Nsim, 
                         test=fixed("TreatmentMECHANICAL:as.factor(Year)2013", "z"))
 
 summary(P_Lupine_2013_MechAfter)
@@ -371,4 +371,56 @@ P_Shrub_2013_MechAfter <- powerSim(m_Shrub_Year, nsim=100,
                        test=fixed("TreatmentMECHANICAL:as.factor(Year)2013", "z"))
 
 summary(P_Shrub_2013_MechAfter)
+
+
+# Function to extract power analysis summary details
+extract_summary <- function(sim_name, power_result, test) {
+  # Extract power simulation summary
+  power_summary <- summary(power_result)
+  
+  # Extract key values
+  successes <- power_summary$successes
+  trials <- power_summary$n.sim
+  lower_CI <- power_summary$conf.int[1]
+  upper_CI <- power_summary$conf.int[2]
+  
+  # Extract the second word from the simulation name
+  second_word <- str_split(sim_name, "_", simplify = TRUE)[, 2]
+  
+  # Create a row of the summary table
+  data.frame(
+    Fixed_Effect = test,  # Stores the fixed effect being tested
+    Successes = successes,
+    Trials = trials,
+    Lower_CI = lower_CI,
+    Upper_CI = upper_CI,
+    Simulation_Name = sim_name,
+    Second_Word = second_word
+  )
+}
+
+# Define the fixed effects being tested
+tests <- c("TreatmentMECHANICAL:Trt_Statusafter", 
+           "TreatmentBURN:Trt_Statusafter", 
+           "scale(yearly_rain)")
+
+# Run power simulations
+power_results <- list(
+  P_Lupine_PrePost_MechAfter = powerSim(m2_Lupin_PrePost, nsim = Nsim, test = tests[1]),
+  P_Lupine_PrePost_BurnAfter = powerSim(m2_Lupin_PrePost, nsim = Nsim, test = tests[2]),
+  P_Lupine_PrePost_Rain = powerSim(m2_Lupin_PrePost, nsim = Nsim, test = tests[3])
+)
+
+results_table <- do.call(rbind, Map(extract_summary, 
+                                    names(power_results),  # Simulation names
+                                    power_results,         # powerSim results
+                                    tests                  # Fixed effects
+))
+
+# View the table
+print(results_table)
+
+# Optionally save the table to a CSV
+write.csv(results_table, "power_summary_table.csv", row.names = FALSE)
+
 
