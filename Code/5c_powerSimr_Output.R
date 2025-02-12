@@ -160,8 +160,6 @@ power_output <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Remove duplicate rows (if needed)
-power_df <- unique(w)
 
 # View the data frame and save as a csv
 # view(power_df)
