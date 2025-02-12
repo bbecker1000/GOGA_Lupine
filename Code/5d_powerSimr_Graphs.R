@@ -15,8 +15,10 @@ power_forestplot <- ggplot(power_with_census,
   theme_bw() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, color = "black", size = 15),
         axis.text.y = element_text(color = "black", size = 15),
-        axis.title.x = element_text(color = "black", size = 15, face = "bold"),
-        axis.title.y = element_text(color = "black", size = 15, face = "bold"), 
+        axis.title.x = element_text(color = "black", size = 20, face = "bold",
+                                    margin = margin(t = 15, b = 15)),
+        axis.title.y = element_text(color = "black", size = 20, face = "bold",
+                                    margin = margin(l = 15, r = 15)), 
         strip.text = element_text(color = "black", size = 15, face = "bold"),
         #title = element_text(face = "bold", size = 15)
         ) +
@@ -38,12 +40,14 @@ power_forestplot_color <- ggplot(power_with_census,
   theme_bw() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, color = "black", size = 15),
         axis.text.y = element_text(color = "black", size = 15),
-        axis.title.x = element_text(color = "black", size = 15, face = "bold"),
-        axis.title.y = element_text(color = "black", size = 15, face = "bold"), 
+        axis.title.x = element_text(color = "black", size = 18, face = "bold", 
+                                    margin = margin(t = 15, b = 15)),
+        axis.title.y = element_text(color = "black", size = 18, face = "bold", 
+                                    margin = margin(l = 15, r = 15)), 
         strip.text = element_text(color = "black", size = 15, face = "bold"),
         #title = element_text(face = "bold", size = 15),
         legend.text = element_text(color = "black", size = 15),
-        legend.title = element_text(color = "black", face = "bold", size = 15)
+        legend.title = element_text(color = "black", face = "bold", size = 18)
   ) +
   labs(#title = "Forest Plot of Power Analysis Results",
        x = "Fixed Effect",

@@ -80,12 +80,14 @@ predicted_lupin_plot_year <- ggplot(predicted_data_year,
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
-    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
     legend.text = element_text(face = "plain", size = 17), # Lowercase text
-    panel.border = element_rect(color = "black", fill = NA, size = 1),
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2)
   ) 
@@ -185,19 +187,25 @@ predicted_native_plot_year <- ggplot(predicted_data_nativity_year,
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Predicted Percent Cover of Native Species by Year",
+   # title = "Predicted Percent Cover of Native Species by Year",
     x = "Treatment Status",
     y = "Predicted Percent Cover of Native Species",
     fill = "Treatment"
   ) +
+  theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
-    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
-    axis.text = element_text(size = 17),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
+    axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17) # Lowercase text
-  )
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.grid.major = element_line(color = "black", size = 0.2),
+    panel.grid.minor = element_line(color = "black", size = 0.2)
+  ) 
 
 # View graph
 predicted_native_plot_year
@@ -311,19 +319,25 @@ predicted_invasive_plot_year <- ggplot(predicted_data_invasive_year,
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Predicted Percent Cover of Invasive Species by Year",
+    #title = "Predicted Percent Cover of Invasive Species by Year",
     x = "Treatment Status",
     y = "Predicted Percent Cover of Invasive Species",
     fill = "Treatment"
   ) +
+  theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
-    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
-    axis.text = element_text(size = 17),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
+    axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17) # Lowercase text
-  )
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.grid.major = element_line(color = "black", size = 0.2),
+    panel.grid.minor = element_line(color = "black", size = 0.2)
+  ) 
 
 # View graph
 predicted_invasive_plot_year
@@ -397,19 +411,25 @@ predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year,
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Predicted Percent Cover of Shrubs by Year",
+    # title = "Predicted Percent Cover of Shrubs by Year",
     x = "Treatment Status",
     y = "Predicted Percent Cover of Shrubs",
     fill = "Treatment"
   ) +
+  theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
-    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
-    axis.text = element_text(size = 17),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
+    axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17) # Lowercase text
-  )
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.grid.major = element_line(color = "black", size = 0.2),
+    panel.grid.minor = element_line(color = "black", size = 0.2)
+  ) 
 
 # View graph
 predicted_shrub_plot_year
@@ -446,10 +466,10 @@ rainfall_plots
 
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_plot_year2.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_shrub_plot_year2.png")
 # 
 # # Save the plot using ggsave
-ggsave(file_path, plot = predicted_lupin_plot_year,
+ggsave(file_path, plot = predicted_shrub_plot_year,
        width = 18, height = 10,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
