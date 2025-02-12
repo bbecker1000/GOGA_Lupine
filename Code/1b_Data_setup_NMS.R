@@ -69,9 +69,10 @@ CLComplete <- CL_Complete %>%
     Native == "TRUE" ~ "Native",
     Invasive == "TRUE" ~ "Invasive",
     Native == "FALSE" & Invasive == "FALSE" ~ "Introduced")) %>%
-  mutate(spp_groupings = paste0(substr(Lifecycle, 1, 1),
-                                substr(Default_LF, 1, 1),
-                                Nativity))
+  mutate(spp_groupings = paste0(Nativity, " ",
+                                substr(Lifecycle, 1, 1),
+                                substr(Default_LF, 1, 1)
+                                ))
 
 CLComplete$spp_groupings <- ifelse(CLComplete$Species == "LUAL", "LUPIN",
                             ifelse(CLComplete$Species == "LUVA", "LUPIN", 

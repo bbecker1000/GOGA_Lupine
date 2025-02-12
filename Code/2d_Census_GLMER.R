@@ -2,8 +2,8 @@ source("Code/1d_Data_setup_Census.R")
 
 # Run a GLMER on the Lupine census data with negative binomial
 # BY YEAR
-m_Lupin_census_nb <- glmer.nb(RowCount ~ Treatment + 
-                          Year + 
+m_Lupin_census_nb <- glmer.nb(RowCount ~ Treatment * 
+                          Year +
                           Status +
                           (1|Plot),
                         data = Lupin_Census)

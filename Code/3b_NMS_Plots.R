@@ -55,7 +55,7 @@ gg_groups = gg_all <- ggplot(data = data.scores.group,
              aes(colour = Treatment, shape = Trt_Status), 
              size = 3, alpha = 0.9) + 
   # edit the style of the points
-  scale_shape_manual(values = c("before" = 1, "after" = 16)) + 
+  scale_shape_manual(values = c("before" = 16, "after" = 1)) + 
   # edit the legend
   labs(shape = "Treatment Status") +
   # make the treatment labels lower case
@@ -85,13 +85,13 @@ gg_groups = gg_all <- ggplot(data = data.scores.group,
             colour = "blue",
             label = row.names(nms_groupings$species)) + 
   # edit the look of the figure
-  theme(axis.title = element_text(size = 14, face = "bold", colour = "grey30"),
+  theme(axis.title = element_text(size = 14, face = "bold", colour = "black"),
         panel.background = element_blank(), 
-        panel.border = element_rect(fill = NA, colour = "grey30"), 
-        axis.ticks = element_line(), 
-        axis.text = element_text(size = 13),
-        panel.grid.major = element_line(color = "gray", size = 0.25), 
-        panel.grid.minor = element_line(color = "gray", size = 0.25),
+        panel.border = element_rect(fill = NA, colour = "black", size = 1), 
+        axis.ticks = element_line(colour = "black"), 
+        axis.text = element_text(colour = "black", size = 13),
+        panel.grid.major = element_line(color = "grey", size = 0.2), 
+        panel.grid.minor = element_line(color = "grey", size = 0.2),
         legend.title = element_text(face = "bold", size = 14),
         legend.text = element_text(size = 14)) +
   coord_cartesian(xlim = c(-0.7, 0.7), ylim = c(-0.75, 0.7))
