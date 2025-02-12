@@ -49,7 +49,7 @@ estimate.sd.tidy <- estimate.sd %>%
   pivot_longer(cols = c(-Species.sd) , names_to = "Covariate", values_to = "Estimate.sd")
 
 glvvm.coef.plot <- tibble(cbind(estimate.tidy, estimate.sd.tidy[,-2]))
-glvvm.coef.plot$nativity <- str_extract(glvvm.coef.plot$Species, "[A-Z][a-z]+$")
+glvvm.coef.plot$nativity <- str_extract(glvvm.coef.plot$Species, "^[A-Za-z]+")
 glvvm.coef.plot$nativity <- ifelse(is.na(glvvm.coef.plot$nativity), 
                                    "Native", 
                                    glvvm.coef.plot$nativity)
@@ -79,14 +79,17 @@ afterburn <- ggplot(glvvm.coef.plot.afterburn, aes(reorder(Species, -Estimate), 
       "Introduced" = "#619CFF",
       "Native" = "#00BA38")
   ) +
-  theme_gray(base_size = 10) +
+  theme_minimal(base_size = 10) +
   theme(
     plot.title = element_text(face = "bold", size = 15),
     axis.title = element_blank(),
-    axis.text = element_text(size = 12),
+    axis.text = element_text(color = "black", size = 12),
     legend.title = element_text(face = "bold", size = 14),
-    legend.text = element_text(size = 14)
+    legend.text = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, size = .7)
         ) 
+
+afterburn
 
 # Forest Plot for Post-treatment mechanical
 aftermech <- ggplot(glvvm.coef.plot.aftermech, aes(reorder(Species, -Estimate), Estimate, 
@@ -104,14 +107,17 @@ aftermech <- ggplot(glvvm.coef.plot.aftermech, aes(reorder(Species, -Estimate), 
       "Introduced" = "#619CFF",
       "Native" = "#00BA38")
     ) +
-  theme_gray(base_size = 10) +
+  theme_minimal(base_size = 10) +
   theme(
     plot.title = element_text(face = "bold", size = 15),
     axis.title = element_blank(),
-    axis.text = element_text(size = 12),
+    axis.text = element_text(color = "black", size = 12),
     legend.title = element_text(face = "bold", size = 14),
-    legend.text = element_text(size = 14)
+    legend.text = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, size = .7)
   )
+
+aftermech
 
 # Forest Plot for rainfall
 rain.forestplot <- ggplot(glvvm.coef.plot.rain, aes(reorder(Species, -Estimate), Estimate,
@@ -128,23 +134,25 @@ rain.forestplot <- ggplot(glvvm.coef.plot.rain, aes(reorder(Species, -Estimate),
       "Native" = "#00BA38")
   ) +
   ylim(-2,2) +
-  theme_gray(base_size = 10) +
+  theme_minimal(base_size = 10) +
   theme(
     plot.title = element_text(face = "bold", size = 15),
     axis.title = element_blank(),
-    axis.text = element_text(size = 12),
+    axis.text = element_text(color = "black", size = 12),
     legend.title = element_text(face = "bold", size = 14),
-    legend.text = element_text(size = 14)
+    legend.text = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, size = .7)
   )
 
+rain.forestplot
 
-# 
-# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "forestplot_rain.png")
-# # 
-# # # Save the plot using ggsave
-# ggsave(file_path, plot = rain.forestplot,
-#        width = 8, height = 6,   # Set desired width and height in inches
-#        dpi = 300,               # Set the resolution (300 DPI for high quality)
-#        units = "in",            # Set units to inches
-#        device = "png")
-# 
+
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "afterburn.png")
+#
+# # Save the plot using ggsave
+ggsave(file_path, plot = afterburn,
+       width = 8, height = 6,   # Set desired width and height in inches
+       dpi = 300,               # Set the resolution (300 DPI for high quality)
+       units = "in",            # Set units to inches
+       device = "png")
+
