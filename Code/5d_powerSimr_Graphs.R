@@ -34,7 +34,7 @@ power_forestplot
 # Create the forest plot
 power_forestplot_color <- ggplot(power_with_census, 
           aes(x = test2, y = Mean, ymin = Lower_CI, ymax = Upper_CI, color = Group)) +
-  geom_pointrange() +  # Add points and CI ranges
+  geom_pointrange(position = position_dodge(width = 0.5)) +  # Add points and CI ranges
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") +  # Reference line at 0
   #coord_flip() +  # Flip the coordinates for a vertical forest plot
   theme_bw() + 
@@ -55,13 +55,13 @@ power_forestplot_color <- ggplot(power_with_census,
 
 power_forestplot_color 
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot2.png")
-# 
-# # Save the plot using ggsave
-ggsave(file_path, plot = power_forestplot,
-       width = 15, height = 10,   # Set desired width and height in inches
-       dpi = 300,               # Set the resolution (300 DPI for high quality)
-       units = "in",            # Set units to inches
-       device = "png")
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot2.png")
+# # 
+# # # Save the plot using ggsave
+# ggsave(file_path, plot = power_forestplot,
+#        width = 15, height = 10,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")
 
 

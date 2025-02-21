@@ -35,10 +35,10 @@ Lupin_data2 <- Lupin_data %>%
 predicted_lupin_plot <- ggplot(predicted_data, 
                                aes(x = Trt_Status, y = predicted, fill = Treatment)) +
   geom_boxplot() +
-  geom_point(data = Lupin_data2, 
-             aes(Trt_Status, Percent_Cover_Lupin, fill = Treatment),
+  geom_point(data = Lupin_data2,
+             aes(Trt_Status, Percent_Cover_Lupin),
              position = position_dodge(width = .75),
-             alpha = 0.5
+             alpha = 0.7
   ) +
   scale_y_continuous(labels = scales::percent) +
   labs(
@@ -65,16 +65,16 @@ predicted_lupin_plot
 predicted_lupin_plot_year <- ggplot(predicted_data_year, 
                                     aes(x = as.factor(Year), y = predicted, fill = Treatment)) +
   geom_boxplot() +
-  geom_point(data = Lupin_data2, 
-             aes(as.factor(Year), Percent_Cover_Lupin, fill = Treatment),
+  geom_point(data = Lupin_data2,
+             aes(x = as.factor(Year), y = Percent_Cover_Lupin, fill = Treatment),
+             shape = 21, color = "black",
              position = position_dodge(width = .75),
-             alpha = 0.5
-  ) +
+             alpha = 0.7) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    #title = "Predicted Percent Cover of Lupine by Year",
+    title = "Lupine LPI Transect Data",
     x = "Treatment Status", 
-    y = "Predicted Percent Cover of Lupine",
+    y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
@@ -182,26 +182,29 @@ predicted_native_plot_year <- ggplot(predicted_data_nativity_year,
   geom_boxplot() +
   geom_point(data = Nativity_data2, 
              aes(as.factor(Year), Percent_Cover_Native, fill = Treatment),
+             shape = 21, color = "black",
              position = position_dodge(width = .75),
-             alpha = 0.5
+             alpha = 0.7
   ) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   labs(
-   # title = "Predicted Percent Cover of Native Species by Year",
+   title = "Native Species",
     x = "Treatment Status",
-    y = "Predicted Percent Cover of Native Species",
+    y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", size = 20),
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+    axis.title.y = element_blank(),
     axis.title.x = element_text(face = "bold", size = 20,
-                                margin = margin(t = 15, b = 15)), 
-    axis.title.y = element_text(face = "bold", size = 20,
-                                margin = margin(l = 15, r = 15)),
+                                 margin = margin(t = 15, b = 15)), 
+    # axis.title.y = element_text(face = "bold", size = 20,
+    #                             margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
-    legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    #legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    #legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = "none",
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2)
@@ -314,26 +317,29 @@ predicted_invasive_plot_year <- ggplot(predicted_data_invasive_year,
   geom_boxplot() +
   geom_point(data = Invasive_data2, 
              aes(as.factor(Year), Percent_Cover_Invasive, fill = Treatment),
+             shape = 21, color = "black",
              position = position_dodge(width = .75),
-             alpha = 0.5
+             alpha = 0.7
   ) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   labs(
-    #title = "Predicted Percent Cover of Invasive Species by Year",
+    title = "Invasive Species",
     x = "Treatment Status",
-    y = "Predicted Percent Cover of Invasive Species",
+    y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20,
-                                margin = margin(t = 15, b = 15)), 
-    axis.title.y = element_text(face = "bold", size = 20,
-                                margin = margin(l = 15, r = 15)),
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+    axis.title = element_blank(),
+    # axis.title.x = element_text(face = "bold", size = 20,
+    #                             margin = margin(t = 15, b = 15)), 
+    # axis.title.y = element_text(face = "bold", size = 20,
+    #                             margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
-    legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    #legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    #legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = "none",
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2)
@@ -406,29 +412,32 @@ predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year,
   geom_boxplot() +
   geom_point(data = Shrubs_data2, 
              aes(as.factor(Year), Percent_Cover_Shrubs, fill = Treatment), 
+             shape = 21, color = "black",
              position = position_dodge(width = .75),
-             alpha = 0.5
+             alpha = 0.7
   ) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   labs(
-    # title = "Predicted Percent Cover of Shrubs by Year",
+    title = "Shrubs",
     x = "Treatment Status",
-    y = "Predicted Percent Cover of Shrubs",
+    y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20,
-                                margin = margin(t = 15, b = 15)), 
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+    axis.title.x = element_blank(),
+    #element_text(face = "bold", size = 20, margin = margin(t = 15, b = 15)), 
     axis.title.y = element_text(face = "bold", size = 20,
                                 margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
-    legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    # legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    # legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = "none", # c(0.875,0.892),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
-    panel.grid.minor = element_line(color = "black", size = 0.2)
+    panel.grid.minor = element_line(color = "black", size = 0.2),
+    plot.tag.position = c(0.15, 0.99)
   ) 
 
 # View graph
@@ -464,13 +473,19 @@ rainfall_plots <- (rainfall_lupin | rainfall_native) / (rainfall_invasive | rain
 rainfall_plots
 
 
+shrub_nativity_plots <- predicted_shrub_plot_year + predicted_native_plot_year + 
+  predicted_invasive_plot_year + plot_annotation(tag_levels = "a")
+
+shrub_nativity_plots
+
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_shrub_plot_year2.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "shrub_nativity_plots.png")
 # 
 # # Save the plot using ggsave
-ggsave(file_path, plot = predicted_shrub_plot_year,
-       width = 18, height = 10,   # Set desired width and height in inches
+ggsave(file_path, plot = shrub_nativity_plots,
+       width = 18, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")
+

@@ -15,8 +15,10 @@ plot_model(m_Lupin_census_nb, type = "eff",
 predicted_census <- Lupin_Census %>%
   mutate(predicted = predict(m_Lupin_census_nb, type = "response"))
 
+predicted_census2 <- filter(predicted_census, Status == "L")
+
 # Use ggplot to create a boxplot of the model data
-predicted_lupin_census_plot <- ggplot(predicted_census, 
+predicted_lupin_census_plot <- ggplot(predicted_census2, 
                                       aes(x = Year, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = Lupin_Census, 
@@ -24,20 +26,26 @@ predicted_lupin_census_plot <- ggplot(predicted_census,
              position = position_dodge(width = .75),
              alpha = 0.5) +
   labs(
-    title = "Predicted Lupin Count by Year",
+    title = "Predicted Lupin Count by Year (Census)",
     x = "Treatment Status", 
     y = "Predicted Percent Cover of Lupine",
     fill = "Treatment"
   ) +
-  facet_wrap(~Status) +
+  #facet_wrap(~Status) +
+  theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
-    axis.title.x = element_text(face = "bold", size = 20), # Bold x-axis label
-    axis.title.y = element_text(face = "bold", size = 20), # Bold y-axis label
-    axis.text = element_text(size = 17),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
+    axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17) # Lowercase text
-  )
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.grid.major = element_line(color = "black", size = 0.2),
+    panel.grid.minor = element_line(color = "black", size = 0.2)
+  ) 
 
 # View graph
 predicted_lupin_census_plot
@@ -67,7 +75,7 @@ predicted_lupin_census_plot_PrePost <- ggplot(predicted_census_PrePost,
              position = position_dodge(width = .75),
              alpha = 0.5) +
   labs(
-    title = "Predicted Lupin Count by Treatment Status",
+    title = "Predicted Lupine Count by Treatment Status (Census)",
     x = "Treatment Status", 
     y = "Predicted Percent Cover of Lupine",
     fill = "Treatment"
@@ -88,11 +96,11 @@ predicted_lupin_census_plot_PrePost
 
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_census_plot.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_census_plot2.png")
 # 
 # # Save the plot using ggsave
 ggsave(file_path, plot = predicted_lupin_census_plot,
-       width = 15, height = 10,   # Set desired width and height in inches
+       width = 18, height = 10,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")

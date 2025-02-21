@@ -17,7 +17,7 @@ ggplot(Lupin_data, aes(x = Year, y = Total_Lupin)) +
 m2_Lupin_PrePost <- glmer(cbind(Total_Lupin, Total_Count) ~ 
                         Treatment *
                         Trt_Status +
-                        scale(yearly_rain) +
+                        #scale(yearly_rain) +
                         (1|Plot), 
                       family = binomial, 
                       data = Lupin_data)
@@ -28,7 +28,7 @@ summary(m2_Lupin_PrePost)
 m_Lupin_Year <- glmer(cbind(Total_Lupin, Total_Count) ~ 
                             Treatment *
                             as.factor(Year) +
-                            #scale(yearly_rain) +
+                        scale(yearly_rain) +
                             (1|Plot), 
                           family = binomial, 
                           data = Lupin_data)
