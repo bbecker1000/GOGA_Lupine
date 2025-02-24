@@ -64,6 +64,7 @@ data_plot_allspp <- wide_data_allspp %>%
 # # Data set up for an NMS that contains species groupings
 CL_Complete$Lifecycle[is.na.data.frame(CL_Complete$Lifecycle)] <- "Not Defined"
 
+
 CLComplete <- CL_Complete %>% 
   mutate(Nativity = case_when(
     Native == "TRUE" ~ "Native",
@@ -74,10 +75,10 @@ CLComplete <- CL_Complete %>%
                                 substr(Default_LF, 1, 1)
                                 ))
 
-CLComplete$spp_groupings <- ifelse(CLComplete$Species == "LUAL", "LUPIN",
-                            ifelse(CLComplete$Species == "LUVA", "LUPIN", 
-                            ifelse(CLComplete$Species == "LUPINa", "LUPIN",
-                                   CLComplete$spp_groupings)))
+CLComplete$spp_groupings <- ifelse(CLComplete$Species == "LUAL", "Lupine",
+                                   ifelse(CLComplete$Species == "LUVA", "Lupine", 
+                                          ifelse(CLComplete$Species == "LUPINa", "Lupine",
+                                                 CLComplete$spp_groupings)))
   
 # Get data to have the total count of species groups for each macroplot and year
 sum_groupings <- CLComplete %>%
@@ -140,3 +141,4 @@ data_plot_groupings <- wide_data_groupings %>%
     Time_Since_Trt
   )
 
+view(CLComplete)

@@ -23,6 +23,18 @@ power_forestplot <- ggplot(power_with_census,
         #title = element_text(face = "bold", size = 15)
         ) +
   facet_wrap(~Group, ncol = 1) +
+  scale_x_discrete(labels = c("2010_BurnAfter" = "2010 Burn",
+                              "2010_MechAfter" = "2010 Mech",
+                              "2011_BurnAfter" = "2011 Burn",
+                              "2011_MechAfter" = "2011 Mech",
+                              "2012_BurnAfter" = "2012 Burn",
+                              "2012_MechAfter" = "2012 Mech",
+                              "2013_BurnAfter" = "2013 Burn",
+                              "2013_MechAfter" = "2013 Mech",
+                              "PrePost_BurnAfter" = "Pre & Post Burn",
+                              "PrePost_MechAfter" = "Pre & Post Mech",
+                              "PrePost_Rain" = "Pre & Post Rain"
+                              )) + 
   labs(#title = "Forest Plot of Power Analysis Results",
        x = "Fixed Effect",
        y = "Estimated Mean (with 95% CI)")
@@ -55,13 +67,13 @@ power_forestplot_color <- ggplot(power_with_census,
 
 power_forestplot_color 
 
-# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot2.png")
-# # 
-# # # Save the plot using ggsave
-# ggsave(file_path, plot = power_forestplot,
-#        width = 15, height = 10,   # Set desired width and height in inches
-#        dpi = 300,               # Set the resolution (300 DPI for high quality)
-#        units = "in",            # Set units to inches
-#        device = "png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot.png")
+#
+# # Save the plot using ggsave
+ggsave(file_path, plot = power_forestplot,
+       width = 15, height = 10,   # Set desired width and height in inches
+       dpi = 300,               # Set the resolution (300 DPI for high quality)
+       units = "in",            # Set units to inches
+       device = "png")
 
 

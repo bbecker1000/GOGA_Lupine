@@ -1,7 +1,7 @@
 source("Code/2C_GLMER.R")
 library(patchwork)
 
-# FOR LUPIN DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
+# LUPIN DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
 # Plot Residuals Lupin for m2_Lupin_PrePost
 plot_model(m2_Lupin_PrePost, type = "diag")
@@ -67,17 +67,19 @@ predicted_lupin_plot_year <- ggplot(predicted_data_year,
   geom_boxplot() +
   geom_point(data = Lupin_data2,
              aes(x = as.factor(Year), y = Percent_Cover_Lupin, fill = Treatment),
-             shape = 21, color = "black",
+             shape = 21, color = "black", size = 2,
              position = position_dodge(width = .75),
              alpha = 0.7) +
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Lupine LPI Transect Data",
+    #title = "Lupine LPI Transect Data",
     x = "Treatment Status", 
     y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
+  scale_fill_hue(
+    labels = c("CONTROL" = "Control", "BURN" = "Burn", "MECHANICAL" = "Mechanical")) +
   theme(
     plot.title = element_text(face = "bold", size = 20),
     axis.title.x = element_text(face = "bold", size = 20,
@@ -87,6 +89,7 @@ predicted_lupin_plot_year <- ggplot(predicted_data_year,
     axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
     legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = c(0.076,0.894),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2)
@@ -174,7 +177,7 @@ predicted_native_plot <- ggplot(predicted_data_nativity,
   )
 
 # View graph
-predicted_native_plot_year
+predicted_native_plot
 
 # Use ggplot to create a boxplot of the model data
 predicted_native_plot_year <- ggplot(predicted_data_nativity_year, 
@@ -190,7 +193,7 @@ predicted_native_plot_year <- ggplot(predicted_data_nativity_year,
   labs(
    title = "Native Species",
     x = "Treatment Status",
-    y = "Percent Cover",
+    #y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
@@ -324,8 +327,8 @@ predicted_invasive_plot_year <- ggplot(predicted_data_invasive_year,
   scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   labs(
     title = "Invasive Species",
-    x = "Treatment Status",
-    y = "Percent Cover",
+    #x = "Treatment Status",
+    #y = "Percent Cover",
     fill = "Treatment"
   ) +
   theme_classic() +
@@ -424,6 +427,8 @@ predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year,
     fill = "Treatment"
   ) +
   theme_classic() +
+  scale_fill_hue(
+    labels = c("CONTROL" = "Control", "BURN" = "Burn", "MECHANICAL" = "Mechanical")) +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
     axis.title.x = element_blank(),
@@ -431,9 +436,9 @@ predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year,
     axis.title.y = element_text(face = "bold", size = 20,
                                 margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
-    # legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    # legend.text = element_text(face = "plain", size = 17), # Lowercase text
-    legend.position = "none", # c(0.875,0.892),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = c(0.79,0.894),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2),
@@ -480,11 +485,11 @@ shrub_nativity_plots
 
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "shrub_nativity_plots.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Lupine_LPI.png")
 # 
 # # Save the plot using ggsave
-ggsave(file_path, plot = shrub_nativity_plots,
-       width = 18, height = 7,   # Set desired width and height in inches
+ggsave(file_path, plot = predicted_lupin_plot_year,
+       width = 13, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")
