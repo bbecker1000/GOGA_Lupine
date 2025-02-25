@@ -115,7 +115,8 @@ afterburn <- ggplot(glvvm.coef.plot.afterburn, aes(Species, Estimate,
     # legend.title = element_text(face = "bold", size = 14),
     # legend.text = element_text(size = 14),
     legend.position = "none",
-    panel.border = element_rect(color = "black", fill = NA, size = .7)
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    plot.tag.position = c(0.34, 0.99)
         ) 
 
 afterburn
@@ -178,7 +179,7 @@ rain.forestplot <- ggplot(glvvm.coef.plot.rain, aes(Species, Estimate,
 
 rain.forestplot
 
-gllvm_plots <- afterburn + aftermech + rain.forestplot
+gllvm_plots <- afterburn + aftermech + rain.forestplot + plot_annotation(tag_levels = "a")
 
 gllvm_plots
 

@@ -32,7 +32,7 @@ predicted_lupin_census_plot <- ggplot(predicted_census2,
     y = "Count of Lupine Individuals",
     fill = "Treatment"
   ) +
-  #facet_wrap(~Status) +
+  geom_vline(xintercept = 1.5, linetype = "dashed", color = "black", size = 1) +
   theme_classic() +
   scale_fill_hue(
     labels = c("C" = "Control", "B" = "Burn", "M" = "Mechanical")) +

@@ -6,6 +6,14 @@ power_with_census$test2 <- paste(power_with_census$Type,
                                  power_with_census$Fixed_Effect, 
                                  sep = "_")
 
+# Retitle the facet wrap labels
+new_labels <- c("Census" = "Lupine Count (Census)", 
+                "Lupine" = "Lupine Cover (Transect)", 
+                "Shrub" = "Shrub Cover (Transect)",
+                "Native" = "Native Species Cover (Transect)",
+                "Invasive" = "Invasive Species Cover (Transect)"
+                )
+
 # Create the forest plot
 power_forestplot <- ggplot(power_with_census, 
                            aes(x = test2, y = Mean, ymin = Lower_CI, ymax = Upper_CI)) +
@@ -22,7 +30,7 @@ power_forestplot <- ggplot(power_with_census,
         strip.text = element_text(color = "black", size = 15, face = "bold"),
         #title = element_text(face = "bold", size = 15)
         ) +
-  facet_wrap(~Group, ncol = 1) +
+  facet_wrap(~Group, ncol = 1, labeller = as_labeller(new_labels)) +
   scale_x_discrete(labels = c("2010_BurnAfter" = "2010 Burn",
                               "2010_MechAfter" = "2010 Mech",
                               "2011_BurnAfter" = "2011 Burn",
@@ -67,11 +75,11 @@ power_forestplot_color <- ggplot(power_with_census,
 
 power_forestplot_color 
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot2.png")
 #
 # # Save the plot using ggsave
 ggsave(file_path, plot = power_forestplot,
-       width = 15, height = 10,   # Set desired width and height in inches
+       width = 12, height = 10,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")

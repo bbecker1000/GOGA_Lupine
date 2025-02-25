@@ -26,7 +26,7 @@ summary(m2_Lupin_PrePost)
 
 # [TIME AS FACTOR, BASE TOTAL COUNT]
 m_Lupin_Year <- glmer(cbind(Total_Lupin, Total_Count) ~ 
-                            Treatment *
+                             Treatment *
                             as.factor(Year) +
                         scale(yearly_rain) +
                             (1|Plot), 

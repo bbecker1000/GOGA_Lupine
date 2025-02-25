@@ -74,9 +74,10 @@ predicted_lupin_plot_year <- ggplot(predicted_data_year,
   labs(
     #title = "Lupine LPI Transect Data",
     x = "Treatment Status", 
-    y = "Percent Cover",
+    y = "Percent Cover Lupine",
     fill = "Treatment"
   ) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   theme_classic() +
   scale_fill_hue(
     labels = c("CONTROL" = "Control", "BURN" = "Burn", "MECHANICAL" = "Mechanical")) +
@@ -196,6 +197,7 @@ predicted_native_plot_year <- ggplot(predicted_data_nativity_year,
     #y = "Percent Cover",
     fill = "Treatment"
   ) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
@@ -331,6 +333,7 @@ predicted_invasive_plot_year <- ggplot(predicted_data_invasive_year,
     #y = "Percent Cover",
     fill = "Treatment"
   ) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
@@ -426,6 +429,7 @@ predicted_shrub_plot_year <- ggplot(predicted_data_shrub_year,
     y = "Percent Cover",
     fill = "Treatment"
   ) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   theme_classic() +
   scale_fill_hue(
     labels = c("CONTROL" = "Control", "BURN" = "Burn", "MECHANICAL" = "Mechanical")) +
@@ -485,7 +489,7 @@ shrub_nativity_plots
 
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Lupine_LPI.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "LPI_Lupine.png")
 # 
 # # Save the plot using ggsave
 ggsave(file_path, plot = predicted_lupin_plot_year,
