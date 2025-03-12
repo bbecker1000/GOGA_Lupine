@@ -45,7 +45,7 @@ power_forestplot <- ggplot(power_with_census,
                               )) + 
   labs(#title = "Forest Plot of Power Analysis Results",
        x = "Fixed Effect",
-       y = "Estimated Mean (with 95% CI)")
+       y = "Power")
 
 power_forestplot
 
