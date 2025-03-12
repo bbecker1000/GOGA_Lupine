@@ -56,8 +56,6 @@ predicted_lupin_census_plot <- ggplot(predicted_census2,
 predicted_lupin_census_plot
 
 
-# FOR THE MODEL WITH PRE/POST-TREATMENT
-
 # Plot residuals with negative binomial
 plot_model(m_Lupin_census_nb_PrePost,type = "diag")
 plot(m_Lupin_census_nb_PrePost)
@@ -73,7 +71,7 @@ predicted_census_PrePost <- Lupin_Census %>%
 
 # Use ggplot to create a boxplot of the model data
 predicted_lupin_census_plot_PrePost <- ggplot(predicted_census_PrePost, 
-  aes(x = Trt_Status, y = predicted, fill = Treatment)) +
+                                              aes(x = Trt_Status, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = Lupin_Census, 
              aes(Trt_Status, RowCount),
@@ -98,13 +96,65 @@ predicted_lupin_census_plot_PrePost <- ggplot(predicted_census_PrePost,
 predicted_lupin_census_plot_PrePost
 
 
+# FOR THE MODEL OF THE RATIO OF IMMATURE INDIVIDUALS
+
+# Plot residuals
+plot_model(m_lupin_immature,type = "diag")
+plot(m_lupin_immature)
+
+# Plot basic view of model
+plot_model(m_lupin_immature, type = "eff", terms = c("Year", "Treatment")) +
+  theme_classic() 
+
+# Extract the model data
+predicted_census_immature <- Lupin_Ratio %>%
+  mutate(predicted = predict(m_lupin_immature, type = "response"))
+
+
+# Ensure the predicted data frame is used instead of the model object
+predicted_lupin_census_plot_immature <- ggplot(predicted_census_immature,    
+  aes(x = Year, y = predicted, fill = Treatment)) +   
+  geom_boxplot() +   
+  geom_point(data = Lupin_Ratio,               
+             aes(x = Year, y = Count_I / Total_Count),  # Use a proper ratio for y
+             position = position_dodge(width = .75),              
+             alpha = 0.5) + 
+  scale_y_continuous(labels = scales::percent) +
+  labs(     
+    x = "Treatment Status",      
+    y = "Percent of Lupine that are Immature",     
+    fill = "Treatment"   
+  ) +   
+  geom_vline(xintercept = 1.5, linetype = "dashed", color = "black", size = 1) +
+  theme_classic() +
+  scale_fill_hue(
+    labels = c("CONTROL" = "Control", "BURN" = "Burn", "MECHANICAL" = "Mechanical")) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.title.y = element_text(face = "bold", size = 20,
+                                margin = margin(l = 15, r = 15)),
+    axis.text = element_text(color = "black", size = 17),
+    legend.title = element_text(face = "bold", size = 19), # Bold legend title
+    legend.text = element_text(face = "plain", size = 17), # Lowercase text
+    legend.position = c(0.076,0.894),
+    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.grid.major = element_line(color = "black", size = 0.2),
+    panel.grid.minor = element_line(color = "black", size = 0.2)
+  ) 
+
+print(predicted_lupin_census_plot_immature)
+
+
+
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Census_Lupine.png")
-# 
-# # Save the plot using ggsave
-ggsave(file_path, plot = predicted_lupin_census_plot,
-       width = 12, height = 7,   # Set desired width and height in inches
-       dpi = 300,               # Set the resolution (300 DPI for high quality)
-       units = "in",            # Set units to inches
-       device = "png")
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Lupine_Immature.png")
+# # 
+# # # Save the plot using ggsave
+# ggsave(file_path, plot = predicted_lupin_census_plot_immature,
+#        width = 12, height = 7,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")
