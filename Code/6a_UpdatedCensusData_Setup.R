@@ -41,11 +41,14 @@ Lupin_Ratio_2009_2015 <- Lupine_Density_2009_2015_grouped_live %>%
     Count_I = sum(Count[UV1 == "I"], na.rm = TRUE),
     Count_M = sum(Count[UV1 == "M"], na.rm = TRUE),
     Total_Count = sum(Count, na.rm = TRUE),
-    Ratio_I_M = Count_I / Count_M,
+    Ratio_I_M = (Count_I / Total_Count),
     .groups = "keep") %>%
   ungroup() 
 
 Lupin_Ratio_2009_2015 <- as.data.frame(Lupin_Ratio_2009_2015)
 
+
+# Plot all data in a histogram to determine distribution
+hist(Lupin_Ratio_2009_2015$Ratio_I_M)
 
 

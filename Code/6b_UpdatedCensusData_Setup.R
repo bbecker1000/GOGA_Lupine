@@ -15,8 +15,7 @@ summary(m_Lupin_census_allyears_nb)
 # Run a GLMER on the Lupine census data with negative binomial
 # BY PRE/POST TREATMENT
 m_Lupin_census_allyears_nb_PrePost <- glmer.nb(Count ~ Treatment * 
-                                        Trt_Status + 
-                                        Status +
+                                        Trt_Status +
                                         (1|Site/Plot),
                                       data = Lupine_Density_2009_2015_grouped_live)
 
