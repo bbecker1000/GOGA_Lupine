@@ -6,6 +6,7 @@ Precip_by_Year <- ggplot(CL_Complete, aes(x = as.numeric(Year), y = yearly_rain)
   geom_point() +
   labs(y = "Precipitation (cm)",
        x = "Year") +
+  ylim(0,60) +
   theme_bw() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
@@ -148,12 +149,14 @@ Figure3
 
 
 
+
+
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Figure2.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Precip_by_Year.png")
 # 
 # # Save the plot using ggsave
-ggsave(file_path, plot = Figure2,
+ggsave(file_path, plot = Precip_by_Year,
        width = 10, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches

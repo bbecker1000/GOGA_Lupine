@@ -37,7 +37,7 @@ predicted_lupin_plot_year <- ggplot(predicted_data_year,
     axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), # Bold legend title
     legend.text = element_text(face = "plain", size = 17), # Lowercase text
-    legend.position = c(0.076,0.894),
+    legend.position = c(0.076,0.89),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
     panel.grid.minor = element_line(color = "black", size = 0.2)

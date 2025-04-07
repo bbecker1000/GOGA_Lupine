@@ -9,16 +9,25 @@ library(simr)
 library(dplyr)
 library(stringr)
 
-# Extracting the fixed effects from the model pre/post model
+# Extracting the fixed effects from the pre/post model
 fixef(m_Lupin_census_nb_PrePost)["TreatmentM:Trt_Statusafter"] <- 0.5
 fixef(m_Lupin_census_nb_PrePost)["TreatmentB:Trt_Statusafter"] <- 0.5  
 
+# Extracting the fixed effects from the yearly model
 fixef(m_Lupin_census_nb)["TreatmentB:as.factor(Year)2011"] <- 0.5
 fixef(m_Lupin_census_nb)["TreatmentM:as.factor(Year)2011"] <- 0.5
 fixef(m_Lupin_census_nb)["TreatmentB:as.factor(Year)2012"] <- 0.5
 fixef(m_Lupin_census_nb)["TreatmentM:as.factor(Year)2012"] <- 0.5
 fixef(m_Lupin_census_nb)["TreatmentB:as.factor(Year)2013"] <- 0.5
 fixef(m_Lupin_census_nb)["TreatmentM:as.factor(Year)2013"] <- 0.5
+
+# Extracting the fixed effects from the immature model
+fixef(m_lupin_immature)["TreatmentB:Year2011"] <- 0.5
+fixef(m_lupin_immature)["TreatmentM:Year2011"] <- 0.5
+fixef(m_lupin_immature)["TreatmentB:Year2012"] <- 0.5
+fixef(m_lupin_immature)["TreatmentM:Year2012"] <- 0.5
+fixef(m_lupin_immature)["TreatmentB:Year2013"] <- 0.5
+fixef(m_lupin_immature)["TreatmentM:Year2013"] <- 0.5
 
 Nsim <- 100
 
@@ -31,8 +40,14 @@ power_result_c <- list(
     P_Census_2012_BurnAfter = summary(powerSim(m_Lupin_census_nb, nsim = Nsim, test=fixed("TreatmentB:as.factor(Year)2012", "z"))),
     P_Census_2012_MechAfter = summary(powerSim(m_Lupin_census_nb, nsim = Nsim, test=fixed("TreatmentM:as.factor(Year)2012", "z"))),
     P_Census_2013_BurnAfter = summary(powerSim(m_Lupin_census_nb, nsim = Nsim, test=fixed("TreatmentB:as.factor(Year)2013", "z"))),
-    P_Census_2013_MechAfter = summary(powerSim(m_Lupin_census_nb, nsim = Nsim, test=fixed("TreatmentM:as.factor(Year)2013", "z")))
-    )
+    P_Census_2013_MechAfter = summary(powerSim(m_Lupin_census_nb, nsim = Nsim, test=fixed("TreatmentM:as.factor(Year)2013", "z"))),
+    
+    P_Immature_2011_BurnAfter= summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentB:Year2011", "z"))),
+    P_Immature_2011_MechAfter = summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentM:Year2011", "z"))),
+    P_Immature_2012_BurnAfter = summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentB:Year2012", "z"))),
+    P_Immature_2012_MechAfter = summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentM:Year2012", "z"))),
+    P_Immature_2013_BurnAfter = summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentB:Year2013", "z"))),
+    P_Immature_2013_MechAfter = summary(powerSim(m_lupin_immature, nsim = Nsim, test=fixed("TreatmentM:Year2013", "z"))))
 
 # Extract names for grouping
 sim_name3 <- names(power_result_c)
@@ -70,4 +85,6 @@ power_census <- data.frame(
 power_GLMER <- read_csv("Data/power_analysis_results.csv")
 power_with_census <- rbind(power_GLMER, power_census)
 
+
 #write.csv(power_with_census, "power_with_census.csv", row.names = FALSE)
+

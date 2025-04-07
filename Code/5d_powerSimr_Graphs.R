@@ -11,7 +11,8 @@ new_labels <- c("Census" = "Lupine Count (Census)",
                 "Lupine" = "Lupine Cover (Transect)", 
                 "Shrub" = "Shrub Cover (Transect)",
                 "Native" = "Native Species Cover (Transect)",
-                "Invasive" = "Invasive Species Cover (Transect)"
+                "Invasive" = "Invasive Species Cover (Transect)",
+                "Immature" = "Immature Lupine Cover (Census)"
                 )
 
 # Create the forest plot
@@ -42,7 +43,7 @@ power_forestplot <- ggplot(power_with_census,
                               "PrePost_BurnAfter" = "Pre & Post Burn",
                               "PrePost_MechAfter" = "Pre & Post Mech",
                               "PrePost_Rain" = "Pre & Post Rain"
-                              )) + 
+                              )) +
   labs(#title = "Forest Plot of Power Analysis Results",
        x = "Fixed Effect",
        y = "Power")
@@ -75,11 +76,11 @@ power_forestplot_color <- ggplot(power_with_census,
 
 power_forestplot_color 
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot2.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot_all.png")
 #
 # # Save the plot using ggsave
 ggsave(file_path, plot = power_forestplot,
-       width = 12, height = 10,   # Set desired width and height in inches
+       width = 15, height = 10,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")

@@ -1,5 +1,6 @@
 source("Code/2C_GLMER.R")
 library(patchwork)
+library(cowplot)
 
 # LUPIN DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
@@ -479,13 +480,33 @@ rainfall_shrubs
 rainfall_plots <- (rainfall_lupin | rainfall_native) / (rainfall_invasive | rainfall_shrubs)
 
 
+# Making a panel for lupine graphs
+
+lupine_2ggplot <- predicted_lupin_plot_year / 
+                  predicted_lupin_census_plot_immature + 
+                  plot_annotation(tag_levels = "a")
+
+lupine_3ggplot <- predicted_lupin_plot_year / 
+                  predicted_lupin_census_plot / 
+                  predicted_lupin_census_plot_immature +
+                  plot_annotation(tag_levels = "a")
+
+lupine_census_ggplots <- predicted_lupin_census_plot / 
+                         predicted_lupin_census_plot_immature +
+                         plot_annotation(tag_levels = "a")
+
+lupine_census_ggplots_h <- predicted_lupin_census_plot | 
+                           predicted_lupin_census_plot_immature +
+                           plot_annotation(tag_levels = "a")
+
+
 # FOR SAVING GRAPHS
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "LPI_Lupine.png")
-# 
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "lupine_census_ggplots_horizontal.png")
+
 # # Save the plot using ggsave
-ggsave(file_path, plot = predicted_lupin_plot_year,
-       width = 13, height = 7,   # Set desired width and height in inches
+ggsave(file_path, plot = lupine_census_ggplots_h,
+       width = 24, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")

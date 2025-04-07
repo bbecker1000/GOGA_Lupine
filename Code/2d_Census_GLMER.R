@@ -33,3 +33,5 @@ m_lupin_immature <- glmer(cbind(Count_I, Total_Count) ~ Treatment *
                           data = Lupin_Ratio)
 
 summary(m_lupin_immature)
+
+
