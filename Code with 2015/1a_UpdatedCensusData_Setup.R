@@ -3,27 +3,25 @@ library(tidyverse)
 # Import data
 Lupine_Density_2009_2015 <- read_csv("Data/MBB_Lupine Density_2009_2015.csv")
 
-# View(Lupine_Density_2009_2015)
 
+# Remove the text MBB from the Plot column
 Lupine_Density_2009_2015$Plot <- str_extract(Lupine_Density_2009_2015$Plot, "\\d+$")
 
-# Make a pre/post-treatment cateogry
+
+# Make a pre/post-treatment category
 Lupine_Density_2009_2015 <- Lupine_Density_2009_2015 %>%
   mutate(Trt_Status = case_when(
     Year %in% c(2010) ~ "before",
     Year %in% c(2011, 2012, 2013, 2015) ~ "after"))
 
 
-# Set control as base level
+# Set control as baseline
 Lupine_Density_2009_2015$Treatment <- factor(Lupine_Density_2009_2015$Treatment, 
                                  levels = c("Control", "Burn", "Mechanical"))
 
-# Set pre-treatment as base level
+# Set pre-treatment as baseline
 Lupine_Density_2009_2015$Trt_Status <- factor(Lupine_Density_2009_2015$Trt_Status, 
                                   levels = c("before", "after"))
-
-Lupin_Density_2009_2015$Year <- factor(Lupin_Density_2009_2015$Year, 
-                                     levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
 
 # Sum up counts so that all lupine species are grouped
@@ -33,9 +31,15 @@ Lupine_Density_2009_2015_grouped_live <- Lupine_Density_2009_2015 %>%
   summarise(Count = sum(Count), .groups = "keep") %>%
   ungroup()
 
+# Set 2010 as the baseline
+Lupine_Density_2009_2015_grouped_live$Year <- factor(Lupine_Density_2009_2015_grouped_live$Year, 
+                                levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
+
+
 
 # Plot all data in a histogram to determine distribution
 hist(Lupine_Density_2009_2015_grouped_live$Count)
+
 
 # Create a dataframe with the ratio of young to mature lupine
 Lupin_Ratio_2009_2015 <- Lupine_Density_2009_2015_grouped_live %>%
@@ -50,6 +54,10 @@ Lupin_Ratio_2009_2015 <- Lupine_Density_2009_2015_grouped_live %>%
 
 Lupin_Ratio_2009_2015 <- as.data.frame(Lupin_Ratio_2009_2015)
 
+
+# Set 2010 as the baseline
+Lupin_Ratio_2009_2015$Year <- factor(Lupin_Ratio_2009_2015$Year, 
+                                              levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
 # Plot all data in a histogram to determine distribution
 hist(Lupin_Ratio_2009_2015$Ratio_I_M)

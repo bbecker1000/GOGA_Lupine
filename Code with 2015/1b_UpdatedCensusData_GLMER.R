@@ -22,9 +22,7 @@ m_Lupin_census_allyears_nb_PrePost <- glmer.nb(Count ~ Treatment *
 summary(m_Lupin_census_allyears_nb_PrePost)
 
 
-# Run GLMERs on UV1 (life stage) 
-
-# looking at the change in the ratio of immature individuals
+# Looking at the change in the ratio of immature individuals
 
 m_lupin_allyears_immature <- glmer(cbind(Count_I, Total_Count) ~ Treatment * 
                             Year +
