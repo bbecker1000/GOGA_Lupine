@@ -16,7 +16,7 @@ Lupin_Census$Year = as.factor(Lupin_Census$Year)
 # Make a pre/post-treatment cateogry
 Lupin_Census <- Lupin_Census %>%
   mutate(Trt_Status = case_when(
-    Year %in% c(2009, 2010) ~ "before",
+    Year %in% c(2010) ~ "before",
     Year %in% c(2011, 2012, 2013) ~ "after"))
 
 # Set control as base level

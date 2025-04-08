@@ -10,7 +10,7 @@ Lupine_Density_2009_2015$Plot <- str_extract(Lupine_Density_2009_2015$Plot, "\\d
 # Make a pre/post-treatment cateogry
 Lupine_Density_2009_2015 <- Lupine_Density_2009_2015 %>%
   mutate(Trt_Status = case_when(
-    Year %in% c(2009, 2010) ~ "before",
+    Year %in% c(2010) ~ "before",
     Year %in% c(2011, 2012, 2013, 2015) ~ "after"))
 
 
@@ -21,6 +21,9 @@ Lupine_Density_2009_2015$Treatment <- factor(Lupine_Density_2009_2015$Treatment,
 # Set pre-treatment as base level
 Lupine_Density_2009_2015$Trt_Status <- factor(Lupine_Density_2009_2015$Trt_Status, 
                                   levels = c("before", "after"))
+
+Lupin_Density_2009_2015$Year <- factor(Lupin_Density_2009_2015$Year, 
+                                     levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
 
 # Sum up counts so that all lupine species are grouped
@@ -50,5 +53,4 @@ Lupin_Ratio_2009_2015 <- as.data.frame(Lupin_Ratio_2009_2015)
 
 # Plot all data in a histogram to determine distribution
 hist(Lupin_Ratio_2009_2015$Ratio_I_M)
-
 
