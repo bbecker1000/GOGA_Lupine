@@ -1,7 +1,11 @@
 library(tidyverse)
 
 # Import data
-Lupine_Density_2009_2015 <- read_csv("Data/MBB_Lupine Density_2009_2015.csv")
+Lupine_Density_2009_2015_NoRain <- read_csv("Data/MBB_Lupine Density_2009_2015.csv")
+
+# Add the rainfall data
+Lupine_Density_2009_2015 <- merge(x = Lupine_Density_2009_2015_NoRain, y = Precip_cm,
+         by = "Year", all.x = TRUE)
 
 
 # Remove the text MBB from the Plot column
@@ -27,7 +31,7 @@ Lupine_Density_2009_2015$Trt_Status <- factor(Lupine_Density_2009_2015$Trt_Statu
 # Sum up counts so that all lupine species are grouped
 Lupine_Density_2009_2015_grouped_live <- Lupine_Density_2009_2015 %>%
   filter(Status == "L") %>%
-  group_by(MacroPlot, Site, Plot, Treatment, Year, Trt_Status, Status, UV1) %>%
+  group_by(MacroPlot, Site, Plot, Treatment, Trt_Status, Year, yearly_rain, UV1) %>%
   summarise(Count = sum(Count), .groups = "keep") %>%
   ungroup()
 
@@ -37,13 +41,9 @@ Lupine_Density_2009_2015_grouped_live$Year <- factor(Lupine_Density_2009_2015_gr
 
 
 
-# Plot all data in a histogram to determine distribution
-hist(Lupine_Density_2009_2015_grouped_live$Count)
-
-
 # Create a dataframe with the ratio of young to mature lupine
 Lupin_Ratio_2009_2015 <- Lupine_Density_2009_2015_grouped_live %>%
-  group_by(MacroPlot, Year, Site, Plot, Trt_Status, Treatment) %>%
+  group_by(MacroPlot, Site, Plot, Treatment, Trt_Status, Year, yearly_rain) %>%
   summarise(
     Count_I = sum(Count[UV1 == "I"], na.rm = TRUE),
     Count_M = sum(Count[UV1 == "M"], na.rm = TRUE),
@@ -52,13 +52,12 @@ Lupin_Ratio_2009_2015 <- Lupine_Density_2009_2015_grouped_live %>%
     .groups = "keep") %>%
   ungroup() 
 
+# Make sure its a dataframe
 Lupin_Ratio_2009_2015 <- as.data.frame(Lupin_Ratio_2009_2015)
 
 
 # Set 2010 as the baseline
 Lupin_Ratio_2009_2015$Year <- factor(Lupin_Ratio_2009_2015$Year, 
-                                              levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
+                              levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
-# Plot all data in a histogram to determine distribution
-hist(Lupin_Ratio_2009_2015$Ratio_I_M)
 
