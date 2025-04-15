@@ -1,4 +1,5 @@
-source("Code_with_2015/1b_UpdatedCensusData_GLMER.R")
+source("Code_with_2015/3b_UpdatedCensusData_GLMER.R")
+library(sjPlot)
 
 # # DATA DISTRIBUTION # #
 
@@ -18,10 +19,10 @@ plot(m_Lupin_census_allyears_nb)
 
 # Plot basic view of model
 plot_model(m_Lupin_census_allyears_nb, type = "eff", 
-           terms = c("Year", "Treatment", "Status")) +
+           terms = c("Year", "Treatment")) +
   theme_classic()
 
-
+plot_model(m_Lupin_census_allyears_nb)
 
 
 
@@ -33,6 +34,6 @@ plot(m_lupin_allyears_immature)
 
 # Plot basic view of model
 plot_model(m_lupin_allyears_immature, type = "eff", 
-           terms = c("Year", "Treatment", "Status")) +
+           terms = c("Year", "Treatment")) +
   theme_classic()
 

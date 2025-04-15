@@ -1,0 +1,58 @@
+# Load Packages
+library(ggordiplots)
+library(vegan)
+library(tidyverse)
+
+# Upload data
+CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
+Precip_cm <- read_csv("Data/cm_yearly_rain.csv")
+CL_All_Updated
+
+
+# Step 1: Get unique combinations from CL_All
+unique_CL_All <- CL_All %>%
+  select(Species, Lifecycle, Preferred_LF, Default_LF, Native, Invasive) %>%
+  distinct()
+
+# Step 2: Join with CL_All_2015 by Species
+CL_All_2015 <- CL_All_Updated %>%
+  left_join(unique_CL_All, by = "Species")
+
+
+# Create a plot column from MacroPlot
+CL_All_2015$Plot <- str_extract(CL_All_2015$MacroPlot, "\\d+")
+
+CL_All_2015$yr_trt <- paste(CL_All_2015$Year, 
+                       "_", 
+                       CL_All_2015$Treatment)
+
+# Make sure Year and Plot are being treated as characters not numeric
+CL_All_2015$Plot <- as.character(CL_All_2015$Plot)
+CL_All_2015$Year <- as.character(CL_All_2015$Year)
+
+# Change the column name I want to join by so they match in both dataframes
+colnames(Precip_cm) [1] <- "Year"
+
+# Join the two data frames by Year
+CL_Complete_2015 <- merge(x = CL_All_2015, y = Precip_cm,
+                     by = "Year", all.x = TRUE)
+
+CL_Complete_2015 <- CL_Complete_2015 %>%
+  mutate(Trt_Status = case_when(
+    Year %in% c(2009, 2010) ~ "before",
+    Year %in% c(2011, 2012, 2013, 2015) ~ "after"))
+
+
+# set Control as base level
+CL_Complete_2015$Treatment <- factor(CL_Complete_2015$Treatment, 
+                                levels = c("CONTROL", "BURN", "MECHANICAL"))
+
+# set Pre-treatment as base level
+CL_Complete_2015$Trt_Status <- factor(CL_Complete_2015$Trt_Status, 
+                                 levels = c("before", "after"))
+
+# create a new column with 
+CL_Complete_2015 <- CL_Complete_2015 %>%
+  mutate(Time_Since_Trt = as.numeric(Year) - 2010)
+
+# saveRDS(CL_Complete, file = "CL_Complete")
