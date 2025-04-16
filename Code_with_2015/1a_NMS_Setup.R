@@ -86,6 +86,6 @@ data_plot_groupings_2015 <- wide_data_groupings_2015 %>%
     Time_Since_Trt
   )
 
-
-
+# scale yearly rainfall
+data_plot_groupings_2015$yearly_rain <- scale(data_plot_groupings_2015$yearly_rain)
 

@@ -48,7 +48,6 @@ CL_Complete_2015 <- CL_Complete_2015 %>%
 CL_Complete_2015$Treatment <- factor(CL_Complete_2015$Treatment, 
                                 levels = c("Control", "Burn", "Mechanical"))
 
-view(CL_Complete_2015)
 
 # set Pre-treatment as base level
 CL_Complete_2015$Trt_Status <- factor(CL_Complete_2015$Trt_Status, 
@@ -108,7 +107,7 @@ CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Default_LF"] <- "substrate
 
 CL_Complete_2015$Lifecycle[is.na.data.frame(CL_Complete_2015$Lifecycle)] <- "Unknown"
 
-# saveRDS(CL_Complete_2015, file = "CL_Complete_2015")x
+# saveRDS(CL_Complete_2015, file = "CL_Complete_2015")
  
 
 

@@ -29,7 +29,7 @@ h_groupings_2015 <- how(within = Within(type = "series"),
                         nperm = 499)
 
 # Run adonis (without interactions between year and treatment)
-adonis2(wide_data_groupings_2015.nms ~ Trt_Status + Treatment + yearly_rain,
+adonis2(wide_data_groupings_2015.nms ~ Trt_Status + Treatment + scale(yearly_rain),
         data = data_plot_groupings_2015,
         perm = h_groupings_2015,
         by = "terms",
