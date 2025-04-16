@@ -36,7 +36,7 @@ fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2015"] <- 0.5
 
 
 # Set the number of simulations
-Nsim <- 5
+Nsim <- 100
 
 # Run power analysis
 power_result_census2015 <- list(
@@ -73,10 +73,10 @@ upper_CI_c2015 <- sapply(power_result_census2015, function(x) x$upper)
 split_names_c2015 <- str_split(sim_name_census2015, "_", simplify = TRUE)
 
 # Ensure split_names has enough columns to prevent indexing errors
-if (ncol(sim_name_census2015) >= 4) {
-  Group_c2015 <- sim_name_census2015[, 2]
-  ModelType_c2015 <- sim_name_census2015[, 3]
-  Test1.0_c2015 <- sim_name_census2015[, 4]
+if (ncol(split_names_c2015) >= 4) {
+  Group_c2015 <- split_names_c2015[, 2]
+  ModelType_c2015 <- split_names_c2015[, 3]
+  Test1.0_c2015 <- split_names_c2015[, 4]
   Test2.0_c2015 <- gsub("\\..*", "", Test1.0_c2015)
 } else {
   stop("Unexpected naming structure in power_result2")
@@ -95,7 +95,8 @@ power_census_2015 <- data.frame(
 
 
 power_GLMER_2015 <- read_csv("Data/power_analysis_results.csv")
-power_with_census_2015 <- rbind(power_GLMER, power_census)
+
+#power_with_census_2015 <- rbind(power_GLMER, power_census)
 
 
 #write.csv(power_with_census, "power_with_census.csv", row.names = FALSE)

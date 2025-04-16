@@ -6,7 +6,7 @@ library(tidyverse)
 # Upload data
 CL_All <- read_csv("Data/Cover_Lifeform_All.csv")
 Precip_cm <- read_csv("Data/cm_yearly_rain.csv")
-CL_All_Updated
+CL_All_Updated <- read_csv("Data/MBB_Transect_AllYears.csv")
 
 
 # Step 1: Get unique combinations from CL_All
@@ -21,6 +21,7 @@ CL_All_2015 <- CL_All_Updated %>%
 
 # Create a plot column from MacroPlot
 CL_All_2015$Plot <- str_extract(CL_All_2015$MacroPlot, "\\d+")
+CL_All_2015 <- CL_All_2015 %>% mutate(Treatment = word(MacroPlot, 2, sep = "_"))
 
 CL_All_2015$yr_trt <- paste(CL_All_2015$Year, 
                        "_", 
@@ -45,7 +46,9 @@ CL_Complete_2015 <- CL_Complete_2015 %>%
 
 # set Control as base level
 CL_Complete_2015$Treatment <- factor(CL_Complete_2015$Treatment, 
-                                levels = c("CONTROL", "BURN", "MECHANICAL"))
+                                levels = c("Control", "Burn", "Mechanical"))
+
+view(CL_Complete_2015)
 
 # set Pre-treatment as base level
 CL_Complete_2015$Trt_Status <- factor(CL_Complete_2015$Trt_Status, 
@@ -55,4 +58,62 @@ CL_Complete_2015$Trt_Status <- factor(CL_Complete_2015$Trt_Status,
 CL_Complete_2015 <- CL_Complete_2015 %>%
   mutate(Time_Since_Trt = as.numeric(Year) - 2010)
 
-# saveRDS(CL_Complete, file = "CL_Complete")
+
+# Replace NAs in the Lifecycle, Preferred_LF, Default_LF, Native, Invasive for Species POGL
+CL_Complete_2015[CL_Complete_2015$Species == "POGL", "Lifecycle"] <- "Perennial"
+CL_Complete_2015[CL_Complete_2015$Species == "POGL", "Preferred_LF"] <- "Forb/Herb"
+CL_Complete_2015[CL_Complete_2015$Species == "POGL", "Default_LF"] <- "Forb"
+CL_Complete_2015[CL_Complete_2015$Species == "POGL", "Native"] <- TRUE
+CL_Complete_2015[CL_Complete_2015$Species == "POGL", "Invasive"] <- FALSE
+
+# Replace NAs in the Lifecycle, Preferred_LF, Default_LF, Native, Invasive for LICH
+CL_Complete_2015[CL_Complete_2015$Species == "LICH", "Lifecycle"] <- "Perennial"
+CL_Complete_2015[CL_Complete_2015$Species == "LICH", "Preferred_LF"] <- "Lichen"
+CL_Complete_2015[CL_Complete_2015$Species == "LICH", "Default_LF"] <- "Lichen"
+CL_Complete_2015[CL_Complete_2015$Species == "LICH", "Native"] <- TRUE
+CL_Complete_2015[CL_Complete_2015$Species == "LICH", "Invasive"] <- FALSE
+
+# Replace NAs in the Lifecycle, Preferred_LF, Default_LF, Native, Invasive for Species OXEP1
+CL_Complete_2015[CL_Complete_2015$Species == "OXPE1", "Lifecycle"] <- "Perennial"
+CL_Complete_2015[CL_Complete_2015$Species == "OXPE1", "Preferred_LF"] <- "Forb/Herb"
+CL_Complete_2015[CL_Complete_2015$Species == "OXPE1", "Default_LF"] <- "Forb"
+CL_Complete_2015[CL_Complete_2015$Species == "OXPE1", "Native"] <- FALSE
+CL_Complete_2015[CL_Complete_2015$Species == "OXPE1", "Invasive"] <- TRUE
+
+
+# Replace NAs in the Lifecycle, Preferred_LF, Default_LF for substrates
+CL_Complete_2015[CL_Complete_2015$Species == "LITT", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "LITT", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "LITT", "Default_LF"] <- "substrate"
+
+CL_Complete_2015[CL_Complete_2015$Species == "BARE", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "BARE", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "BARE", "Default_LF"] <- "substrate"
+
+CL_Complete_2015[CL_Complete_2015$Species == "ROCK", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "ROCK", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "ROCK", "Default_LF"] <- "substrate"
+
+CL_Complete_2015[CL_Complete_2015$Species == "WOOD", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "WOOD", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "WOOD", "Default_LF"] <- "substrate"
+
+CL_Complete_2015[CL_Complete_2015$Species == "MOSS", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "MOSS", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "MOSS", "Default_LF"] <- "substrate"
+
+CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Lifecycle"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Preferred_LF"] <- "substrate"
+CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Default_LF"] <- "substrate"
+
+CL_Complete_2015$Lifecycle[is.na.data.frame(CL_Complete_2015$Lifecycle)] <- "Unknown"
+
+# saveRDS(CL_Complete_2015, file = "CL_Complete_2015")x
+ 
+
+
+
+
+
+
+
