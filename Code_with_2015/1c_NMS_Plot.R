@@ -44,7 +44,11 @@ gg_groups_2015 <- ggplot(data = data.scores.group_2015,
         panel.grid.minor = element_line(color = "grey", linewidth  = 0.2),
         legend.title = element_text(face = "bold", size = 14),
         legend.text = element_text(size = 14)) +
-  coord_cartesian(xlim = c(-0.7, 0.7), ylim = c(-0.75, 0.7))
+  #coord_cartesian(xlim = c(-0.7, 0.7), ylim = c(-0.75, 0.7)) +
+  guides(
+    shape = guide_legend(title = "Treatment Status"),
+    linetype = guide_legend(title = "Treatment Status")
+  )
 
 # View the plot
 gg_groups_2015
