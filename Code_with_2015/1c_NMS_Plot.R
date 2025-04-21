@@ -53,14 +53,14 @@ gg_groups_2015 <- ggplot(data = data.scores.group_2015,
 # View the plot
 gg_groups_2015
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
-# 
-# # Save the plot using ggsave
-ggsave(file_path, plot = gg_groups,
-       width = 8, height = 6,   # Set desired width and height in inches
-       dpi = 300,               # Set the resolution (300 DPI for high quality)
-       units = "in",            # Set units to inches
-       device = "png")
+# file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot.png")
+# # 
+# # # Save the plot using ggsave
+# ggsave(file_path, plot = gg_groups,
+#        width = 8, height = 6,   # Set desired width and height in inches
+#        dpi = 300,               # Set the resolution (300 DPI for high quality)
+#        units = "in",            # Set units to inches
+#        device = "png")
 
 
 
