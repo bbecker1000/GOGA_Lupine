@@ -198,7 +198,8 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
     legend.position = "none",
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", size = 0.2),
-    panel.grid.minor = element_line(color = "black", size = 0.2)
+    panel.grid.minor = element_line(color = "black", size = 0.2),
+    plot.tag.position = c(0.15, 0.99)
   ) 
 
 # View graph
