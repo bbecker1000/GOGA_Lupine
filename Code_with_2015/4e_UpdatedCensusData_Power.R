@@ -1,4 +1,4 @@
-source("Code_with_2015/3b_UpdatedCensusData_GLMER.R")
+source("Code_with_2015/4b_UpdatedCensusData_GLMER.R")
 
 # Install packages
 library(lme4)
@@ -94,11 +94,6 @@ power_census_2015 <- data.frame(
 )
 
 
-power_GLMER_2015 <- read_csv("Data/power_analysis_results.csv")
-
-#power_with_census_2015 <- rbind(power_GLMER, power_census)
-
-
-#write.csv(power_with_census, "power_with_census.csv", row.names = FALSE)
+#write.csv(power_census_2015, "power_census_2015.csv", row.names = FALSE)
 
 

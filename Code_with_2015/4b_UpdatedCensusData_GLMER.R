@@ -1,6 +1,6 @@
 # Run GLMERs on the Lupine census data 
 
-source("Code_with_2015/3a_UpdatedCensusData_Setup.R")
+source("Code_with_2015/4a_UpdatedCensusData_Setup.R")
 library(lme4)
 
 
