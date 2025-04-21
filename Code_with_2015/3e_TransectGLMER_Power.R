@@ -108,3 +108,40 @@ power_result_LPI2015 <- list(
   P2_Shrub_2015_MechAfter = summary(powerSim(m_Shrub_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z")))
   )
 
+
+sim_name_LPI2015 <- names(power_result_LPI2015)
+
+# Extract statistics while keeping them aligned
+mean_2015 <- sapply(power_result_LPI2015, function(x) x$mean)
+lower_CI_2015 <- sapply(power_result_LPI2015, function(x) x$lower)
+upper_CI_2015 <- sapply(power_result_LPI2015, function(x) x$upper)
+
+# Split names into meaningful categories
+split_names_2015 <- str_split(sim_name_LPI2015, "_", simplify = TRUE)
+
+# Ensure split_names has enough columns to prevent indexing errors
+if (ncol(split_names_2015) >= 4) {
+  Group_2015 <- split_names_2015[, 2]
+  ModelType_2015 <- split_names_2015[, 3]
+  Test1.0_2015 <- split_names_2015[, 4]
+  Test2.0_2015 <- gsub("\\..*", "", Test1.0_2015)
+} else {
+  stop("Unexpected naming structure in power_result2")
+}
+
+# Create a data frame with extracted information
+power_LPI_2015 <- data.frame(
+  Group = Group_2015,
+  Type = ModelType_2015,
+  Fixed_Effect = Test2.0_2015,
+  Mean = mean_2015,
+  Lower_CI = lower_CI_2015,
+  Upper_CI = upper_CI_2015,
+  stringsAsFactors = FALSE
+)
+
+
+#write.csv(power_LPI_2015, "power_LPI_2015.csv", row.names = FALSE)
+
+
+
