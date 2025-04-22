@@ -1,14 +1,6 @@
 library(tidyverse)
+library(simr)
 
-# Upload power data
-# power_LPI_2015 <- read_csv("Data/power_LPI_2015.csv")
-# power_census_2015 <- read_csv("Data/power_census_2015.csv")
-
-# Merge them into one dataset
-# power_2015 <- rbind(power_LPI_2015, power_census_2015)
-
-# Save the data
-# write.csv(power_2015, "power_2015.csv", row.names = FALSE)
 
 # Upload new data file
 power_2015 <- read_csv("Data/power_2015.csv")
@@ -20,10 +12,8 @@ new_labels <- c("Census" = "Lupine Count (Census)",
                 "Native" = "Native Species Cover (Transect)",
                 "Invasive" = "Invasive Species Cover (Transect)",
                 "Immature" = "Immature Lupine Cover (Census)"
-)
+                )
 
-# NEED TO MAKE A COLUMN THAT HAS YEAR AND FIXED EFFECT TOGETHER
-# power_2015$test2 <- paste()
 
 # Create the forest plot
 power_forestplot_2015 <- ggplot(power_2015, 

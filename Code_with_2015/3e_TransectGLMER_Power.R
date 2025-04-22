@@ -10,6 +10,8 @@ library(dplyr)
 library(stringr)
 
 
+# POWER ANALYSIS FOR BY YEAR MODELS
+
 # Extracting the fixed effects from the lupine model
 fixef(m_Lupin_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
 fixef(m_Lupin_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
@@ -35,16 +37,16 @@ fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
 fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
 
 # Extracting the fixed effects from the invasive model
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2011"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2011"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2012"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2012"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2013"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2011"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2011"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2012"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2012"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2013"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
 
 # Extracting the fixed effects from the shrub model
 fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
@@ -59,7 +61,7 @@ fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
 fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
 
 # Set the number of simulations
-Nsim <- 100
+Nsim <- 1
 
 # Run the analysis
 power_result_LPI2015 <- list(
@@ -85,16 +87,16 @@ power_result_LPI2015 <- list(
   P2_Native_2015_BurnAfter= summary(powerSim(m_Nativity_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
   P2_Native_2015_MechAfter = summary(powerSim(m_Nativity_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z"))),
   
-  P2_Census_2009_BurnBefore = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2009", "z"))),
-  P2_Census_2009_MechBefore = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2009", "z"))),
-  P2_Census_2011_BurnAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2011", "z"))),
-  P2_Census_2011_MechAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2011", "z"))),
-  P2_Census_2012_BurnAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2012", "z"))),
-  P2_Census_2012_MechAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2012", "z"))),
-  P2_Census_2013_BurnAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2013", "z"))),
-  P2_Census_2013_MechAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2013", "z"))),
-  P2_Census_2015_BurnAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
-  P2_Census_2015_MechAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z"))),
+  P2_Invasive_2009_BurnBefore = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2009", "z"))),
+  P2_Invasive_2009_MechBefore = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2009", "z"))),
+  P2_Invasive_2011_BurnAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2011", "z"))),
+  P2_Invasive_2011_MechAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2011", "z"))),
+  P2_Invasive_2012_BurnAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2012", "z"))),
+  P2_Invasive_2012_MechAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2012", "z"))),
+  P2_Invasive_2013_BurnAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2013", "z"))),
+  P2_Invasive_2013_MechAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2013", "z"))),
+  P2_Invasive_2015_BurnAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
+  P2_Invasive_2015_MechAfter = summary(powerSim(m_Invasive_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z"))),
   
   P2_Shrub_2009_BurnBefore= summary(powerSim(m_Shrub_Year_2015, nsim = Nsim, test=fixed("TreatmentBurn:Year2009", "z"))),
   P2_Shrub_2009_MechBefore = summary(powerSim(m_Shrub_Year_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Year2009", "z"))),
@@ -140,8 +142,60 @@ power_LPI_2015 <- data.frame(
   stringsAsFactors = FALSE
 )
 
+power_LPI_2015$test2 <- paste(power_LPI_2015$Type, power_LPI_2015$Fixed_Effect, sep = "_")
+
+power_LPI_2015 <- rownames_to_column(power_LPI_2015, var = "Model_Name")
 
 #write.csv(power_LPI_2015, "power_LPI_2015.csv", row.names = FALSE)
+
+
+
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+
+
+
+# POWER ANALYSIS FOR BY STATUS MODELS
+
+
+# Extracting the fixed effects from the lupine model
+fixef(m_Lupin_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_Lupin_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+
+# Extracting the fixed effects from the nativity model
+fixef(m_Nativity_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_Nativity_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+
+
+# Extracting the fixed effects from the invasive model
+fixef(m_Nativity_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_Nativity_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+
+
+# Extracting the fixed effects from the shrub model
+fixef(m_Shrub_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_Shrub_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+
+
+# Set the number of simulations
+Nsim <- 100
+
+# Run the analysis
+power_result_LPI_Status_2015 <- list(
+  P2_Lupine_PrePost_BurnAfter = summary(powerSim(m_Lupin_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
+  P2_Lupine_PrePost_MechAfter = summary(powerSim(m_Lupin_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  
+  P2_Native_PrePost_BurnAfter= summary(powerSim(m_Nativity_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
+  P2_Native_PrePost_MechAfter = summary(powerSim(m_Nativity_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  
+  P2_Invasive_PrePost_BurnAfter = summary(powerSim(m_Invasive_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
+  P2_Invasive_PrePost_MechAfter = summary(powerSim(m_Invasive_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  
+  P2_Shrub_PrePost_BurnAfter = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
+  P2_Shrub_PrePost_MechAfter = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z")))
+  )
+  
 
 
 

@@ -93,7 +93,10 @@ power_census_2015 <- data.frame(
   stringsAsFactors = FALSE
 )
 
+power_census_2015$test2 <- paste(power_census_2015$Type, power_census_2015$Fixed_Effect, sep = "_")
 
 #write.csv(power_census_2015, "power_census_2015.csv", row.names = FALSE)
+
+
 
 
