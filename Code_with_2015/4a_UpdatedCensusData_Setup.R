@@ -15,7 +15,7 @@ Lupine_Density_2009_2015$Plot <- str_extract(Lupine_Density_2009_2015$Plot, "\\d
 # Make a pre/post-treatment category
 Lupine_Density_2009_2015 <- Lupine_Density_2009_2015 %>%
   mutate(Trt_Status = case_when(
-    Year %in% c(2010) ~ "before",
+    Year %in% c(2009, 2010) ~ "before",
     Year %in% c(2011, 2012, 2013, 2015) ~ "after"))
 
 
