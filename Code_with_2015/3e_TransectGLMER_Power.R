@@ -111,6 +111,9 @@ power_result_LPI2015 <- list(
   )
 
 
+# CREATE A DATA FRAME WITH THE POWER RESULTS
+
+# Save the model names from the power analysis
 sim_name_LPI2015 <- names(power_result_LPI2015)
 
 # Extract statistics while keeping them aligned
@@ -134,7 +137,7 @@ if (ncol(split_names_2015) >= 4) {
 # Create a data frame with extracted information
 power_LPI_2015 <- data.frame(
   Group = Group_2015,
-  Type = ModelType_2015,
+  Type = as.factor(ModelType_2015),
   Fixed_Effect = Test2.0_2015,
   Mean = mean_2015,
   Lower_CI = lower_CI_2015,
@@ -142,12 +145,16 @@ power_LPI_2015 <- data.frame(
   stringsAsFactors = FALSE
 )
 
-power_LPI_2015$test2 <- paste(power_LPI_2015$Type, power_LPI_2015$Fixed_Effect, sep = "_")
+# Create a new column that puts year/type and fixed effect together
+power_LPI_2015$test2 <- paste(power_LPI_2015$Type, 
+                              power_LPI_2015$Fixed_Effect, 
+                              sep = "_")
 
-power_LPI_2015 <- rownames_to_column(power_LPI_2015, var = "Model_Name")
 
-# write.csv(power_LPI_2015, "power_LPI_2015.csv", row.names = FALSE)
-
+# Create a csv file for the dataframe, so we don't have to rerun the power analysis
+# write.csv(power_LPI_2015,
+#           file = file.path("Data", "power_LPI_2015.csv"),
+#           row.names = FALSE)
 
 
 
@@ -162,20 +169,25 @@ power_LPI_2015 <- rownames_to_column(power_LPI_2015, var = "Model_Name")
 # Extracting the fixed effects from the lupine model
 fixef(m_Lupin_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
 fixef(m_Lupin_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_Lupin_Status_2015)["scale(yearly_rain)"] <- 0.5
+
 
 # Extracting the fixed effects from the nativity model
 fixef(m_Nativity_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
 fixef(m_Nativity_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_Nativity_Status_2015)["scale(yearly_rain)"] <- 0.5
 
 
 # Extracting the fixed effects from the invasive model
-fixef(m_Nativity_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
-fixef(m_Nativity_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_Invasive_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_Invasive_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_Invasive_Status_2015)["scale(yearly_rain)"] <- 0.5
 
 
 # Extracting the fixed effects from the shrub model
 fixef(m_Shrub_Status_2015)["TreatmentBurn:Trt_Statusafter"] <- 0.5
 fixef(m_Shrub_Status_2015)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_Shrub_Status_2015)["scale(yearly_rain)"] <- 0.5
 
 
 # Set the number of simulations
@@ -185,18 +197,25 @@ Nsim <- 100
 power_result_LPI_Status_2015 <- list(
   P2_Lupine_PrePost_BurnAfter = summary(powerSim(m_Lupin_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
   P2_Lupine_PrePost_MechAfter = summary(powerSim(m_Lupin_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  P2_Lupine_PrePost_Rainfall = summary(powerSim(m_Lupin_Status_2015, nsim = Nsim, test=fixed("scale(yearly_rain)", "z"))),
   
   P2_Native_PrePost_BurnAfter= summary(powerSim(m_Nativity_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
   P2_Native_PrePost_MechAfter = summary(powerSim(m_Nativity_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  P2_Native_PrePost_Rainfall = summary(powerSim(m_Nativity_Status_2015, nsim = Nsim, test=fixed("scale(yearly_rain)", "z"))),
   
   P2_Invasive_PrePost_BurnAfter = summary(powerSim(m_Invasive_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
   P2_Invasive_PrePost_MechAfter = summary(powerSim(m_Invasive_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  P2_Invasive_PrePost_Rainfall = summary(powerSim(m_Invasive_Status_2015, nsim = Nsim, test=fixed("scale(yearly_rain)", "z"))),
   
   P2_Shrub_PrePost_BurnAfter = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
-  P2_Shrub_PrePost_MechAfter = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z")))
+  P2_Shrub_PrePost_MechAfter = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  P2_Shrub_PrePost_Rainfall = summary(powerSim(m_Shrub_Status_2015, nsim = Nsim, test=fixed("scale(yearly_rain)", "z")))
   )
   
 
+# CREATE A DATA FRAME WITH THE POWER RESULTS
+
+# Save the model names from the power analysis
 sim_name_LPI_Status_2015 <- names(power_result_LPI_Status_2015)
 
 # Extract statistics while keeping them aligned
@@ -220,7 +239,7 @@ if (ncol(split_names_status_2015) >= 4) {
 # Create a data frame with extracted information
 power_LPI_Status_2015 <- data.frame(
   Group = Group_s2015,
-  Type = ModelType_s2015,
+  Type = as.factor(ModelType_s2015),
   Fixed_Effect = Test2.0_s2015,
   Mean = mean_s2015,
   Lower_CI = lower_CI_s2015,
@@ -228,13 +247,17 @@ power_LPI_Status_2015 <- data.frame(
   stringsAsFactors = FALSE
 )
 
+
+# Create a new column that puts year/type and fixed effect together
 power_LPI_Status_2015$test2 <- paste(power_LPI_Status_2015$Type, 
                                      power_LPI_Status_2015$Fixed_Effect, 
                                      sep = "_")
 
-power_LPI_Status_2015 <- rownames_to_column(power_LPI_Status_2015, var = "Model_Name")
 
-# write.csv(power_LPI_Status_2015, "power_LPI_Status_2015.csv", row.names = FALSE)
+# Create a csv file for the dataframe, so we don't have to rerun the power analysis
+# write.csv(power_LPI_Status_2015,
+#           file = file.path("Data", "power_LPI_Status_2015.csv"),
+#           row.names = FALSE)
 
 
 

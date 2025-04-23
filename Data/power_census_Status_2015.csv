@@ -1,0 +1,7 @@
+"Group","Type","Fixed_Effect","Mean","Lower_CI","Upper_CI","test2"
+"Census","PrePost","BurnAfter",0.41,0.312619976567571,0.512855796233229,"PrePost_BurnAfter"
+"Census","PrePost","MechAfter",0.33,0.239198534622602,0.431172750777563,"PrePost_MechAfter"
+"Census","PrePost","Rainfall",1,0.963783307354824,1,"PrePost_Rainfall"
+"Immature","PrePost","BurnAfter",0.6,0.497209150422335,0.696705231297122,"PrePost_BurnAfter"
+"Immature","PrePost","MechAfter",0.63,0.527648359448317,0.724433420385449,"PrePost_MechAfter"
+"Immature","PrePost","Rainfall",1,0.963783307354824,1,"PrePost_Rainfall"

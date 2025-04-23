@@ -95,7 +95,7 @@ predicted_shrub_year_2015 <- Shrubs_data_2015 %>%
 m_Lupin_Status_2015 <- glmer(cbind(Total_Lupin, Total_Count) ~ 
                              Treatment *
                              Trt_Status +
-                             #scale(yearly_rain) +
+                             scale(yearly_rain) +
                              (1|Plot), 
                            family = binomial, 
                            data = Lupin_data_2015)
@@ -116,7 +116,7 @@ predicted_lupine_status_2015 <- Lupin_data_2015 %>%
 m_Nativity_Status_2015 <- glmer(cbind(Total_Native, Total_Count) ~ 
                                 Treatment *
                                 Trt_Status +  
-                                #scale(yearly_rain) + 
+                                scale(yearly_rain) + 
                                 (1|Plot), 
                               family = binomial, 
                               data = Nativity_data_2015)
@@ -136,7 +136,7 @@ predicted_nativity_status_2015 <- Nativity_data_2015 %>%
 m_Invasive_Status_2015 <- glmer(cbind(Total_Invasive, Total_Count) ~ 
                                 Treatment *
                                 Trt_Status +  
-                                #scale(yearly_rain) + 
+                                scale(yearly_rain) + 
                                 (1|Plot), 
                               family = binomial, 
                               data = Invasive_data_2015)
@@ -156,7 +156,7 @@ predicted_invasive_status_2015 <- Invasive_data_2015 %>%
 m_Shrub_Status_2015 <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
                              Treatment *
                              Trt_Status +  
-                             #scale(yearly_rain) + 
+                             scale(yearly_rain) + 
                              (1|Plot), 
                            family = binomial, 
                            data = Shrubs_data_2015)

@@ -41,13 +41,15 @@ predicted_lupin_plot_2015 <- ggplot(predicted_lupine_year_2015,
     axis.title.y = element_text(face = "bold", size = 20,
                                 margin = margin(l = 15, r = 15)),
     axis.text = element_text(color = "black", size = 17),
-    legend.title = element_text(face = "bold", size = 19), # Bold legend title
-    legend.text = element_text(face = "plain", size = 17), # Lowercase text
-    legend.position = c(0.076,0.89),
+    legend.title = element_text(face = "bold", size = 19),
+    legend.text = element_text(face = "plain", size = 17), 
+    legend.position      = c(0.01, 0.99), 
+    legend.justification = c(0, 1),
     panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
     panel.grid.minor = element_line(color = "black", linewidth = 0.2)
   ) 
+
 
 # View graph
 predicted_lupin_plot_2015
@@ -79,7 +81,7 @@ predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015,
              size = 2,
              position = position_dodge(width = .75),
              alpha = 0.7) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   labs(title = "Native Species",
       x = "Treatment Status", 
@@ -129,7 +131,7 @@ predicted_invasive_plot_2015 <- ggplot(predicted_invasive_year_2015,
              size = 2,
              position = position_dodge(width = .75),
              alpha = 0.7) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   labs(title = "Invasive Species",
        #x = "Treatment Status", 
@@ -182,7 +184,7 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
              size = 2,
              position = position_dodge(width = .75),
              alpha = 0.7) +
-  scale_y_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
   labs(title = "Shrubs",
        #x = "Treatment Status", 
@@ -195,10 +197,13 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
     axis.title.y = element_text(face = "bold", size = 20,
                                  margin = margin(l = 15, r = 15)), 
     axis.text = element_text(color = "black", size = 17),
-    legend.position = "none",
+    legend.title = element_text(face = "bold", size = 19), 
+    legend.text = element_text(face = "plain", size = 17), 
+    legend.position      = c(0.01, 0.99), 
+    legend.justification = c(0, 1),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
-    panel.grid.major = element_line(color = "black", size = 0.2),
-    panel.grid.minor = element_line(color = "black", size = 0.2),
+    panel.grid.major = element_line(color = "black", linewidth = 0.2),
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2),
     plot.tag.position = c(0.15, 0.99)
   ) 
 
@@ -208,8 +213,27 @@ predicted_shrub_plot_2015
 
 
 # Create a figure panel with shrubs, native, and invasive
-community_plots <- predicted_shrub_plot_2015 + predicted_nativity_plot_2015 + 
-  predicted_invasive_plot_2015 + plot_annotation(tag_levels = "a")
+community_plots <- predicted_shrub_plot_2015 + 
+                   predicted_nativity_plot_2015 + 
+                   predicted_invasive_plot_2015 + 
+                   plot_annotation(tag_levels = "a")
 
 # View graph
-community_plots
+community_plots 
+
+
+
+
+# FOR SAVING GRAPHS
+
+# Tell R where to save the graphs
+file_path_lupine <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_plot_2015.png")
+file_path_community <- file.path(Sys.getenv("HOME"), "Downloads", "community_plots.png")
+
+
+# Save the plot using ggsave
+ggsave(file_path_community, plot = community_plots,
+       #width = 24, height = 7, 
+       dpi = 300,
+       units = "in",          
+       device = "png")

@@ -61,7 +61,7 @@ predicted_ImmatureLupin_b <- Lupin_Ratio_2009_2015 %>%
 # Run negative binomial glmer
 m_Lupin_census_status_nb <- glmer.nb(Count ~ Treatment * 
                                          Trt_Status +
-                                         #scale(yearly_rain) +
+                                         scale(yearly_rain) +
                                          (1|Plot),
                                        data = Lupine_Density_2009_2015_grouped_live)
 
@@ -81,7 +81,7 @@ predicted_Lupin_nb_status <- Lupine_Density_2009_2015_grouped_live %>%
 # Run binomial glmer
 m_lupin_status_immature <- glmer(cbind(Count_I, Total_Count) ~ Treatment * 
                                      Trt_Status + 
-                                     #scale(yearly_rain) +
+                                     scale(yearly_rain) +
                                      (1|Plot),
                                    family = binomial,
                                    data = Lupin_Ratio_2009_2015)
