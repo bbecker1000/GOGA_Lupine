@@ -105,10 +105,10 @@ boxplot_2015Census_Immature
 
 # # FOR SAVING GRAPHS # #
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Lupine_Immature.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "Lupine_Census_2015.png")
 #
 # # Save the plot using ggsave
-ggsave(file_path, plot = predicted_lupin_census_plot_immature,
+ggsave(file_path, plot = boxplot_2015Census_nb,
        width = 12, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches

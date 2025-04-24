@@ -89,6 +89,9 @@ data_plot_groupings_2015 <- wide_data_groupings_2015 %>%
 # scale yearly rainfall
 data_plot_groupings_2015$yearly_rain <- scale(data_plot_groupings_2015$yearly_rain)
 
-data_plot_groupings_2015$Year<- factor(data_plot_groupings_2015$Trt_Status, 
+data_plot_groupings_2015$Trt_Status <- factor(data_plot_groupings_2015$Trt_Status, 
                                     levels = c("before", "after"))
+
+data_plot_groupings_2015$Year <- factor(data_plot_groupings_2015$Year, 
+                                        levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 

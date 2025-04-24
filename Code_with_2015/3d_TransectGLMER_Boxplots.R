@@ -43,7 +43,7 @@ predicted_lupin_plot_2015 <- ggplot(predicted_lupine_year_2015,
     axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19),
     legend.text = element_text(face = "plain", size = 17), 
-    legend.position      = c(0.01, 0.99), 
+    legend.position = c(0.01, 0.99), 
     legend.justification = c(0, 1),
     panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
@@ -232,8 +232,8 @@ file_path_community <- file.path(Sys.getenv("HOME"), "Downloads", "community_plo
 
 
 # Save the plot using ggsave
-ggsave(file_path_community, plot = community_plots,
-       #width = 24, height = 7, 
+ggsave(file_path_community, plot = community_plots ,
+       width = 20, height = 10, 
        dpi = 300,
        units = "in",          
        device = "png")
