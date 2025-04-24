@@ -59,19 +59,35 @@ glvvm.coef.plot_2015_year$nativity <- ifelse(is.na(glvvm.coef.plot_2015_year$nat
                                         glvvm.coef.plot_2015_year$nativity)
 
 
-glvvm.coef.plot.burnmech <- glvvm.coef.plot_2015_year %>%
-  filter(Covariate %in% c("Year2009.TreatmentBurn", 
-                          "Year2011.TreatmentBurn",
-                          "Year2012.TreatmentBurn",
-                          "Year2013.TreatmentBurn",
-                          "Year2015.TreatmentBurn",
-                          "Year2009.TreatmentMechanical", 
+# Create column to help us code shape in the plot
+glvvm.coef.plot_2015_yr <- glvvm.coef.plot_2015_year %>%                             
+  mutate(lower = Estimate - 2 * Estimate.sd,
+         upper = Estimate + 2 * Estimate.sd,
+    code = if_else(
+      Estimate >= -5 & Estimate <= 5 &        
+        lower >= -5 & upper <= 5,         
+      TRUE,                                 
+      FALSE))
+
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+
+
+# # FOR YEAR FACETED BY COVARIATE
+
+# CREATE A DATAFRAME WITH THE BURN DATA
+
+# Filter out the relevant data
+glvvm.coef.plot.burn <- glvvm.coef.plot_2015_yr %>%
+  filter(Covariate %in% c("Year2009.TreatmentMechanical", 
                           "Year2011.TreatmentMechanical",
                           "Year2012.TreatmentMechanical",
                           "Year2013.TreatmentMechanical",
                           "Year2015.TreatmentMechanical"))
 
-gllvm.burnmech <- glvvm.coef.plot.burnmech %>%
+# Break covariates into raw data for plotting
+gllvm.burn <- glvvm.coef.plot.burn %>%
   separate(Covariate,
            into = c("Year_raw", "Treatment_raw"),
            sep = "\\.") %>% 
@@ -81,12 +97,39 @@ gllvm.burnmech <- glvvm.coef.plot.burnmech %>%
   mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
 
 
-gllvm.rain <- glvvm.coef.plot_2015_year %>%
+# CREATE A DATA FRAME WITH THE MECH DATA
+
+# Filter out the relevant data
+glvvm.coef.plot.mech <- glvvm.coef.plot_2015_yr %>%
+  filter(Covariate %in% c("Year2009.TreatmentMechanical", 
+                          "Year2011.TreatmentMechanical",
+                          "Year2012.TreatmentMechanical",
+                          "Year2013.TreatmentMechanical",
+                          "Year2015.TreatmentMechanical"))
+
+# Break covariates into raw data for plotting
+gllvm.mech <- glvvm.coef.plot.mech %>%
+  separate(Covariate,
+           into = c("Year_raw", "Treatment_raw"),
+           sep = "\\.") %>% 
+  mutate(Year = str_remove(Year_raw,"^Year"),
+         Treatment = str_remove(Treatment_raw, "^Treatment")) %>% 
+  select(-Year_raw, -Treatment_raw) %>%
+  mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
+
+
+# CREATE A DATA FRAME WITH THE RAIN DATA
+
+gllvm.rain <- glvvm.coef.plot_2015_yr %>%
   filter(Covariate %in% "yearly_rain") %>%
   mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
 
 
-view(glvvm.coef.plot.burnmech)
+
+
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
 
 
 # FOR STATUS

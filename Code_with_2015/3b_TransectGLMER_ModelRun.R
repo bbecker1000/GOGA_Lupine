@@ -15,8 +15,10 @@ m_Lupin_Year_2015 <- glmer(cbind(Total_Lupin, Total_Count) ~
                       family = binomial, 
                       data = Lupin_data_2015)
 
+
 # View model output
 summary(m_Lupin_Year_2015)
+
 
 # Extract model data
 predicted_lupine_year_2015 <- Lupin_data_2015 %>%

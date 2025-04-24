@@ -79,25 +79,24 @@ gg_year_2015 <- ggplot(data.scores.group_2015,
     axis.text = element_text(size = 17, colour = "black"),
     legend.title = element_text(face = "bold", size = 19, colour = "black"),
     legend.text = element_text(size = 17,  colour = "black"),
+    legend.justification = c(1, 1),
     strip.text = element_text(face = "bold", size = 19, colour = "black"),
     strip.background = element_blank(),
     panel.border = element_rect(colour = "black", fill = NA, linewidth = .7),
     panel.grid.minor = element_line(colour = "grey80", linewidth = 0.07)) +
   labs(colour = "Treatment") 
  
-
-
-
+# View the graph
 gg_year_2015 
 
 
 
 
 
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot_status.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot_yearly.png")
 #
 # # Save the plot using ggsave
-ggsave(file_path, plot = gg_groups_2015,
+ggsave(file_path, plot = gg_year_2015,
        width = 10, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
