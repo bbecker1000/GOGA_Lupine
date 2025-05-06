@@ -7,25 +7,25 @@ library(gt)
 
 
 # Turn the model output into a dataframe
-sum_lupine_df <- as.data.frame(sum_lupine$coefficients)
+#sum_lupine_df <- as.data.frame(sum_lupine$coefficients)
 sum_native_df <- as.data.frame(sum_native$coefficients)
 sum_invasive_df <- as.data.frame(sum_invasive$coefficients)
 sum_shrub_df <- as.data.frame(sum_shrub$coefficients)
-sum_immature_df <- as.data.frame(sum_immature$coefficients)
+
 
 #Add a column with the response variable
-sum_lupine_df$label <- "Lupine Cover (LPI Transect Data)"
+#sum_lupine_df$label <- "Lupine Cover (LPI Transect Data)"
 sum_native_df$label <- "Native Species Cover (LPI Transect Data)"
 sum_invasive_df$label <- "Invasive Species Cover (LPI Transect Data)"
 sum_shrub_df$label <- "Shrub Cover (LPI Transect Data)"
-sum_immature_df$label <- "Percent Immature Lupine (Census Data)"
+
 
 # Merge the datasets together
 glmer_combined <- bind_rows(sum_shrub_df,
                             sum_native_df, 
                             sum_invasive_df,
-                            sum_lupine_df,
-                            sum_immature_df)
+                            #sum_lupine_df
+                            )
 
 # Round to three decimal places
 glmer_combined$Estimate <- round(glmer_combined$Estimate, 2)

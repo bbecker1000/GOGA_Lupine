@@ -1,5 +1,6 @@
 source("Code_with_2015/4b_UpdatedCensusData_GLMER.R")
 
+library(patchwork)
 
 # # LUPINE CENSUS NEGATIVE BINOMIAL BY YEAR # #
 
@@ -26,8 +27,9 @@ boxplot_2015Census_nb <- ggplot(predicted_Lupin_nb_yr,
              linetype = "dashed", 
              color = "black", 
              linewidth = 1) +
-  labs(x = "Year", 
-       y = "Count of Lupine Individuals",
+  labs(title = "Total Lupine",
+       x = "Year", 
+       y = "Count",
        fill = "Treatment") +
   scale_fill_manual(
     values = c(
@@ -36,7 +38,7 @@ boxplot_2015Census_nb <- ggplot(predicted_Lupin_nb_yr,
       "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", size = 20),
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
     axis.title.x = element_text(face = "bold", size = 20,
                                 margin = margin(t = 15, b = 15)), 
     axis.title.y = element_text(face = "bold", size = 20,
@@ -48,8 +50,8 @@ boxplot_2015Census_nb <- ggplot(predicted_Lupin_nb_yr,
     legend.justification = c(0, 1),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
-    panel.grid.minor = element_line(color = "black", linewidth = 0.2)
-  ) 
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2),
+    plot.tag.position = c(0.1, 1)) 
 
 # View graph
 boxplot_2015Census_nb
@@ -105,7 +107,8 @@ boxplot_2015Census_Immature <- ggplot(predicted_ImmatureLupin_b,
     legend.position = c(0.079,0.894),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
-    panel.grid.minor = element_line(color = "black", linewidth = 0.2)
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2),
+    plot.tag.position = c(1, 1)
   ) 
 
 
@@ -139,8 +142,9 @@ boxplot_Immature_Count <- ggplot(predicted_ImmatureCount_nb,
              linetype = "dashed", 
              color = "black", 
              linewidth = 1) +
-  labs(x = "Year", 
-       y = "Count of Immature Lupine",
+  labs(title = "Immature Lupine",
+       x = "Year", 
+       y = "Count",
        fill = "Treatment") +
   scale_fill_manual(
     values = c(
@@ -149,27 +153,29 @@ boxplot_Immature_Count <- ggplot(predicted_ImmatureCount_nb,
       "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", size = 20),
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
     axis.title.x = element_text(face = "bold", size = 20,
                                 margin = margin(t = 15, b = 15)), 
-    axis.title.y = element_text(face = "bold", size = 20,
-                                margin = margin(l = 15, r = 15)),
+    axis.title.y = element_blank(),
     axis.text = element_text(color = "black", size = 17),
     legend.title = element_text(face = "bold", size = 19), 
     legend.text = element_text(face = "plain", size = 17), 
     legend.position = "none", #c(0.079,0.894),
     panel.border = element_rect(color = "black", fill = NA, size = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
-    panel.grid.minor = element_line(color = "black", linewidth = 0.2)
-  ) 
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2),
+    plot.tag.position = c(0.1, 1)) 
 
 
 # View graph
 boxplot_Immature_Count
 
 
+lupine_plots <- boxplot_2015Census_nb + 
+                boxplot_Immature_Count +
+                plot_annotation(tag_levels = "a")
 
-lupine_plots <- boxplot_2015Census_nb + boxplot_Immature_Count
+lupine_plots
 
 
 # # FOR SAVING GRAPHS # #

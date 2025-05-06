@@ -15,7 +15,7 @@ m_Lupin_census_allyears_nb <- glmer.nb(Count ~ Treatment *
                               data = Lupine_Density_2009_2015_grouped_live)
 
 # View model output
-summary(m_Lupin_census_allyears_nb)
+sum_census_count <- summary(m_Lupin_census_allyears_nb)
 
 
 # Extract the model data
@@ -126,7 +126,7 @@ m_lupin_status_immature_count <- glmer.nb(cbind(Count_I) ~ Treatment *
 
 
 # View model output
-summary(m_lupin_status_immature_count)
+sum_immature_count <- summary(m_lupin_status_immature_count)
 
 # Extract the model data
 predicted_ImmatureLupin_status <- Lupin_Ratio_2009_2015 %>%
