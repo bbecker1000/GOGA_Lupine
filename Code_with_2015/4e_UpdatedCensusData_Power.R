@@ -23,16 +23,16 @@ fixef(m_Lupin_census_allyears_nb)["TreatmentBurn:Year2015"] <- 0.5
 fixef(m_Lupin_census_allyears_nb)["TreatmentMechanical:Year2015"] <- 0.5
 
 # Extracting the fixed effects from the immature model
-fixef(m_lupin_allyears_immature)["TreatmentBurn:Year2009"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2009"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentBurn:Year2011"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2011"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentBurn:Year2012"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2012"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentBurn:Year2013"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2013"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentBurn:Year2015"] <- 0.5
-fixef(m_lupin_allyears_immature)["TreatmentMechanical:Year2015"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentBurn:Year2009"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentMechanical:Year2009"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentBurn:Year2011"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentMechanical:Year2011"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentBurn:Year2012"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentMechanical:Year2012"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentBurn:Year2013"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentMechanical:Year2013"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentBurn:Year2015"] <- 0.5
+fixef(m_lupin_immature_count)["TreatmentMechanical:Year2015"] <- 0.5
 
 
 # Set the number of simulations
@@ -51,16 +51,16 @@ power_result_census2015 <- list(
   P2_Census_2015_BurnAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
   P2_Census_2015_MechAfter = summary(powerSim(m_Lupin_census_allyears_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z"))),
   
-  P2_Immature_2009_BurnBefore= summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentBurn:Year2009", "z"))),
-  P2_Immature_2009_MechBefore = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Year2009", "z"))),
-  P2_Immature_2011_BurnAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentBurn:Year2011", "z"))),
-  P2_Immature_2011_MechAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Year2011", "z"))),
-  P2_Immature_2012_BurnAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentBurn:Year2012", "z"))),
-  P2_Immature_2012_MechAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Year2012", "z"))),
-  P2_Immature_2013_BurnAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentBurn:Year2013", "z"))),
-  P2_Immature_2013_MechAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Year2013", "z"))),
-  P2_Immature_2015_BurnAfter= summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
-  P2_Immature_2015_MechAfter = summary(powerSim(m_lupin_allyears_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z")))
+  P2_Immature_2009_BurnBefore= summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Year2009", "z"))),
+  P2_Immature_2009_MechBefore = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Year2009", "z"))),
+  P2_Immature_2011_BurnAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Year2011", "z"))),
+  P2_Immature_2011_MechAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Year2011", "z"))),
+  P2_Immature_2012_BurnAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Year2012", "z"))),
+  P2_Immature_2012_MechAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Year2012", "z"))),
+  P2_Immature_2013_BurnAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Year2013", "z"))),
+  P2_Immature_2013_MechAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Year2013", "z"))),
+  P2_Immature_2015_BurnAfter= summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Year2015", "z"))),
+  P2_Immature_2015_MechAfter = summary(powerSim(m_lupin_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Year2015", "z")))
   )
 
 
@@ -127,9 +127,9 @@ fixef(m_Lupin_census_status_nb)["scale(yearly_rain)"] <- 0.5
 
 
 # Extracting the fixed effects from the shrub model
-fixef(m_lupin_status_immature)["TreatmentBurn:Trt_Statusafter"] <- 0.5
-fixef(m_lupin_status_immature)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
-fixef(m_lupin_status_immature)["scale(yearly_rain)"] <- 0.5
+fixef(m_lupin_status_immature_count)["TreatmentBurn:Trt_Statusafter"] <- 0.5
+fixef(m_lupin_status_immature_count)["TreatmentMechanical:Trt_Statusafter"] <- 0.5
+fixef(m_lupin_status_immature_count)["scale(yearly_rain)"] <- 0.5
 
 
 # Set the number of simulations
@@ -141,9 +141,9 @@ power_result_census_Status_2015 <- list(
   P2_Census_PrePost_MechAfter = summary(powerSim(m_Lupin_census_status_nb, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
   P2_Census_PrePost_Rainfall = summary(powerSim(m_Lupin_census_status_nb, nsim = Nsim, test=fixed("scale(yearly_rain)", "z"))),
   
-  P2_Immature_PrePost_BurnAfter = summary(powerSim(m_lupin_status_immature, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
-  P2_Immature_PrePost_MechAfter = summary(powerSim(m_lupin_status_immature, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
-  P2_Immature_PrePost_Rainfall = summary(powerSim(m_lupin_status_immature, nsim = Nsim, test=fixed("scale(yearly_rain)", "z")))
+  P2_Immature_PrePost_BurnAfter = summary(powerSim(m_lupin_status_immature_count, nsim = Nsim, test=fixed("TreatmentBurn:Trt_Statusafter", "z"))),
+  P2_Immature_PrePost_MechAfter = summary(powerSim(m_lupin_status_immature_count, nsim = Nsim, test=fixed("TreatmentMechanical:Trt_Statusafter", "z"))),
+  P2_Immature_PrePost_Rainfall = summary(powerSim(m_lupin_status_immature_count, nsim = Nsim, test=fixed("scale(yearly_rain)", "z")))
   )
 
 

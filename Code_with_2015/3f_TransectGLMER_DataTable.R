@@ -3,100 +3,185 @@ source("Code_with_2015/3b_TransectGLMER_ModelRun.R")
 library(ggpubr)
 library(gridExtra)
 library(dplyr)
-
-# Create the raw data
-lupine_LPI_df <- data.frame(
-  Term = c(
-    "(Intercept)", "TreatmentBurn", "TreatmentMechanical", "Year2009", "Year2011", "Year2012", "Year2013", "Year2015",
-    "TreatmentBurn:Year2009", "TreatmentMechanical:Year2009",
-    "TreatmentBurn:Year2011", "TreatmentMechanical:Year2011",
-    "TreatmentBurn:Year2012", "TreatmentMechanical:Year2012",
-    "TreatmentBurn:Year2013", "TreatmentMechanical:Year2013",
-    "TreatmentBurn:Year2015", "TreatmentMechanical:Year2015"
-  ),
-  Estimate = c(
-    -4.34858, 0.70641, 0.54936, 0.01302, 0.38642, 0.74678, 0.86798, 1.27514,
-    0.28443, 0.15763,
-    -0.89311, -1.82216,
-    -0.71213, -1.24949,
-    -0.76931, -1.15178,
-    -0.74617, -1.31437
-  ),
-  Std.Error = c(
-    0.33761, 0.24560, 0.25339, 0.31780, 0.26027, 0.25484, 0.24329, 0.23680,
-    0.38076, 0.39478,
-    0.34850, 0.43779,
-    0.32750, 0.36718,
-    0.31124, 0.33867,
-    0.30289, 0.33774
-  ),
-  zvalue = c(
-    -12.880, 2.876, 2.168, 0.041, 1.485, 2.930, 3.568, 5.385,
-    0.747, 0.399,
-    -2.563, -4.162,
-    -2.174, -3.403,
-    -2.472, -3.401,
-    -2.463, -3.892
-  ),
-  Pr_z = c(
-    "< 2e-16", 0.004024, 0.030152, 0.967315, 0.137619, 0.003386, 0.000360, "7.25e-08",
-    0.455065, 0.689683,
-    0.010386, "3.15e-05",
-    0.029672, 0.000667,
-    0.013447, 0.000672,
-    0.013759, "9.95e-05"
-  ),
-  stringsAsFactors = FALSE
-)
-
-# Format numeric columns
-lupine_LPI_df <- lupine_LPI_df %>%
-  mutate(
-    Estimate = sprintf("%.2f", Estimate),
-    Std.Error = sprintf("%.2f", Std.Error),
-    zvalue = sprintf("%.2f", zvalue),
-    Pr_z = ifelse(grepl("[<a-z]", Pr_z), 
-                        as.character(Pr_z), 
-                        sprintf("%.3f", as.numeric(Pr_z))))
+library(gt)
 
 
-colnames(lupine_LPI_df) <- c("Fixed Effect", 
+# Turn the model output into a dataframe
+sum_lupine_df <- as.data.frame(sum_lupine$coefficients)
+sum_native_df <- as.data.frame(sum_native$coefficients)
+sum_invasive_df <- as.data.frame(sum_invasive$coefficients)
+sum_shrub_df <- as.data.frame(sum_shrub$coefficients)
+sum_immature_df <- as.data.frame(sum_immature$coefficients)
+
+#Add a column with the response variable
+sum_lupine_df$label <- "Lupine Cover (LPI Transect Data)"
+sum_native_df$label <- "Native Species Cover (LPI Transect Data)"
+sum_invasive_df$label <- "Invasive Species Cover (LPI Transect Data)"
+sum_shrub_df$label <- "Shrub Cover (LPI Transect Data)"
+sum_immature_df$label <- "Percent Immature Lupine (Census Data)"
+
+# Merge the datasets together
+glmer_combined <- bind_rows(sum_shrub_df,
+                            sum_native_df, 
+                            sum_invasive_df,
+                            sum_lupine_df,
+                            sum_immature_df)
+
+# Round to three decimal places
+glmer_combined$Estimate <- round(glmer_combined$Estimate, 2)
+glmer_combined$`Std. Error` <- round(glmer_combined$`Std. Error`, 2)
+glmer_combined$`z value` <- round(glmer_combined$`z value`, 2)
+glmer_combined$`Pr(>|z|)` <- ifelse(glmer_combined$`Pr(>|z|)` < 0.001, 
+                                    "< 0.001", 
+                                    round(glmer_combined$`Pr(>|z|)`, 3))
+
+
+# Make the fixed effects which are currently row names into their own column
+glmer_combined_df <- rownames_to_column(glmer_combined)
+
+glmer_combined_df_2 <- glmer_combined_df %>%
+  mutate(Fixed_Effect = rowname %>%
+           str_replace_all("Treatment", "Treatment ") %>%  
+           str_replace_all(":Year", " "))
+
+glmer_combined_df_2$Fixed_Effect <- gsub("\\.\\.\\.\\d+$", "", glmer_combined_df_2$Fixed_Effect)
+
+glmer_combined_df_2 <- glmer_combined_df_2 %>%
+  filter(Fixed_Effect %in% c("Treatment Burn 2009",
+                             "Treatment Burn 2011",
+                             "Treatment Burn 2012",
+                             "Treatment Burn 2013",
+                             "Treatment Burn 2015",
+                             "Treatment Mechanical 2009",
+                             "Treatment Mechanical 2011",
+                             "Treatment Mechanical 2012",
+                             "Treatment Mechanical 2013",
+                             "Treatment Mechanical 2015"))
+
+# Reorder the columns
+glmer_combined_df_3 <- glmer_combined_df_2 %>%
+  select("label", "Fixed_Effect", "Estimate", "Std. Error", "z value", "Pr(>|z|)")
+
+# Rename the columns for clarity
+colnames(glmer_combined_df_3) <- c("Response Variable",
+                             "Fixed Effect", 
                              "Estimate", 
                              "Standard Error", 
                              "z-value", 
                              "Pr(>|z|)")
 
 
-# Create the formatted table
-table_lupine_LPI <- ggtexttable(lupine_LPI_df, rows = NULL, theme = ttheme("light"))
+n_rows <- nrow(glmer_combined_df_3)
 
 
-# Bold the Pr(>|z|) column values where Pr(>|z|) < 0.05
-# 'Pr(>|z|)' is in column 6 (1-based index)
-library(ggpubr)
-
-# Let's assume your data frame is called `lupine_LPI_df`
-# and it has been correctly formatted already
-
-# Step 1: Create the table
-table_lupine_LPI <- ggtexttable(lupine_LPI_df, rows = NULL, theme = ttheme("light"))
-
-# Step 2: Loop through and bold significant p-values
-for (i in 1:nrow(lupine_LPI_df)) {
-  pr_raw <- lupine_LPI_df$`Pr(>|z|)`[i]
-  pr_value <- suppressWarnings(as.numeric(pr_raw))
+glmer_combined_table <- glmer_combined_df_3 %>%
+  gt(groupname_col = "Response Variable") %>%
+  #tab_stubhead(label = "Response Variable") %>%
+  tab_options(heading.align = "center",
+              table_body.hlines.style = "none",
+              table_body.vlines.style = "none",
+              stub.border.color = "black") %>%
+  # Add horizontal line to separate by response variable
+  tab_style(style = cell_borders(sides = c("bottom"),  weight = px(2)),
+            locations = list(
+              cells_body(rows = c(10, 20, 30, 40, 50)),
+              cells_stub(rows = c(10, 20, 30, 40, 50)))) %>%
+  # Left-align the "Fixed_Effect" column
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_body(columns = "Fixed Effect")) %>%
+  # Center-align all other columns
+  tab_style(
+    style = cell_text(align = "center"),
+    locations = cells_body(columns = -`Fixed Effect`)) %>%
+  tab_options(
+    table.border.top.color = "black",
+    table.border.top.width = px(2),
+    column_labels.border.top.color = "black",
+    column_labels.border.top.width = px(2),
+    column_labels.border.bottom.color = "black",
+    column_labels.border.bottom.width = px(2)
+    ) %>%
+  # Add black border below the last row
+  tab_style(
+    style = cell_borders(sides = "bottom", color = "black", weight = px(2)),
+    locations = cells_body(rows = n_rows)) 
   
-  if (!is.na(pr_value) && pr_value < 0.05) {
-    # +1 because the first row in the table is the header
-    table_lupine_LPI <- table_cell_font(table_lupine_LPI, row = i + 1, column = which(colnames(lupine_LPI_df) == "Pr(>|z|)"), face = "bold")
-  }
+  
+glmer_combined_table
+
+# Bold the Pr_z values that are significant
+pr_value <- suppressWarnings(as.numeric(glmer_combined_table$`Pr(>|z|)`[5]))
+
+if (!is.na(pr_value) && pr_value < 0.05) {
+  glmer_combined_table_2 <- glmer_combined_table %>%
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_body(
+        columns = "Pr(>|z|)"
+      )
+    )
 }
 
 
 
+# Calculate total number of rows for bottom border
+n_rows <- nrow(glmer_combined_df_3)
+
+glmer_combined_table_3 <- glmer_combined_df_3 %>%
+  gt(groupname_col = "Response Variable") %>%
+  tab_options(
+    heading.align = "center",
+    table_body.hlines.style = "none",
+    table_body.vlines.style = "none",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    heading.border.bottom.color = "black",
+    row_group.border.top.color = "black",
+    row_group.border.bottom.color = "white",
+    column_labels.border.top.color = "black",
+    column_labels.border.bottom.color = "black",
+    table_body.border.bottom.color = "black",
+    table_body.hlines.color = "white",
+    stub.border.color = "transparent"  # Keep this if you want no stub border
+  ) %>%
+  # Add horizontal separator lines at specific row breaks
+  tab_style(
+    style = cell_borders(sides = "bottom", weight = px(2)),
+    locations = list(
+      cells_body(rows = c(10, 20, 30, 40, 50)),
+      cells_stub(rows = c(10, 20, 30, 40, 50))
+    )
+  ) %>%
+  # Add bottom border to last row
+  tab_style(
+    style = cell_borders(sides = "bottom", color = "black", weight = px(2)),
+    locations = cells_body(rows = n_rows)
+  ) %>%
+  # Left-align Fixed Effect
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_body(columns = "Fixed Effect")
+  ) %>%
+  # Center-align all other columns
+  tab_style(
+    style = cell_text(align = "center"),
+    locations = cells_body(columns = -`Fixed Effect`)
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(
+      columns = `Pr(>|z|)`,
+      rows = as.numeric(gsub("[^0-9.]", "", `Pr(>|z|)`)) < 0.05 |
+        grepl("< 0.001", `Pr(>|z|)`)))
+
+
+glmer_combined_table_3
+
 
 # Tell R where to save the table
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "lupineGLMER_table.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "glmertable3.png")
 
 # Save the table as PNG
-ggsave(file_path, plot = table_lupine_LPI, width = 10, height = 6, dpi = 300)
+gtsave(data = glmer_combined_table_3, filename = file_path)
+

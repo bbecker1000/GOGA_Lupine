@@ -38,12 +38,31 @@ m_lupin_allyears_immature <- glmer(cbind(Count_I, Total_Count) ~
 
 
 # View model output
-summary(m_lupin_allyears_immature)
+sum_immature <- summary(m_lupin_allyears_immature)
 
 # Extract the model data
 predicted_ImmatureLupin_b <- Lupin_Ratio_2009_2015 %>%
   mutate(predicted = predict(m_lupin_allyears_immature, type = "response"))
 
+
+
+# # COUNT IMMATURE LUPINE BINOMIAL BY YEAR # #
+
+# Run binomial glmer
+m_lupin_immature_count <- glmer.nb(Count_I ~ 
+                                     Treatment * 
+                                     Year + 
+                                     #scale(yearly_rain) +
+                                     (1|Plot),
+                                   data = Lupin_Ratio_2009_2015)
+
+
+# View model output
+sum_immature_count <- summary(m_lupin_immature_count)
+
+# Extract the model data
+predicted_ImmatureCount_nb <- Lupin_Ratio_2009_2015 %>%
+  mutate(predicted = predict(m_lupin_immature_count, type = "response"))
 
 
 
@@ -93,6 +112,25 @@ summary(m_lupin_status_immature)
 # Extract the model data
 predicted_ImmatureLupin_status <- Lupin_Ratio_2009_2015 %>%
   mutate(predicted = predict(m_lupin_status_immature, type = "response"))
+
+
+
+# # COUNT IMMATURE LUPINE BINOMIAL BY STATUS # #
+
+# Run binomial glmer
+m_lupin_status_immature_count <- glmer.nb(cbind(Count_I) ~ Treatment * 
+                                   Trt_Status + 
+                                   scale(yearly_rain) +
+                                   (1|Plot),
+                                 data = Lupin_Ratio_2009_2015)
+
+
+# View model output
+summary(m_lupin_status_immature_count)
+
+# Extract the model data
+predicted_ImmatureLupin_status <- Lupin_Ratio_2009_2015 %>%
+  mutate(predicted = predict(m_lupin_status_immature_count, type = "response"))
 
 
 

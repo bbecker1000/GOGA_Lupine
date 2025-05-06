@@ -22,7 +22,7 @@ gllvm_burn_2015 <- ggplot(gllvm.burn,
   scale_fill_identity() +
   scale_shape_manual(values = c("TRUE" = 16, "FALSE" = 1)) +
   geom_pointrange(aes(ymin = Estimate - 2 * Estimate.sd, ymax = Estimate + 2 * Estimate.sd),
-                  position = position_dodge(width = 1)) +
+                  position = position_dodge2(width = 1, reverse = TRUE)) +
   coord_flip() + 
   geom_hline(yintercept = 0, linetype = 2) + 
   labs(color = "Year",
@@ -37,13 +37,14 @@ gllvm_burn_2015 <- ggplot(gllvm.burn,
     legend.title = element_text(face = "bold", size = 20),
     legend.text = element_text(size = 20),
     strip.text = element_text(face = "bold", size = 15,hjust = 0.5),
-    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
     plot.tag.position = c(0.3, 1)) +
     guides(shape  = "none")
 
 # View the graph
 gllvm_burn_2015
 
+levels(gllvm.burn$Year)
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
@@ -70,7 +71,7 @@ gllvm_mech_2015 <- ggplot(gllvm.mech,
   scale_fill_identity() +
   scale_shape_manual(values = c("TRUE" = 16, "FALSE" = 1)) +
   geom_pointrange(aes(ymin = Estimate - 2 * Estimate.sd, ymax = Estimate + 2 * Estimate.sd),
-                  position = position_dodge(width = 1)) +
+                  position = position_dodge2(width = 1, reverse = TRUE)) +
   coord_flip() + 
   geom_hline(yintercept = 0, linetype = 2) + 
   labs(color = "Year",

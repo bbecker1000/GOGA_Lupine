@@ -26,6 +26,7 @@ CLComplete_2015$spp_groupings <- ifelse(CLComplete_2015$Species == "LUAL", "Lupi
                                           ifelse(CLComplete_2015$Species == "LUPINa", "Lupine",
                                                  CLComplete_2015$spp_groupings)))
 
+
 # Calculate the total count of species groups for each macroplot and year
 sum_groupings_2015 <- CLComplete_2015 %>%
   group_by(MacroPlot,

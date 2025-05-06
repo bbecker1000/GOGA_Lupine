@@ -17,7 +17,7 @@ m_Lupin_Year_2015 <- glmer(cbind(Total_Lupin, Total_Count) ~
 
 
 # View model output
-summary(m_Lupin_Year_2015)
+sum_lupine <- summary(m_Lupin_Year_2015)
 
 
 # Extract model data
@@ -39,7 +39,7 @@ m_Nativity_Year_2015 <- glmer(cbind(Total_Native, Total_Count) ~
                          data = Nativity_data_2015)
 
 # View model output
-summary(m_Nativity_Year_2015)
+sum_native <- summary(m_Nativity_Year_2015)
 
 # Extract model data
 predicted_nativity_year_2015 <- Nativity_data_2015 %>%
@@ -59,7 +59,7 @@ m_Invasive_Year_2015 <- glmer(cbind(Total_Invasive, Total_Count) ~
                          data = Invasive_data_2015)
 
 # View model output
-summary(m_Invasive_Year_2015)
+sum_invasive <- summary(m_Invasive_Year_2015)
 
 # Extract model data
 predicted_invasive_year_2015 <- Invasive_data_2015 %>%
@@ -79,7 +79,7 @@ m_Shrub_Year_2015 <- glmer(cbind(Total_Shrubs, Total_Count) ~
                       data = Shrubs_data_2015)
 
 # View model output
-summary(m_Shrub_Year_2015)
+sum_shrub <- summary(m_Shrub_Year_2015)
 
 # Extract model data
 predicted_shrub_year_2015 <- Shrubs_data_2015 %>%

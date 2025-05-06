@@ -32,9 +32,14 @@ for (i in 1:nrow(model_output_adonis)) {
 }
 
 
-# Tell R where to save the table
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "adonis_output_table.png")
 
+# SAVE THE DATA
+
+# Define the file path (e.g., saving to Downloads)
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "adonis_output.xlsx")
+
+# Save the data
+write_xlsx(model_output_adonis, path = file_path)
 
 # Save as PNG
 ggsave(file_path, plot = table_adonis, width = 8, height = 4, dpi = 300)

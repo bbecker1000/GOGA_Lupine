@@ -16,7 +16,7 @@ en_groupings_2015 = envfit(nms_groupings_2015,
                            permutations = 999, na.rm = TRUE)
 
 # 12 vectors (rows) with NMDS1, NMDS2
-env_vec  <- scores(en_groupings_2015, "vectors") %>% 
+env_vec <- scores(en_groupings_2015, "vectors") %>% 
   as.data.frame() %>% 
   mutate(variable = rownames(.))
 
@@ -35,6 +35,7 @@ data.scores.group_2015$Year <- wide_data_groupings_2015$Year
 group.scores_2015 <- as.data.frame(scores(nms_groupings_2015)$species)
 species.scores <- as.data.frame(scores(nms_groupings_2015, "species"))
 species.scores$species <- rownames(species.scores)
+en_coord_cont_2015 = as.data.frame(scores(en_groupings_2015, "vectors")) 
 
 
 

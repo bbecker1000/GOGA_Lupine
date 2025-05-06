@@ -33,6 +33,11 @@ predicted_lupin_plot_2015 <- ggplot(predicted_lupine_year_2015,
   labs(x = "Treatment Status", 
        y = "Percent Cover Lupine",
        fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20),
@@ -75,7 +80,7 @@ predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015,
   aes(x = Year, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = Nativity_data_2015_2,
-             aes(x = Year, y = Native_Ratio, fill = Treatment),
+             aes(x = Year, y = (Total_Native/Total_Count), fill = Treatment),
              shape = 21, 
              color = "black", 
              size = 2,
@@ -87,6 +92,11 @@ predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015,
       x = "Treatment Status", 
        #y = "Percent Cover",
        fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
@@ -137,6 +147,11 @@ predicted_invasive_plot_2015 <- ggplot(predicted_invasive_year_2015,
        #x = "Treatment Status", 
        #y = "Percent Cover",
        fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
@@ -190,6 +205,11 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
        #x = "Treatment Status", 
        y = "Percent Cover",
        fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, hjust = 0.5),

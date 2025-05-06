@@ -5,6 +5,9 @@ library(simr)
 # Upload new data file
 power_2015 <- read_csv("Data/power_2015.csv")
 
+# New graph without lupine cover from LPI transect
+power_2015_filtered <- power_2015 %>%
+  filter(Group != "Lupine")
 
 # Re-title the facet wrap labels for clarity
 new_facet_labels <- c("Census" = "Lupine Count (Census)", 
@@ -12,7 +15,8 @@ new_facet_labels <- c("Census" = "Lupine Count (Census)",
                 "Shrub" = "Shrub Cover (Transect)",
                 "Native" = "Native Species Cover (Transect)",
                 "Invasive" = "Invasive Species Cover (Transect)",
-                "Immature" = "Immature Lupine Cover (Census)")
+                "Immature" = "Immature Lupine Count (Census)",
+                "Census" = "Lupine Count (Census)")
 
 
 
@@ -30,9 +34,8 @@ new_x_labels <- c("2010_BurnAfter" = "2010 Burn",
                   "PrePost_Rain" = "Pre & Post Rain")
 
 
-
 # Create the forest plot
-power_forestplot_2015 <- ggplot(power_2015, 
+power_forestplot_2015 <- ggplot(power_2015_filtered, 
   aes(x = test2, y = Mean, ymin = Lower_CI, ymax = Upper_CI)) +
   geom_pointrange(color = "blue") + 
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") +  
@@ -57,13 +60,15 @@ power_forestplot_2015
 
 
 
+
+
 # FOR SAVING GRAPHS
 
 file_path_power <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot_2015.png")
 
 # Save the plot using ggsave
 ggsave(file_path_power, plot = power_forestplot_2015,
-       #width = 24, height = 7, 
+       width = 14, height = 10, 
        dpi = 300,
        units = "in",          
        device = "png")

@@ -22,13 +22,13 @@ gg_groups_2015 <- ggplot(data = data.scores.group_2015,
                level = 0.8, 
                alpha = 0.9, 
                size = 1) +
-  geom_segment(data = en_coord_cont_g_2015,
+  geom_segment(data = en_coord_cont_2015,
                aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
                arrow = arrow(length = unit(0.25, "cm")),
                linewidth = 0.75,
                alpha = 1,
                color = "black") +
-  geom_text(data = en_coord_cont_g_2015, 
+  geom_text(data = en_coord_cont_2015, 
             aes(x = NMDS1, y = NMDS2, label = c("Annual Rainfall", "Time Since Treatment")), 
             vjust = -1, hjust = 1, size = 5, colour = "black", fontface = "bold") +
   geom_text_repel(data = as_tibble(nms_groupings_2015$species), 
@@ -54,7 +54,46 @@ gg_groups_2015 <- ggplot(data = data.scores.group_2015,
 gg_groups_2015
 
 
+# Plot a version with only arrows
+en_coord_cont_2015$variable <- c("Annual Rainfall", "Time Since Treatment")
+vjust_values <- c(-0.5, 1) 
 
+
+gg_arrows_2015 <- ggplot(data = data.scores.group_2015, 
+                         aes(x = NMDS1, y = NMDS2)) +
+  geom_segment(data = en_coord_cont_2015,
+               aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
+               arrow = arrow(length = unit(0.25, "cm")),
+               linewidth = 0.75,
+               alpha = 1,
+               color = "black") +
+  geom_text(data = en_coord_cont_2015, 
+            aes(x = NMDS1, y = NMDS2, label = variable), 
+            vjust = vjust_values, hjust = 0.5, size = 5, 
+            colour = "black", fontface = "bold") +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 20, colour = "black"),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text = element_text(size = 15, colour = "black"),
+        strip.text = element_text(face = "bold", size = 19, colour = "black"),
+        strip.background = element_blank(),
+        panel.spacing = unit(1, "lines"),
+        panel.border = element_rect(colour = "black", fill = NA, linewidth = .7),
+        panel.grid.minor = element_line(colour = "grey80", linewidth = 0.07)) +
+  coord_cartesian(xlim = c(-1, 1), ylim = c(-1, 1)) +
+  guides(
+    shape = guide_legend(title = "Treatment Status"),
+    linetype = guide_legend(title = "Treatment Status"))
+
+# View plot
+gg_arrows_2015
+
+
+
+# Create a plot faceted by year
 gg_year_2015 <- ggplot(data.scores.group_2015,
   aes(NMDS1, NMDS2)) +
   facet_wrap(~ Year) +
@@ -67,6 +106,11 @@ gg_year_2015 <- ggplot(data.scores.group_2015,
             max.overlaps = Inf) +
   coord_fixed(xlim = c(-1, 1),
               ylim = c(-1, 1)) + 
+  scale_color_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
   theme_classic() +
   theme(
     plot.title = element_text(face = "bold", size = 20, colour = "black"),
@@ -76,12 +120,13 @@ gg_year_2015 <- ggplot(data.scores.group_2015,
     axis.title.y = element_text(face = "bold", size = 20,
                                     margin = margin(l = 15, r = 15),
                                     colour = "black"),
-    axis.text = element_text(size = 17, colour = "black"),
+    axis.text = element_text(size = 12, colour = "black"),
     legend.title = element_text(face = "bold", size = 19, colour = "black"),
     legend.text = element_text(size = 17,  colour = "black"),
-    legend.justification = c(1, 1),
+    #legend.position = "none",
     strip.text = element_text(face = "bold", size = 19, colour = "black"),
     strip.background = element_blank(),
+    panel.spacing = unit(1, "lines"),
     panel.border = element_rect(colour = "black", fill = NA, linewidth = .7),
     panel.grid.minor = element_line(colour = "grey80", linewidth = 0.07)) +
   labs(colour = "Treatment") 
@@ -92,15 +137,15 @@ gg_year_2015
 
 
 
-
-file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_plot_yearly.png")
+file_path <- file.path(Sys.getenv("HOME"), "Downloads", "nmds_yearly.png")
 #
 # # Save the plot using ggsave
 ggsave(file_path, plot = gg_year_2015,
-       width = 10, height = 7,   # Set desired width and height in inches
+       width = 11, height = 7,   # Set desired width and height in inches
        dpi = 300,               # Set the resolution (300 DPI for high quality)
        units = "in",            # Set units to inches
        device = "png")
+
 
 
 

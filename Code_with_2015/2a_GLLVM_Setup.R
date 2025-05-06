@@ -6,14 +6,13 @@ library(patchwork)
 #check data are ready
 wide_data_groupings_2015.nms
 data_plot_groupings_2015
-
 data_plot_groupings_2015$Plot <- as.factor(data_plot_groupings_2015$Plot)
 
 #all species ordination (~NMS)
 fit_ord_2015 <- gllvm(wide_data_groupings_2015.nms, family = "negative.binomial") #30 sec
 fit_ord_2015
 par(mfrow = c(3, 2), mar = c(4, 4, 2, 1))
-plot(fit_ord, var.colors = 1)
+plot(fit_ord_2015, var.colors = 1)
 
 ordiplot(fit_ord_2015, biplot = TRUE, ind.spp = 15, xlim = c(-3, 3), ylim = c(-3, 3), 
          main = "Biplot")
@@ -97,6 +96,12 @@ gllvm.burn <- glvvm.coef.plot.burn %>%
   mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
 
 
+gllvm.burn$Year <- factor(gllvm.burn$Year, 
+                          levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+
+
+
 # CREATE A DATA FRAME WITH THE MECH DATA
 
 # Filter out the relevant data
@@ -117,12 +122,17 @@ gllvm.mech <- glvvm.coef.plot.mech %>%
   select(-Year_raw, -Treatment_raw) %>%
   mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
 
+gllvm.mech$Year <- factor(gllvm.mech$Year, 
+                          levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+
 
 # CREATE A DATA FRAME WITH THE RAIN DATA
 
 gllvm.rain <- glvvm.coef.plot_2015_yr %>%
   filter(Covariate %in% "yearly_rain") %>%
   mutate(nativity = ifelse(Species.sd == "Lupine", "Native", nativity))
+
 
 
 

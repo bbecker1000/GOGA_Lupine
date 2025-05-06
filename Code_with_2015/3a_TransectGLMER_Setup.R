@@ -1,4 +1,6 @@
 source("Code_with_2015/0a_UpdatedTransectData_Setup.R")
+source("Code_with_2015/1a_NMS_Setup.R")
+
 
 
 # Create a table that has the macroplot, the year, and the total detections
@@ -100,7 +102,6 @@ Nativity_data_2015$Year <- factor(Nativity_data_2015$Year,
                                levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
 
-view(Nativity_data_2015)
 
 # FOR INVASIVE DATA #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
@@ -180,5 +181,3 @@ Shrubs_data_2015$Trt_Status <- factor(Shrubs_data_2015$Trt_Status,
 Shrubs_data_2015$Year <- factor(Shrubs_data_2015$Year, 
                                   levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
-view(Shrubs_data_2015)
-view(Lupin_data_2015)
