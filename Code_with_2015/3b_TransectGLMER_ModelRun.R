@@ -51,7 +51,26 @@ predicted_nativity_year_2015 <- Nativity_data_2015 %>%
 library(sjPlot)
 plot_model(m_Nativity_Year_2015, terms = c("Year", "Treatment"), type = "pred")
 #they look just like CW's predict plots, so no problem there.
-#next check the raw data.
+#next check the raw data. --> ok
+# turns out need to code binomial as success:failure instead of success:total
+
+# check beta regression vs binomial:
+library(glmmTMB)
+m_Nativity_Year_2015_beta <- glmmTMB((Total_Native/Total_Count) ~ 
+                                Treatment *
+                                Year +  
+                                #scale(yearly_rain) + 
+                                (1|Plot), 
+                              family = beta_family(link = "logit"), 
+                              data = Nativity_data_2015)
+summary(m_Nativity_Year_2015_beta)
+
+#coefficients and P values essentially identical for beta and binomial...
+#no differences in inference
+# p values less strong with beta, but still similar <0.05 for all
+# treatment x year tests.
+
+
 
 
 # INVASIVE MODEL BY YEAR
