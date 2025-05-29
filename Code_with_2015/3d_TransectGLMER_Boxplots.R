@@ -79,7 +79,7 @@ Nativity_data_2015_2$Year <- factor(Nativity_data_2015_2$Year,
 predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015, 
   aes(x = Year, y = predicted, fill = Treatment)) +
   geom_boxplot() +
-  geom_point(data = Nativity_data_2015_2,
+  geom_point(data = Nativity_data_2015_2, #Nativity_data_2015_2
              aes(x = Year, y = (Total_Native/Total_Count), fill = Treatment),
              shape = 21, 
              color = "black", 

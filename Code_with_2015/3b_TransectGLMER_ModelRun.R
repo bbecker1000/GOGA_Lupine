@@ -7,7 +7,7 @@ library(sjPlot)
 # LUPINE MODEL BY YEAR
 
 # Run binomial model
-m_Lupin_Year_2015 <- glmer(cbind(Total_Lupin, Total_Count) ~ 
+m_Lupin_Year_2015 <- glmer(cbind(Total_Lupin, (Total_Count-Total_Lupin)) ~ #corrected 2025-05-28
                         Treatment *
                         Year +
                         #scale(yearly_rain) +
@@ -30,7 +30,7 @@ predicted_lupine_year_2015 <- Lupin_data_2015 %>%
 # NATIVITY MODEL BY YEAR
 
 # Run binomial model
-m_Nativity_Year_2015 <- glmer(cbind(Total_Native, Total_Count) ~ 
+m_Nativity_Year_2015 <- glmer(cbind(Total_Native, (Total_Count-Total_Native)) ~ #corrected 2025-05-28
                            Treatment *
                            Year +  
                            #scale(yearly_rain) + 
@@ -46,11 +46,18 @@ predicted_nativity_year_2015 <- Nativity_data_2015 %>%
   mutate(predicted = predict(m_Nativity_Year_2015, type = "response"))
 
 
+#BB add 2025-05-28 
+#test if predict function working correctly for binomial models
+library(sjPlot)
+plot_model(m_Nativity_Year_2015, terms = c("Year", "Treatment"), type = "pred")
+#they look just like CW's predict plots, so no problem there.
+#next check the raw data.
+
 
 # INVASIVE MODEL BY YEAR
 
 # Run binomial model
-m_Invasive_Year_2015 <- glmer(cbind(Total_Invasive, Total_Count) ~ 
+m_Invasive_Year_2015 <- glmer(cbind(Total_Invasive, (Total_Count-Total_Invasive)) ~ #corrected 2025-05-28
                            Treatment *
                            Year +  
                            #scale(yearly_rain) + 
@@ -70,7 +77,7 @@ predicted_invasive_year_2015 <- Invasive_data_2015 %>%
 # SHRUB MODEL BY YEAR
 
 # Run binomial model
-m_Shrub_Year_2015 <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
+m_Shrub_Year_2015 <- glmer(cbind(Total_Shrubs, (Total_Count-Total_Shrubs)) ~ #corrected 2025-05-28
                         Treatment *
                         Year +  
                         #scale(yearly_rain) + 
