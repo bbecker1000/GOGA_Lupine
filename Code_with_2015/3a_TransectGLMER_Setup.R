@@ -181,3 +181,20 @@ Shrubs_data_2015$Trt_Status <- factor(Shrubs_data_2015$Trt_Status,
 Shrubs_data_2015$Year <- factor(Shrubs_data_2015$Year, 
                                   levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
+
+
+length(unique(CLComplete_2015$Species))
+
+num_unique_native_species <- CLComplete_2015 %>%
+  filter(Lifecycle == "Perennial") %>%
+  summarise(count = n_distinct(Species)) %>%
+  pull(count)
+
+print(num_unique_native_species)
+
+
+species_na_nativity <- CLComplete_2015 %>%
+  filter(is.na(Nativity)) %>%
+  distinct(Species)
+
+print(species_na_nativity)

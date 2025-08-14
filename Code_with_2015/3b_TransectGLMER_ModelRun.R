@@ -47,6 +47,7 @@ predicted_nativity_year_2015 <- Nativity_data_2015 %>%
 
 
 
+
 # INVASIVE MODEL BY YEAR
 
 # Run binomial model
@@ -169,6 +170,5 @@ summary(m_Shrub_Status_2015)
 # Extract model data
 predicted_shrub_status_2015 <- Shrubs_data_2015 %>%
   mutate(predicted = predict(m_Shrub_Status_2015, type = "response"))
-
 
 

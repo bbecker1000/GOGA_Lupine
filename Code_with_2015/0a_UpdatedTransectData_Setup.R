@@ -106,6 +106,8 @@ CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Preferred_LF"] <- "substra
 CL_Complete_2015[CL_Complete_2015$Species == "GOPH", "Default_LF"] <- "substrate"
 
 CL_Complete_2015$Lifecycle[is.na.data.frame(CL_Complete_2015$Lifecycle)] <- "Unknown"
+CL_Complete_2015$Lifecycle[CL_Complete_2015$Lifecycle == "Not Defined"] <- "Unknown"
+
 
 # saveRDS(CL_Complete_2015, file = "CL_Complete_2015")
  

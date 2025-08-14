@@ -20,6 +20,26 @@ env_vec <- scores(en_groupings_2015, "vectors") %>%
   as.data.frame() %>% 
   mutate(variable = rownames(.))
 
+# Extract the two vectors
+vec1 <- env_vec %>% filter(variable == "Time_Since_Trt") %>% select(NMDS1, NMDS2) %>% as.numeric()
+vec2 <- env_vec %>% filter(variable == "yearly_rain") %>% select(NMDS1, NMDS2) %>% as.numeric()
+
+# Calculate lengths (magnitudes)
+length1 <- sqrt(sum(vec1^2))
+length2 <- sqrt(sum(vec2^2))
+length_ratio <- length1 / length2
+
+# Compare
+print(paste("Length of var1:", length1))
+print(paste("Length of var2:", length2))
+print(paste("Difference in length:", abs(length1 - length2)))
+print(length_ratio)
+
+en_groupings_2015$vectors$r
+en_groupings_2015$vectors$r^2  # This is often reported
+
+
+
 # all Year values that appear in the site scores
 years <- sort(unique(data.scores.group_2015$Year))
 
@@ -56,7 +76,7 @@ adonis2(wide_data_groupings_2015.nms ~ Trt_Status * Treatment + scale(yearly_rai
 
 
 # Run adonis with interactions between year and treatment
-adonis_Year <- adonis2(wide_data_groupings_2015.nms ~ Year * Treatment + scale(yearly_rain),
+adonis_Year <- adonis2(wide_data_groupings_2015.nms ~ Year * Treatment + yearly_rain,
         data = data_plot_groupings_2015,
         perm = h_groupings_2015,
         by = "terms",

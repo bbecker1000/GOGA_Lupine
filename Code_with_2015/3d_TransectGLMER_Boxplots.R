@@ -80,7 +80,7 @@ predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015,
   aes(x = Year, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = Nativity_data_2015_2,
-             aes(x = Year, y = (Total_Native/Total_Count), fill = Treatment),
+             aes(x = Year, y = Native_Ratio, fill = Treatment),
              shape = 21, 
              color = "black", 
              size = 2,
@@ -105,7 +105,7 @@ predicted_nativity_plot_2015 <- ggplot(predicted_nativity_year_2015,
                                 margin = margin(t = 15, b = 15)), 
     axis.text = element_text(color = "black", size = 17),
     legend.position = "none",
-    panel.border = element_rect(color = "black", fill = NA, size = .7),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
     panel.grid.major = element_line(color = "black", linewidth = 0.2),
     panel.grid.minor = element_line(color = "black", linewidth = 0.2)
   ) 

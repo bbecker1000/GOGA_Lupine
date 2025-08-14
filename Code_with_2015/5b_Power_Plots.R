@@ -21,17 +21,19 @@ new_facet_labels <- c("Census" = "Lupine Count (Census)",
 
 
 # Clean up the the x-axis labels
-new_x_labels <- c("2010_BurnAfter" = "2010 Burn",
-                  "2010_MechAfter" = "2010 Mech",
+new_x_labels <- c("2009_BurnBefore" = "2009 Burn",
+                  "2009_MechBefore" = "2009 Mech",
                   "2011_BurnAfter" = "2011 Burn",
                   "2011_MechAfter" = "2011 Mech",
                   "2012_BurnAfter" = "2012 Burn",
                   "2012_MechAfter" = "2012 Mech",
                   "2013_BurnAfter" = "2013 Burn",
                   "2013_MechAfter" = "2013 Mech",
+                  "2015_BurnAfter" = "2015 Burn",
+                  "2015_MechAfter" = "2015 Mech",
                   "PrePost_BurnAfter" = "Pre & Post Burn",
                   "PrePost_MechAfter" = "Pre & Post Mech",
-                  "PrePost_Rain" = "Pre & Post Rain")
+                  "PrePost_Rainfall" = "Pre & Post Rain")
 
 
 # Create the forest plot
