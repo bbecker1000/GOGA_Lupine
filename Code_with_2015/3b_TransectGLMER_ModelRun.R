@@ -1,5 +1,6 @@
 source("Code_with_2015/3a_TransectGLMER_Setup.R") 
 
+
 library(lme4)
 library(sjPlot)
 
@@ -63,6 +64,7 @@ m_Nativity_Year_2015_beta <- glmmTMB((Total_Native/Total_Count) ~
                                 (1|Plot), 
                               family = beta_family(link = "logit"), 
                               data = Nativity_data_2015)
+
 summary(m_Nativity_Year_2015_beta)
 
 #coefficients and P values essentially identical for beta and binomial...
@@ -121,7 +123,7 @@ predicted_shrub_year_2015 <- Shrubs_data_2015 %>%
 # LUPINE MODEL BY STATUS
 
 # Run binomial model
-m_Lupin_Status_2015 <- glmer(cbind(Total_Lupin, Total_Count) ~ 
+m_Lupin_Status_2015 <- glmer(cbind(Total_Lupin, (Total_Count-Total_Lupin)) ~ 
                              Treatment *
                              Trt_Status +
                              scale(yearly_rain) +
@@ -142,7 +144,7 @@ predicted_lupine_status_2015 <- Lupin_data_2015 %>%
 # NATIVITY MODEL BY STATUS
 
 # Run binomial model
-m_Nativity_Status_2015 <- glmer(cbind(Total_Native, Total_Count) ~ 
+m_Nativity_Status_2015 <- glmer(cbind(Total_Native, (Total_Count-Total_Native)) ~ 
                                 Treatment *
                                 Trt_Status +  
                                 scale(yearly_rain) + 
@@ -162,7 +164,7 @@ predicted_nativity_status_2015 <- Nativity_data_2015 %>%
 # INVASIVE MODEL BY STATUS
 
 # Run binomial model
-m_Invasive_Status_2015 <- glmer(cbind(Total_Invasive, Total_Count) ~ 
+m_Invasive_Status_2015 <- glmer(cbind(Total_Invasive, (Total_Count-Total_Invasive)) ~ 
                                 Treatment *
                                 Trt_Status +  
                                 scale(yearly_rain) + 
@@ -182,7 +184,7 @@ predicted_invasive_status_2015 <- Invasive_data_2015 %>%
 # SHRUB MODEL BY STATUS
 
 # Run binomial model
-m_Shrub_Status_2015 <- glmer(cbind(Total_Shrubs, Total_Count) ~ 
+m_Shrub_Status_2015 <- glmer(cbind(Total_Shrubs, (Total_Count-Total_Shrubs)) ~ 
                              Treatment *
                              Trt_Status +  
                              scale(yearly_rain) + 

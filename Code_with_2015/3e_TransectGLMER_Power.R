@@ -60,6 +60,7 @@ fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
 fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
 fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
 
+
 # Set the number of simulations
 Nsim <- 100
 
