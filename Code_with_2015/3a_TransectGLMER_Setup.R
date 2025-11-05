@@ -9,6 +9,7 @@ total_detections_2015 <- CLComplete_2015 %>%
   summarise(Total_Count = sum(Count), .groups = "keep") %>%
   ungroup()
 
+
 # FOR LUPINE DATA # # # # # # # # # # # # # # # #
 
 # Calculate the total count of species groups for each macroplot and year
@@ -183,18 +184,72 @@ Shrubs_data_2015$Year <- factor(Shrubs_data_2015$Year,
 
 
 
-length(unique(CLComplete_2015$Species))
+# NATIVE HERB #  #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
 
-num_unique_native_species <- CLComplete_2015 %>%
-  filter(Lifecycle == "Perennial") %>%
-  summarise(count = n_distinct(Species)) %>%
-  pull(count)
+# Set up a dataframe that contains data for a model on nativity
+NatHerb_2015 <- CLComplete_2015 %>%
+  filter(Native == TRUE,
+         Default_LF %in% c("Grass", "Forb")) %>%
+  group_by(Year,
+           Site,
+           Plot,
+           Treatment,
+           MacroPlot,
+           yearly_rain,
+           Native,
+           Default_LF) %>%
+  summarise(Total_NatHerb = sum(Count), .groups = "keep") %>%
+  ungroup()
 
-print(num_unique_native_species)
+
+NatHerb_data_2015 <- merge(x = NatHerb_2015, y = total_detections_2015, 
+                            by.x = c("MacroPlot", "Year"),
+                            by.y = c("MacroPlot", "Year"), 
+                            all = TRUE)
 
 
-species_na_nativity <- CLComplete_2015 %>%
-  filter(is.na(Nativity)) %>%
-  distinct(Species)
+# set Control as base level
+NatHerb_data_2015$Treatment <- factor(NatHerb_data_2015$Treatment, 
+                                       levels = c("Control", "Burn", "Mechanical"))
 
-print(species_na_nativity)
+
+# Set year levels so that 2010 is treated as baseline
+NatHerb_data_2015$Year <- factor(NatHerb_data_2015$Year, 
+                                  levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
+
+
+
+# EXOTIC HERBS #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #
+
+# Set up a dataframe that contains data for a model on invasives
+ExoHerb_2015 <- CLComplete_2015 %>%
+  filter(Native == FALSE,
+         Default_LF %in% c("Grass", "Forb")) %>%
+  group_by(Year,
+           Site,
+           Plot,
+           Treatment,
+           MacroPlot,
+           yearly_rain, 
+           Native,
+           Default_LF) %>%
+  summarise(Total_ExoHerb = sum(Count), .groups = "keep") %>%
+  ungroup()
+
+
+# we want a dataset that includes total detections for each macroplot in each year
+ExoHerb_data_2015 <- merge(x = ExoHerb_2015, y = total_detections_2015, 
+                            by.x = c("MacroPlot", "Year"),
+                            by.y = c("MacroPlot", "Year"), 
+                            all = TRUE)
+
+# set Control as base level
+ExoHerb_data_2015$Treatment <- factor(ExoHerb_data_2015$Treatment, 
+                                       levels = c("Control", "Burn", "Mechanical"))
+
+# Set year levels so that 2010 is treated as baseline
+ExoHerb_data_2015$Year <- factor(ExoHerb_data_2015$Year, 
+                                  levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
+
+
+

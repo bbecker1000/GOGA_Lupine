@@ -25,40 +25,40 @@ fixef(m_Lupin_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
 fixef(m_Lupin_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
 
 # Extracting the fixed effects from the nativity model
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2011"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2011"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2012"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2012"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2013"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
-fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
+fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2009"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2009"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2011"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2011"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2012"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2012"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2013"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2013"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentBurn:Year2015"] <- 0.25
+fixef(m_Nativity_Year_2015)["TreatmentMechanical:Year2015"] <- 0.25
 
 # Extracting the fixed effects from the invasive model
-fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2011"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2011"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2012"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2012"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2013"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
-fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2009"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2009"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2011"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2011"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2012"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2012"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2013"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2013"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentBurn:Year2015"] <- 0.25
+fixef(m_Invasive_Year_2015)["TreatmentMechanical:Year2015"] <- 0.25
 
 # Extracting the fixed effects from the shrub model
-fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2009"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2009"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2011"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2011"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2012"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2012"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2013"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2013"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2015"] <- 0.5
-fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2015"] <- 0.5
+fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2009"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2009"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2011"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2011"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2012"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2012"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2013"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2013"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentBurn:Year2015"] <- 0.25
+fixef(m_Shrub_Year_2015)["TreatmentMechanical:Year2015"] <- 0.25
 
 
 # Set the number of simulations

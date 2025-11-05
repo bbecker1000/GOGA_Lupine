@@ -201,7 +201,7 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
              alpha = 0.7) +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
-  labs(title = "Shrubs",
+  labs(title = "Shrub Cover",
        #x = "Treatment Status", 
        y = "Percent Cover",
        fill = "Treatment") +
@@ -231,6 +231,115 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
 predicted_shrub_plot_2015
 
 
+# NATIVE HERB PLOT # # # # # # # # # # # # # # # # # # #
+
+# Change levels of year for plotting
+predicted_NatHerb_year_2015$Year <- factor(predicted_NatHerb_year_2015$Year, 
+                                            levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+NatHerb_data_2015_2 <- NatHerb_data_2015 %>%
+  mutate(NatHerb_Ratio = Total_NatHerb / Total_Count)
+
+NatHerb_data_2015_2 <- as.data.frame(NatHerb_data_2015_2)
+
+NatHerb_data_2015_2$Year <- factor(NatHerb_data_2015_2$Year, 
+                                    levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+
+# Plot extracted data
+predicted_NatHerb_plot_2015 <- ggplot(predicted_NatHerb_year_2015, 
+                                       aes(x = Year, y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = NatHerb_data_2015_2,
+             aes(x = Year, y = NatHerb_Ratio, fill = Treatment),
+             shape = 21, 
+             color = "black", 
+             size = 2,
+             position = position_dodge(width = .75),
+             alpha = 0.7) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
+  labs(title = "Native Grass and Forb Cover",
+       x = "Treatment Status", 
+       #y = "Percent Cover",
+       fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.text = element_text(color = "black", size = 17),
+    legend.position = "none",
+    panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
+    panel.grid.major = element_line(color = "black", linewidth = 0.2),
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2)
+  ) 
+
+# View graph
+predicted_NatHerb_plot_2015
+
+
+# EXOTIC HERB PLOT # # # # # # # # # # # # # # # # # # #
+
+# Change levels of year for plotting
+predicted_ExoHerb_year_2015$Year <- factor(predicted_ExoHerb_year_2015$Year, 
+                                           levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+ExoHerb_data_2015_2 <- ExoHerb_data_2015 %>%
+  mutate(ExoHerb_Ratio = Total_ExoHerb / Total_Count)
+
+ExoHerb_data_2015_2 <- as.data.frame(ExoHerb_data_2015_2)
+
+ExoHerb_data_2015_2$Year <- factor(ExoHerb_data_2015_2$Year, 
+                                   levels = c("2009", "2010", "2011", "2012", "2013", "2015"))
+
+
+# Plot extracted data
+predicted_ExoHerb_plot_2015 <- ggplot(predicted_ExoHerb_year_2015, 
+                                      aes(x = Year, y = predicted, fill = Treatment)) +
+  geom_boxplot() +
+  geom_point(data = ExoHerb_data_2015_2,
+             aes(x = Year, y = ExoHerb_Ratio, fill = Treatment),
+             shape = 21, 
+             color = "black", 
+             size = 2,
+             position = position_dodge(width = .75),
+             alpha = 0.7) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
+  labs(title = "Exotic Grass and Forb Cover",
+       x = "Treatment Status", 
+       #y = "Percent Cover",
+       fill = "Treatment") +
+  scale_fill_manual(
+    values = c(
+      "Control" = "#00BA38",
+      "Burn" = "#F8766D",
+      "Mechanical" = "#619CFF")) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(face = "bold", size = 20,
+                                margin = margin(t = 15, b = 15)), 
+    axis.text = element_text(color = "black", size = 17),
+    legend.position = "none",
+    panel.border = element_rect(color = "black", fill = NA, linewidth = .7),
+    panel.grid.major = element_line(color = "black", linewidth = 0.2),
+    panel.grid.minor = element_line(color = "black", linewidth = 0.2)
+  ) 
+
+# View graph
+predicted_ExoHerb_plot_2015
+
+
+
 
 # Create a figure panel with shrubs, native, and invasive
 community_plots <- predicted_shrub_plot_2015 + 
@@ -242,6 +351,14 @@ community_plots <- predicted_shrub_plot_2015 +
 community_plots 
 
 
+# Create a figure panel with shrubs, native, and invasive
+community_plots_2 <- predicted_shrub_plot_2015 + 
+  predicted_NatHerb_plot_2015 + 
+  predicted_ExoHerb_plot_2015 + 
+  plot_annotation(tag_levels = "a")
+
+# View graph
+community_plots_2
 
 
 # FOR SAVING GRAPHS
@@ -249,10 +366,10 @@ community_plots
 # Tell R where to save the graphs
 file_path_lupine <- file.path(Sys.getenv("HOME"), "Downloads", "predicted_lupin_plot_2015.png")
 file_path_community <- file.path(Sys.getenv("HOME"), "Downloads", "community_plots.png")
-
+file_path_community_2 <- file.path(Sys.getenv("HOME"), "Downloads", "community_plots_2.png")
 
 # Save the plot using ggsave
-ggsave(file_path_community, plot = community_plots ,
+ggsave(file_path_community_2, plot = community_plots_2 ,
        width = 20, height = 10, 
        dpi = 300,
        units = "in",          
