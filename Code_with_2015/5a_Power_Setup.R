@@ -20,7 +20,13 @@ power_2015 <- bind_rows(
   power_census_Status_2015
 )
 
+power_2015_2 <-bind_rows(
+  power_census_2015,
+  power_LPI_2015
+)
+  
+
 # Save the combined data frames
-# write.csv(power_2015,
-#           file = file.path("Data", "power_2015.csv"),
+# write.csv(power_2015_2,
+#           file = file.path("Data", "power_2015_2.csv"),
 #           row.names = FALSE)

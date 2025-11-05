@@ -116,6 +116,49 @@ predicted_shrub_year_2015 <- Shrubs_data_2015 %>%
 
 
 
+
+# NATIVE HERB MODEL 
+
+# Run binomial model
+m_NatHerb_Year_2015 <- glmer(cbind(Total_NatHerb, (Total_Count-Total_NatHerb)) ~ #corrected 2025-05-28
+                               Treatment *
+                               Year +  
+                               #scale(yearly_rain) + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = NatHerb_data_2015)
+
+# View model output
+sum_natherb <- summary(m_NatHerb_Year_2015)
+
+# Extract model data
+predicted_NatHerb_year_2015 <- NatHerb_data_2015 %>%
+  mutate(predicted = predict(m_NatHerb_Year_2015, type = "response"))
+
+
+# EXOTIC HERB MODEL 
+
+# Run binomial model
+m_ExoHerb_Year_2015 <- glmer(cbind(Total_ExoHerb, (Total_Count-Total_ExoHerb)) ~ #corrected 2025-05-28
+                               Treatment *
+                               Year +  
+                               #scale(yearly_rain) + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = ExoHerb_data_2015)
+
+# View model output
+sum_exoherb <- summary(m_ExoHerb_Year_2015)
+
+# Extract model data
+predicted_ExoHerb_year_2015 <- ExoHerb_data_2015 %>%
+  mutate(predicted = predict(m_ExoHerb_Year_2015, type = "response"))
+
+
+
+
+
+
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
 

@@ -18,8 +18,6 @@ new_facet_labels <- c("Census" = "Lupine Count (Census)",
                 "Immature" = "Immature Lupine Count (Census)",
                 "Census" = "Lupine Count (Census)")
 
-
-
 # Clean up the the x-axis labels
 new_x_labels <- c("2009_BurnBefore" = "2009 Burn",
                   "2009_MechBefore" = "2009 Mech",
@@ -34,7 +32,6 @@ new_x_labels <- c("2009_BurnBefore" = "2009 Burn",
                   "PrePost_BurnAfter" = "Pre & Post Burn",
                   "PrePost_MechAfter" = "Pre & Post Mech",
                   "PrePost_Rainfall" = "Pre & Post Rain")
-
 
 # Create the forest plot
 power_forestplot_2015 <- ggplot(power_2015_filtered, 
@@ -54,10 +51,63 @@ power_forestplot_2015 <- ggplot(power_2015_filtered,
                                     margin = margin(l = 15, r = 15)), 
         strip.text = element_text(color = "black", size = 15, face = "bold"))
 
+# View the graph
+power_forestplot_2015
+
+
+# Upload new data file
+power_2015_2 <- read_csv("Data/power_2015_2.csv")
+
+# New graph without lupine cover from LPI transect
+power_2015_filtered_2 <- power_2015_2 %>%
+  filter(Group != "Lupine")
+
+power_2015_filtered_2$Group <- factor(power_2015_filtered_2$Group,
+                                      levels = c("Census", "Immature", "Shrub","NatHerb", "ExoHerb"))
+
+# Re-title the facet wrap labels for clarity
+new_facet_labels_2 <- c("Census" = "Lupine Count (Census)", 
+                        "Immature" = "Immature Lupine Count (Census)",
+                        "Shrub" = "Shrub Cover (Transect)",
+                        "NatHerb" = "Native Herbaceous Cover (Transect)",
+                        "ExoHerb" = "Exotic Herbaceous Cover (Transect)")
+
+
+# Clean up the the x-axis labels
+new_x_labels_2 <- c("2009_BurnBefore" = "2009 Burn",
+                  "2009_MechBefore" = "2009 Mech",
+                  "2011_BurnAfter" = "2011 Burn",
+                  "2011_MechAfter" = "2011 Mech",
+                  "2012_BurnAfter" = "2012 Burn",
+                  "2012_MechAfter" = "2012 Mech",
+                  "2013_BurnAfter" = "2013 Burn",
+                  "2013_MechAfter" = "2013 Mech",
+                  "2015_BurnAfter" = "2015 Burn",
+                  "2015_MechAfter" = "2015 Mech")
+
+
+# Create the forest plot
+power_forestplot_2015_2 <- ggplot(power_2015_filtered_2, 
+                                aes(x = test2, y = Mean, ymin = Lower_CI, ymax = Upper_CI)) +
+  geom_pointrange(color = "blue") + 
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") +  
+  scale_x_discrete(labels = new_x_labels_2) +
+  facet_wrap(~Group, ncol = 1, labeller = as_labeller(new_facet_labels_2)) +
+  labs(x = "Fixed Effect",
+       y = "Power") +
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color = "black", size = 15),
+        axis.text.y = element_text(color = "black", size = 15),
+        axis.title.x = element_text(color = "black", size = 20, face = "bold",
+                                    margin = margin(t = 15, b = 15)),
+        axis.title.y = element_text(color = "black", size = 20, face = "bold",
+                                    margin = margin(l = 15, r = 15)), 
+        strip.text = element_text(color = "black", size = 15, face = "bold"))
+
 
 
 # View the graph
-power_forestplot_2015
+power_forestplot_2015_2
 
 
 
@@ -66,10 +116,10 @@ power_forestplot_2015
 
 # FOR SAVING GRAPHS
 
-file_path_power <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot_2015.png")
+file_path_power <- file.path(Sys.getenv("HOME"), "Downloads", "power_forestplot_2015_(0.5).png")
 
 # Save the plot using ggsave
-ggsave(file_path_power, plot = power_forestplot_2015,
+ggsave(file_path_power, plot = power_forestplot_2015_2,
        width = 14, height = 10, 
        dpi = 300,
        units = "in",          
