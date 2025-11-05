@@ -231,6 +231,9 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
 predicted_shrub_plot_2015
 
 
+
+
+
 # NATIVE HERB PLOT # # # # # # # # # # # # # # # # # # #
 
 # Change levels of year for plotting
@@ -248,7 +251,7 @@ NatHerb_data_2015_2$Year <- factor(NatHerb_data_2015_2$Year,
 
 # Plot extracted data
 predicted_NatHerb_plot_2015 <- ggplot(predicted_NatHerb_year_2015, 
-                                       aes(x = Year, y = predicted, fill = Treatment)) +
+                               aes(x = Year, y = predicted, fill = Treatment)) +
   geom_boxplot() +
   geom_point(data = NatHerb_data_2015_2,
              aes(x = Year, y = NatHerb_Ratio, fill = Treatment),
@@ -259,7 +262,7 @@ predicted_NatHerb_plot_2015 <- ggplot(predicted_NatHerb_year_2015,
              alpha = 0.7) +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
-  labs(title = "Native Grass and Forb Cover",
+  labs(title = "Native Herbaceous Cover",
        x = "Treatment Status", 
        #y = "Percent Cover",
        fill = "Treatment") +
@@ -313,7 +316,7 @@ predicted_ExoHerb_plot_2015 <- ggplot(predicted_ExoHerb_year_2015,
              alpha = 0.7) +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   geom_vline(xintercept = 2.5, linetype = "dashed", color = "black", size = 1) +
-  labs(title = "Exotic Grass and Forb Cover",
+  labs(title = "Exotic Herbaceous Cover",
        x = "Treatment Status", 
        #y = "Percent Cover",
        fill = "Treatment") +
@@ -337,7 +340,6 @@ predicted_ExoHerb_plot_2015 <- ggplot(predicted_ExoHerb_year_2015,
 
 # View graph
 predicted_ExoHerb_plot_2015
-
 
 
 
