@@ -253,3 +253,30 @@ ExoHerb_data_2015$Year <- factor(ExoHerb_data_2015$Year,
 
 
 
+# Set up a dataframe that contains data for a model on nativity
+NatHerb_2015_UniqueSpecies <- CLComplete_2015 %>%
+  # 1. Filter for Native species that are Grass or Forb
+  filter(Native == TRUE,
+         Default_LF %in% c("Grass", "Forb")) %>%
+  # 2. Group by all desired variables (including Native and Default_LF)
+  group_by(Year,
+           Site,
+           Plot,
+           Treatment,
+           MacroPlot,
+           yearly_rain,
+           Native,
+           Default_LF) %>%
+  # 3. Summarize by counting the number of distinct species
+  summarise(NatHerb_Richness = n_distinct(Species), .groups = "keep") %>%
+  # 4. Remove the grouping structure
+  ungroup()
+
+
+# Create a histogram of the unique species counts
+ggplot(NatHerb_2015_UniqueSpecies, aes(x = NatHerb_Richness)) +
+  geom_histogram(binwidth = 1, fill = "darkblue", color = "white") +
+  labs(title = "Distribution of Unique Native Herb Species Counts",
+       x = "Number of Unique Species",
+       y = "Frequency (Number of Plots)") +
+  theme_minimal()

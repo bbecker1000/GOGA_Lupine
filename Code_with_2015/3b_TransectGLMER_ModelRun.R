@@ -156,93 +156,6 @@ predicted_ExoHerb_year_2015 <- ExoHerb_data_2015 %>%
 
 
 
-
-
-
-# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
-
-
-
-# LUPINE MODEL BY STATUS
-
-# Run binomial model
-m_Lupin_Status_2015 <- glmer(cbind(Total_Lupin, (Total_Count-Total_Lupin)) ~ 
-                             Treatment *
-                             Trt_Status +
-                             scale(yearly_rain) +
-                             (1|Plot), 
-                           family = binomial, 
-                           data = Lupin_data_2015)
-
-# View model output
-summary(m_Lupin_Status_2015)
-
-# Extract model data
-predicted_lupine_status_2015 <- Lupin_data_2015 %>%
-  mutate(predicted = predict(m_Lupin_Status_2015, type = "response"))
-
-
-
-
-# NATIVITY MODEL BY STATUS
-
-# Run binomial model
-m_Nativity_Status_2015 <- glmer(cbind(Total_Native, (Total_Count-Total_Native)) ~ 
-                                Treatment *
-                                Trt_Status +  
-                                scale(yearly_rain) + 
-                                (1|Plot), 
-                              family = binomial, 
-                              data = Nativity_data_2015)
-
-# View model output
-summary(m_Nativity_Status_2015)
-
-# Extract model data
-predicted_nativity_status_2015 <- Nativity_data_2015 %>%
-  mutate(predicted = predict(m_Nativity_Status_2015, type = "response"))
-
-
-
-# INVASIVE MODEL BY STATUS
-
-# Run binomial model
-m_Invasive_Status_2015 <- glmer(cbind(Total_Invasive, (Total_Count-Total_Invasive)) ~ 
-                                Treatment *
-                                Trt_Status +  
-                                scale(yearly_rain) + 
-                                (1|Plot), 
-                              family = binomial, 
-                              data = Invasive_data_2015)
-
-# View model output
-summary(m_Invasive_Status_2015)
-
-# Extract model data
-predicted_invasive_status_2015 <- Invasive_data_2015 %>%
-  mutate(predicted = predict(m_Invasive_Status_2015, type = "response"))
-
-
-
-# SHRUB MODEL BY STATUS
-
-# Run binomial model
-m_Shrub_Status_2015 <- glmer(cbind(Total_Shrubs, (Total_Count-Total_Shrubs)) ~ 
-                             Treatment *
-                             Trt_Status +  
-                             scale(yearly_rain) + 
-                             (1|Plot), 
-                           family = binomial, 
-                           data = Shrubs_data_2015)
-
-# View model output
-summary(m_Shrub_Status_2015)
-
-# Extract model data
-predicted_shrub_status_2015 <- Shrubs_data_2015 %>%
-  mutate(predicted = predict(m_Shrub_Status_2015, type = "response"))
-
-
 # NATIVE HERB MODEL 
 
 # Run binomial model
@@ -281,4 +194,115 @@ predicted_ExoHerb_year_2015 <- ExoHerb_data_2015 %>%
   mutate(predicted = predict(m_ExoHerb_Year_2015, type = "response"))
 
 
+
+
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+
+# NATIVE HERB RICHNESS MODEL 
+
+# Run binomial model
+m_NatHerbRich_Year_2015 <- glmer(NatHerb_Richness ~ 
+                               Treatment *
+                               Year +  
+                               (1|Plot), 
+                               family = poisson,
+                             data = NatHerb_2015_UniqueSpecies)
+
+# View model output
+sum_NatHerbRich <- summary(m_NatHerbRich_Year_2015)
+
+# Extract model data
+predicted_NatHerbRich_year_2015 <- NatHerbRich_data_2015 %>%
+  mutate(predicted = predict(m_NatHerbRich_Year_2015, type = "response"))
+
+
+
+
+
+
+
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
+
+
+# LUPINE MODEL BY STATUS
+
+# Run binomial model
+m_Lupin_Status_2015 <- glmer(cbind(Total_Lupin, (Total_Count-Total_Lupin)) ~ 
+                               Treatment *
+                               Trt_Status +
+                               scale(yearly_rain) +
+                               (1|Plot), 
+                             family = binomial, 
+                             data = Lupin_data_2015)
+
+# View model output
+summary(m_Lupin_Status_2015)
+
+# Extract model data
+predicted_lupine_status_2015 <- Lupin_data_2015 %>%
+  mutate(predicted = predict(m_Lupin_Status_2015, type = "response"))
+
+
+
+
+# NATIVITY MODEL BY STATUS
+
+# Run binomial model
+m_Nativity_Status_2015 <- glmer(cbind(Total_Native, (Total_Count-Total_Native)) ~ 
+                                  Treatment *
+                                  Trt_Status +  
+                                  scale(yearly_rain) + 
+                                  (1|Plot), 
+                                family = binomial, 
+                                data = Nativity_data_2015)
+
+# View model output
+summary(m_Nativity_Status_2015)
+
+# Extract model data
+predicted_nativity_status_2015 <- Nativity_data_2015 %>%
+  mutate(predicted = predict(m_Nativity_Status_2015, type = "response"))
+
+
+
+# INVASIVE MODEL BY STATUS
+
+# Run binomial model
+m_Invasive_Status_2015 <- glmer(cbind(Total_Invasive, (Total_Count-Total_Invasive)) ~ 
+                                  Treatment *
+                                  Trt_Status +  
+                                  scale(yearly_rain) + 
+                                  (1|Plot), 
+                                family = binomial, 
+                                data = Invasive_data_2015)
+
+# View model output
+summary(m_Invasive_Status_2015)
+
+# Extract model data
+predicted_invasive_status_2015 <- Invasive_data_2015 %>%
+  mutate(predicted = predict(m_Invasive_Status_2015, type = "response"))
+
+
+
+# SHRUB MODEL BY STATUS
+
+# Run binomial model
+m_Shrub_Status_2015 <- glmer(cbind(Total_Shrubs, (Total_Count-Total_Shrubs)) ~ 
+                               Treatment *
+                               Trt_Status +  
+                               scale(yearly_rain) + 
+                               (1|Plot), 
+                             family = binomial, 
+                             data = Shrubs_data_2015)
+
+# View model output
+summary(m_Shrub_Status_2015)
+
+# Extract model data
+predicted_shrub_status_2015 <- Shrubs_data_2015 %>%
+  mutate(predicted = predict(m_Shrub_Status_2015, type = "response"))
 
