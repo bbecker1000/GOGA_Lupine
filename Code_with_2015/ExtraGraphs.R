@@ -99,3 +99,62 @@ Avg_Cover_Invasive$median_invasive_cover <- round(Avg_Cover_Invasive$median_inva
 Avg_Cover_Invasive$min_invasive_cover <- round(Avg_Cover_Invasive$min_invasive_cover, 2) * 100
 Avg_Cover_Invasive$max_invasive_cover <- round(Avg_Cover_Invasive$max_invasive_cover, 2) *100
 
+
+
+
+
+# CHECKING HOW RICHNESS CHANGES 
+
+# Set up a dataframe that contains data for a model on nativity
+NatHerb_2015_UniqueSpecies <- CLComplete_2015 %>%
+  # 1. Filter for Native species that are Grass or Forb
+  filter(Native == TRUE,
+         Default_LF %in% c("Grass", "Forb")) %>%
+  # 2. Group by all desired variables (including Native and Default_LF)
+  group_by(Year,
+           Site,
+           Plot,
+           Treatment,
+           MacroPlot,
+           yearly_rain,
+           Native,
+           Default_LF) %>%
+  # 3. Summarize by counting the number of distinct species
+  summarise(NatHerb_Richness = n_distinct(Species), .groups = "keep") %>%
+  # 4. Remove the grouping structure
+  ungroup()
+
+
+# NATIVE HERB RICHNESS MODEL 
+
+# Run binomial model
+m_NatHerbRich_Year_2015 <- glmer(NatHerb_Richness ~ 
+                                   Treatment *
+                                   Year +  
+                                   (1|Plot), 
+                                 family = poisson,
+                                 data = NatHerb_2015_UniqueSpecies)
+
+# View model output
+sum_NatHerbRich <- summary(m_NatHerbRich_Year_2015)
+
+
+library(sjPlot)
+plot_model(m_NatHerbRich_Year_2015, terms = c("Year", "Treatment"), type = "pred")
+
+
+# Create a histogram of the unique species counts
+ggplot(NatHerb_2015_UniqueSpecies, aes(x = NatHerb_Richness)) +
+  geom_histogram(binwidth = 1, fill = "darkblue", color = "white") +
+  labs(title = "Distribution of Unique Native Herb Species Counts",
+       x = "Number of Unique Species",
+       y = "Frequency (Number of Plots)") +
+  theme_minimal()
+
+
+# Boxplot of Native Herb richness
+ggplot(NatHerb_2015_UniqueSpecies, aes(y = NatHerb_Richness, x = Year, fill = Treatment)) +
+  geom_boxplot() +
+  labs(x = "Year",
+       y = "Native Herbaceous Richness") +
+  theme_minimal()

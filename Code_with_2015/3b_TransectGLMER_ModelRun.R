@@ -196,32 +196,7 @@ predicted_ExoHerb_year_2015 <- ExoHerb_data_2015 %>%
 
 
 
-
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
-
-
-# NATIVE HERB RICHNESS MODEL 
-
-# Run binomial model
-m_NatHerbRich_Year_2015 <- glmer(NatHerb_Richness ~ 
-                               Treatment *
-                               Year +  
-                               (1|Plot), 
-                               family = poisson,
-                             data = NatHerb_2015_UniqueSpecies)
-
-# View model output
-sum_NatHerbRich <- summary(m_NatHerbRich_Year_2015)
-
-# Extract model data
-predicted_NatHerbRich_year_2015 <- NatHerbRich_data_2015 %>%
-  mutate(predicted = predict(m_NatHerbRich_Year_2015, type = "response"))
-
-
-
-
-
-
 
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
