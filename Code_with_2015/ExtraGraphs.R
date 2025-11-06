@@ -103,6 +103,11 @@ Avg_Cover_Invasive$max_invasive_cover <- round(Avg_Cover_Invasive$max_invasive_c
 
 
 
+
+
+
+
+
 # CHECKING HOW RICHNESS CHANGES 
 
 # Set up a dataframe that contains data for a model on nativity

@@ -76,7 +76,7 @@ adonis2(wide_data_groupings_2015.nms ~ Trt_Status * Treatment + scale(yearly_rai
 
 
 # Run adonis with interactions between year and treatment
-adonis_Year <- adonis2(wide_data_groupings_2015.nms ~ Year * Treatment + yearly_rain,
+adonis_Year <- adonis2(wide_data_groupings_2015.nms ~ Year * Treatment + scale(yearly_rain),
         data = data_plot_groupings_2015,
         perm = h_groupings_2015,
         by = "terms",
