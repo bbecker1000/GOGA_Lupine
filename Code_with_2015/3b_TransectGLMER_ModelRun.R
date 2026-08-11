@@ -11,6 +11,7 @@ library(sjPlot)
 m_Lupin_Year_2015 <- glmer(cbind(Total_Lupin, (Total_Count-Total_Lupin)) ~ #corrected 2025-05-28
                         Treatment *
                         Year +
+                        Site +
                         #scale(yearly_rain) +
                         (1|Plot), 
                       family = binomial, 

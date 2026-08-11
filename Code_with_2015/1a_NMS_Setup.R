@@ -20,6 +20,8 @@ CLComplete_2015 <- CL_Complete_2015 %>%
     )
   )
 
+view(CLComplete_2015)
+
 # Group all Lupine species together
 CLComplete_2015$spp_groupings <- ifelse(CLComplete_2015$Species == "LUAL", "Lupine",
                                    ifelse(CLComplete_2015$Species == "LUVA", "Lupine", 

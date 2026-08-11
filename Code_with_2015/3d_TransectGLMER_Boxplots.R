@@ -59,6 +59,9 @@ predicted_lupin_plot_2015 <- ggplot(predicted_lupine_year_2015,
 # View graph
 predicted_lupin_plot_2015
 
+lupinemedian <- ggplot_build(predicted_lupin_plot_2015)$data[[1]][, c("x", "middle")]
+view(lupinemedian)
+
 
 # NATIVITY PLOT # # # # # # # # # # # # # # # # # # #
 
@@ -230,8 +233,8 @@ predicted_shrub_plot_2015 <- ggplot(predicted_shrub_year_2015,
 # View graph
 predicted_shrub_plot_2015
 
-
-
+shrubmedian <- ggplot_build(predicted_shrub_plot_2015)$data[[1]][, c("x", "middle")]
+view(shrubmedian)
 
 
 # NATIVE HERB PLOT # # # # # # # # # # # # # # # # # # #
@@ -287,6 +290,8 @@ predicted_NatHerb_plot_2015 <- ggplot(predicted_NatHerb_year_2015,
 # View graph
 predicted_NatHerb_plot_2015
 
+natherbmedian <- ggplot_build(predicted_NatHerb_plot_2015)$data[[1]][, c("x", "middle")]
+view(natherbmedian)
 
 # EXOTIC HERB PLOT # # # # # # # # # # # # # # # # # # #
 
@@ -341,7 +346,8 @@ predicted_ExoHerb_plot_2015 <- ggplot(predicted_ExoHerb_year_2015,
 # View graph
 predicted_ExoHerb_plot_2015
 
-
+exoherbmedian <- ggplot_build(predicted_ExoHerb_plot_2015)$data[[1]][, c("x", "middle")]
+view(exoherbmedian)
 
 # Create a figure panel with shrubs, native, and invasive
 community_plots <- predicted_shrub_plot_2015 + 

@@ -35,8 +35,14 @@ Lupine_Density_2009_2015_grouped_live <- Lupine_Density_2009_2015 %>%
   summarise(Count = sum(Count), .groups = "keep") %>%
   ungroup()
 
+Lupine_Density_2009_2015_grouped_live_all <- Lupine_Density_2009_2015 %>%
+  filter(Status == "L") %>%
+  group_by(MacroPlot, Site, Plot, Treatment, Year, yearly_rain) %>%
+  summarise(Count = sum(Count), .groups = "keep") %>%
+  ungroup()
+
 # Set 2010 as the baseline
-Lupine_Density_2009_2015_grouped_live$Year <- factor(Lupine_Density_2009_2015_grouped_live$Year, 
+Lupine_Density_2009_2015_grouped_live_all$Year <- factor(Lupine_Density_2009_2015_grouped_live_all$Year, 
                                 levels = c("2010", "2009", "2011", "2012", "2013", "2015"))
 
 

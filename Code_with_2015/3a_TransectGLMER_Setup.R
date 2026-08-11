@@ -10,6 +10,7 @@ total_detections_2015 <- CLComplete_2015 %>%
   ungroup()
 
 
+
 # FOR LUPINE DATA # # # # # # # # # # # # # # # #
 
 # Calculate the total count of species groups for each macroplot and year

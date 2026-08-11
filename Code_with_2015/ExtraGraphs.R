@@ -163,3 +163,13 @@ ggplot(NatHerb_2015_UniqueSpecies, aes(y = NatHerb_Richness, x = Year, fill = Tr
   labs(x = "Year",
        y = "Native Herbaceous Richness") +
   theme_minimal()
+
+
+# Create a table of all of the species and they grouping they belong to
+MBB_SpeciesList <- CLComplete_2015 %>%
+  distinct(Species, Scientific_Name, spp_groupings) %>%
+  filter(!Species %in% c("LITT", "BARE", "ROCK", "WOOD"))
+
+view(MBB_SpeciesList)
+
+write_xlsx(MBB_SpeciesList, "/Users/ClaireWhicker/Downloads/MBB_SpeciesList.xlsx")
